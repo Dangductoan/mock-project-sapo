@@ -16,4 +16,4 @@
 
 # Kế hoạch thực hiện
 
-## Phần Server - Api: deadline: thứ 7, 26/05/2022
+## Phần Server - Api: deadline: thứ 7, 28/05/2022
