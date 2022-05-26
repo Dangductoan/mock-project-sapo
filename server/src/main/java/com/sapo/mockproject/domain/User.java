@@ -14,7 +14,7 @@ public class User extends BaseDomain<Integer> {
     @Column(length = 50, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 50, nullable = false)
+    @Column(nullable = false)
     @JsonIgnore
     private String password;
 

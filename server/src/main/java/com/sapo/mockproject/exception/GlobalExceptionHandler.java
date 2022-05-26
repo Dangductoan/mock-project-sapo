@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, ErrorDetails>> resourceNotFoundException(ResourceNotFoundException ex,
                                                                                ServletWebRequest request) {
-        Map<String, ErrorDetails> map = new HashMap<>();
+        Map<String, ErrorDetails> data = new HashMap<>();
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 HttpStatus.NOT_FOUND.value(),
@@ -24,14 +24,14 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 request.getRequest().getRequestURI()
         );
-        map.put("error", errorDetails);
-        return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        data.put("error", errorDetails);
+        return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidResourceException.class)
     public ResponseEntity<Map<String, ErrorDetails>> invalidResourceException(InvalidResourceException ex,
                                                                               ServletWebRequest request) {
-        Map<String, ErrorDetails> map = new HashMap<>();
+        Map<String, ErrorDetails> data = new HashMap<>();
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -39,14 +39,14 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 request.getRequest().getRequestURI()
         );
-        map.put("error", errorDetails);
-        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        data.put("error", errorDetails);
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, ErrorDetails>> globalExceptionHandler(Exception ex,
                                                                             ServletWebRequest request) {
-        Map<String, ErrorDetails> map = new HashMap<>();
+        Map<String, ErrorDetails> data = new HashMap<>();
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -54,8 +54,8 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 request.getRequest().getRequestURI()
         );
-        map.put("error", errorDetails);
-        return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        data.put("error", errorDetails);
+        return new ResponseEntity<>(data, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

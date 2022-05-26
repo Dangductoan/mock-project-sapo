@@ -68,11 +68,6 @@ public abstract class BaseServiceImpl<ID extends Number, D extends BaseDTO<ID>, 
     }
 
     @Override
-    public D getByName(String name) {
-        return genericMapper.toDto(genericRepository.findByName(name));
-    }
-
-    @Override
     public Long count() {
         return genericRepository.count();
     }
