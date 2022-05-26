@@ -34,7 +34,7 @@ public class Bill extends BaseDomain<Long> {
     private Instant modifiedAt;
 
     @Column(name = "created_by", length = 63, updatable = false)
-    private String createBy;
+    private String createdBy;
 
     @Column(name = "modified_by", length = 63)
     private String modifiedBy;
@@ -103,12 +103,12 @@ public class Bill extends BaseDomain<Long> {
         this.modifiedAt = modifiedAt;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getModifiedBy() {
