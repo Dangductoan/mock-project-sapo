@@ -56,7 +56,7 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
         Map<String, List<D>> data = new HashMap<>();
         String dataName = dto.responseDataName().endsWith("y")
                 ? dto.responseDataName().substring(0, dto.responseDataName().length() - 1) + "ies"
-                : dto + "s";
+                : dto.responseDataName() + "s";
         if (page != null && size != null) {
             data.put(dataName, genericService.fetchByQuery(query, PageRequest.of(page, size)));
         } else {
