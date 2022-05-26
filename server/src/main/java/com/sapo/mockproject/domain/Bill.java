@@ -1,5 +1,7 @@
 package com.sapo.mockproject.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -8,6 +10,8 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "bills")
+@Getter
+@Setter
 public class Bill extends BaseDomain<Long> {
 
     @Column(name = "total_value", nullable = false)
@@ -47,91 +51,4 @@ public class Bill extends BaseDomain<Long> {
     @JoinColumn(name = "bill_category_id", nullable = false)
     private BillCategory billCategory;
 
-    public Long getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(Long totalValue) {
-        this.totalValue = totalValue;
-    }
-
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Instant modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public BillCategory getBillCategory() {
-        return billCategory;
-    }
-
-    public void setBillCategory(BillCategory billCategory) {
-        this.billCategory = billCategory;
-    }
 }
