@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/chief-accountant/")
+@RequestMapping("/api/v1/chief/")
 public class UserController extends BaseController<Integer, UserDTO> {
 
     public UserController(GenericService<Integer, UserDTO> genericService) {
