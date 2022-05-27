@@ -52,4 +52,14 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> {
 
         return genericMapper.toDto(userRepository.save(genericMapper.toEntity(userDTO)));
     }
+    @Override
+    public UserDTO update(UserDTO userDTO){
+//        if(!(userDTO.getUsername()==null))
+//            throw new InvalidResourceException("We don't provide change usename");
+        User user = userRepository.getById(userDTO.getId());
+        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user = userRepository.save(user);
+        userDTO = userConverter.toDto(user);
+        return genericMapper.toDto(userRepository.save(genericMapper.toEntity(userDTO)));
+    }
 }
