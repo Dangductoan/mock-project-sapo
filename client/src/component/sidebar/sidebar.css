@@ -1,0 +1,52 @@
+.sidebar {
+    height: 100%;
+    background-color: #182537;
+    width: 230px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid #15202c;
+}
+
+.sidebar-logo {
+    flex: 1;
+}
+.sidebar-logo>a {
+    display: block;
+}
+
+.sidebar-logo .sapo-logo {
+    width: 120px;
+}
+
+.sidebar-logo_icon {}
+
+.sidebar-container {}
+
+.sidebar-list {}
+
+.sidebar-list_item {
+    height: 50px;
+}
+.sidebar-list_item:hover {
+    background-color: #2A3A51;
+}
+
+.sidebar-list_link {
+    color: #cad6e2;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.MuiSvgIcon-root {
+    width: 20px;
+    fill: #cad6e2;
+    margin-right: 15px;
+}
