@@ -25,8 +25,8 @@ public class User extends BaseDomain<Integer> {
     @Column(length = 63)
     private String name;
 
-    @Column(name = "phone_number", unique = true)
-    private Long phoneNumber;
+    @Column(name = "phone_number", length = 20, unique = true)
+    private String phoneNumber;
 
     @Column
     private String address;
