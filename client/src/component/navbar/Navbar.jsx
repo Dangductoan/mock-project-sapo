@@ -1,9 +1,9 @@
 import React from 'react'
-import './Navbar.css'
+import './navbar.css'
 import {Link} from 'react-router-dom'
 function Navbar() {
   return (
-    <div className="navbar grid">
+    <div className="navbar container">
          <div className="navbar_logo">
              <a href="/" className="logo">
              <img src="https://www.sapo.vn/Themes/Portal/Default/StylesV2/images/logo/Sapo-logo.svg?v=202205240426" alt="Sapo logo" />

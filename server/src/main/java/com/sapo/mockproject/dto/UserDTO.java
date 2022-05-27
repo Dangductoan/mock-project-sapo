@@ -22,7 +22,7 @@ public class UserDTO extends BaseDTO<Integer> {
 
     private String name;
 
-    private String phoneNumber;
+    private Long phoneNumber;
 
     private String address;
 
