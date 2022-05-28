@@ -1,5 +1,6 @@
 import React from 'react'
-import './SideBar.css'
+import './Sidebar.css'
+
 import {Link} from 'react-router-dom'
 function SideBarChief() {
   return (
