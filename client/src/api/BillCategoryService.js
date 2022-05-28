@@ -9,20 +9,19 @@ const getBillCategory = () => {
   })
 }
 
-const createBillCategory = (category) => {
+const createBillCategory = (billCategory) => {
   return call_api({
     method: "POST",
-    url: "",
-    data: category
+    url: "chief-accountant/bill-categories/insert",
+    data: billCategory
   })
 }
 
-const updateBillCategory = (id, category) => {
-  if (category.modifiedAt) delete category.modifiedAt;
+const updateBillCategory = (id, billCategory) => {
   return call_api({
     method: "PUT",
-    url: `admin/categories/${id}`,
-    data: category
+    url: `chief-accountant/bill-categories/${id}`,
+    data: billCategory
   })
 }
 

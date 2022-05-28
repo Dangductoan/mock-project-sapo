@@ -1,0 +1,97 @@
+.overlay {
+    animation: modalBgOpen .2s ease;
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    outline: 0;
+}
+.form {
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border-radius: 6px;
+    outline: 0;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    width: 500px;
+    margin: 100px auto;
+   
+}
+.form-title {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid #dfe4e8;
+    height: 65px;
+    fill: #637381;
+    display: flex;
+   padding: 20px;
+   align-items: center;
+}
+.form-title>h3 {
+   flex: 1;
+}
+.form-title>span{
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px 20px 20px;
+
+}
+.form-content>input {
+    
+    width: auto;
+    height: 34px;
+    padding: 1px;
+    margin: 0;
+    border: 1px solid #95a7b7;
+    border-radius: 0;
+    border-style: inset;
+    color: #000;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 4px 2px 4px 6px;
+    border: 1px solid #c4cdd5;
+    border-radius: 3px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif;
+    outline: none;
+}
+
+.form-content>label {
+    font-size: 13px;
+    transform: translateY(13px);
+}
+.form-btn {
+    border-top: 1px solid #dfe4e8;
+    padding: 10px 20px;
+   
+}
+.form-btn>.btn-no-active {
+    color: #000;
+    background: linear-gradient(180deg,#fff,#f9fafb);
+    border: 1px solid #c4cdd5;
+    box-shadow: 0 1px 0 0 rgb(22 29 37 / 5%);
+    margin-right: 10px;
+}
