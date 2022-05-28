@@ -5,7 +5,7 @@ import Login from "../page/login/Login";
 import Support from "../page/support/Support";
 import Customer from "../page/customer/Customer";
 import { DefaultLayout } from "../layout/DefaultLayout";
-import { AccountantLayout } from "../layout/AccountantLayout";
+import AccountantLayout from "../layout/accountantlayout/AccountantLayout";
 import { ChiefLayout } from "../layout/ChiefLayout";
 import NotFound from "../page/notfound/NotFound";
 
