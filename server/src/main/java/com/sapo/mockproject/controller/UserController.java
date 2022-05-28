@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/v1/chief/")
+@RequestMapping("/api/v1/chief-accountant/user")
 public class UserController extends BaseController<Integer, UserDTO> {
 
     public UserController(GenericService<Integer, UserDTO> genericService) {
