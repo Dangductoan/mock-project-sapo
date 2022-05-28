@@ -1,5 +1,7 @@
-function AccountantLayout(props) {
-  
-}
+import React from 'react'
 
-export default AccountantLayout;
+export const AccountantLayout = () => {
+  return (
+    <div>AccountantLayout</div>
+  )
+}

@@ -10,8 +10,8 @@ import { ChiefLayout } from "../layout/ChiefLayout";
 import NotFound from "../page/notfound/NotFound";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ChiefAccountant from "../page/chiefaccountant/ChiefAccountant";
-import BillCategory from "../page/billcategory/BillCategory";
+import ChiefAccountant from "../page/chiefAccountant/ChiefAccountant";
+import BillCategory from "../page/billCategory/BillCategory";
 import Accountant from "../page/accountant/Accountant";
 
 function RouterDefined() {

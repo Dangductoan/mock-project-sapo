@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
-import Row from '../../components/row/Row'
+import Row from '../../component/row/Row'
 import BillCategoryService from '../../api/BillCategoryService'
-import './BillCategory.css'
+import './billCategory.css'
 function BillCategory() {
   const [billCategories,setBillCategories] = useState([])
   
