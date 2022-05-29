@@ -1,0 +1,25 @@
+.navbar {
+    height: 85px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+.navbar_logo {
+    flex: 1;
+}
+.logo>img {
+    width: 125px;
+    
+}
+.navbar_list {
+  display: flex;
+
+}
+.navbar_list-item:hover .navbar_list-item_link{
+  color: blue;
+
+}
+.navbar_list-item_link {
+  padding: 20px;
+}
