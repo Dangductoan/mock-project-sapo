@@ -1,0 +1,31 @@
+.billCategory {
+    background-color: #f4f6f8;
+    margin-left: 230px;
+    width: 100%;
+    padding: 40px 20px;
+}
+.billCategory-header {
+    display: flex;
+}
+.billCategory-title {
+    flex: 1;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+
+.billCategory-content {
+    background-color: #fff;
+    margin-top: 25px;
+}
+.column {
+    display: flex;
+    padding: 20px 0;
+
+    
+}
+.column>h5 {
+    font-weight: 500;
+    width: 33.333%;
+    text-align: center;
+}

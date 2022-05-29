@@ -13,6 +13,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ChiefAccountant from "../page/chiefAccountant/ChiefAccountant";
 import BillCategory from "../page/billCategory/BillCategory";
 import Accountant from "../page/accountant/Accountant";
+import ManageAccountant from "../page/manageAccountant/ManageAccountant";
+import ManageCustomer from "../page/manageCustomer/ManageCustomer";
 
 function RouterDefined() {
   return (
@@ -37,6 +39,14 @@ function RouterDefined() {
               <Route
                 path="/chief-accountant/bill-category"
                 component={BillCategory}
+              />
+               <Route
+                path="/chief-accountant/accountant"
+                component={ManageAccountant}
+              />
+               <Route
+                path="/chief-accountant/customer"
+                component={ManageCustomer}
               />
               <Route path="/*" exact component={NotFound} />
             </Switch>
