@@ -10,7 +10,9 @@ import com.sapo.mockproject.service.mapper.CustomerMapper;
 import com.sapo.mockproject.service.mapper.GenericMapper;
 import com.sapo.mockproject.service.mapper.UserMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerServiceImpl extends BaseServiceImpl<Integer, CustomerDTO, Customer> {
 
     private final CustomerRepository customerRepository;

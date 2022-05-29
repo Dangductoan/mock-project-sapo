@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/customer/")
+//@RequestMapping("/api/v1/chief-accountant/customer/")
+
 public class CustomerController  extends BaseController<Integer, CustomerDTO>  {
     public CustomerController(GenericService<Integer, CustomerDTO> genericService) {
         super(genericService);

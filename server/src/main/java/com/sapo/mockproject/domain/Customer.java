@@ -28,6 +28,9 @@ public class Customer extends BaseDomain<Integer> {
     @Email
     private String email;
 
+    @Column(length = 50, nullable = false)
+    private String groupCustomer;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
