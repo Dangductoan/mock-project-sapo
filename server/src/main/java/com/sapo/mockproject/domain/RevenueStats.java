@@ -1,6 +1,8 @@
 package com.sapo.mockproject.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -12,6 +14,8 @@ import java.util.Date;
 @Table(name = "revenue_stats")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RevenueStats extends BaseDomain<Long> {
 
     @Column(nullable = false, unique = true)
