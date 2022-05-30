@@ -3,31 +3,30 @@ package com.sapo.mockproject.service.impl;
 import com.sapo.mockproject.domain.ERole;
 import com.sapo.mockproject.domain.Role;
 import com.sapo.mockproject.domain.User;
-import com.sapo.mockproject.dto.BillDTO;
 import com.sapo.mockproject.dto.UserDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.repository.GenericRepository;
 import com.sapo.mockproject.repository.RoleRepository;
 import com.sapo.mockproject.repository.UserRepository;
-import com.sapo.mockproject.service.UserService;
 import com.sapo.mockproject.service.mapper.GenericMapper;
 import com.sapo.mockproject.service.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> implements UserService {
-    @Autowired
-    UserRepository userRepository;
-    RoleRepository roleRepository;
-    UserMapper userConverter;
-    PasswordEncoder encoder;
+public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> {
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final UserMapper userConverter;
+    private final PasswordEncoder encoder;
 
-    public UserServiceImpl(GenericRepository<User, Integer> genericRepository, GenericMapper<Integer, UserDTO, User> genericMapper) {
+    public UserServiceImpl(GenericRepository<User, Integer> genericRepository, GenericMapper<Integer, UserDTO, User> genericMapper, UserRepository userRepository, RoleRepository roleRepository, UserMapper userConverter, PasswordEncoder encoder) {
         super(genericRepository, genericMapper);
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.userConverter = userConverter;
+        this.encoder = encoder;
     }
 
     @Override
@@ -35,7 +34,7 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> imp
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent())
             throw new InvalidResourceException("Username already in use!");
         if (userRepository.findByPhoneNumber(userDTO.getPhoneNumber()).isPresent())
-            throw new InvalidResourceException("Code already in use!");
+            throw new InvalidResourceException("Phone number already in use!");
         return false;
     }
     @Override
@@ -51,6 +50,16 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> imp
             return userDTO;
         }
 
+        return genericMapper.toDto(userRepository.save(genericMapper.toEntity(userDTO)));
+    }
+    @Override
+    public UserDTO update(UserDTO userDTO){
+//        if(!(userDTO.getUsername()==null))
+//            throw new InvalidResourceException("We don't provide change usename");
+        User user = userRepository.getById(userDTO.getId());
+        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user = userRepository.save(user);
+        userDTO = userConverter.toDto(user);
         return genericMapper.toDto(userRepository.save(genericMapper.toEntity(userDTO)));
     }
 }
