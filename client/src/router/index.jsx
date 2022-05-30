@@ -8,7 +8,7 @@ import { DefaultLayout } from "../layout/DefaultLayout";
 import AccountantLayout from "../layout/accountantlayout/AccountantLayout";
 import { ChiefLayout } from "../layout/ChiefLayout";
 import NotFound from "../page/notfound/NotFound";
-
+import Report from "../page/report/Report";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ChiefAccountant from "../page/chiefAccountant/ChiefAccountant";
 import BillCategory from "../page/billCategory/BillCategory";
@@ -37,6 +37,10 @@ function RouterDefined() {
               <Route
                 path="/chief-accountant/bill-category"
                 component={BillCategory}
+              />
+               <Route
+                path="/chief-accountant/report"
+                component={Report}
               />
               <Route path="/*" exact component={NotFound} />
             </Switch>

@@ -67,3 +67,34 @@ border-radius: 3px;
 .ml-230 {
   margin-left: 230px;
 }
+.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.pd-l-5 {
+  padding-left: 5px;
+}
+.position-span {
+  transform: translateY(10px);
+    position: absolute;
+    z-index: 1;
+    margin: 0 10px;
+}
+.w-220 {
+  width: 220px;
+}
+.w-150 {
+  width: 150px;
+}
+
+.border-blue {
+  border-color: #0088FF;
+  box-shadow: 0 0 0 1px rgba(24, 144, 255, 0.8);
+}
+.none {
+  display: none;
+}
+.mlr-50 {
+  margin: 0 50px;
+}

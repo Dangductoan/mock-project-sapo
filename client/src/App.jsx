@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <RouterDefined />
     </div>
-  );
+  )
 }
 
 export default App;
