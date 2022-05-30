@@ -5,20 +5,23 @@ import Login from "../page/login/Login";
 import Support from "../page/support/Support";
 import Customer from "../page/customer/Customer";
 import { DefaultLayout } from "../layout/DefaultLayout";
-import AccountantLayout from "../layout/accountantlayout/AccountantLayout";
+import { AccountantLayout } from "../layout/AccountantLayout";
 import { ChiefLayout } from "../layout/ChiefLayout";
 import NotFound from "../page/notfound/NotFound";
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ChiefAccountant from "../page/chiefAccountant/ChiefAccountant";
 import BillCategory from "../page/billCategory/BillCategory";
 import Accountant from "../page/accountant/Accountant";
-import ManageAccountant from "../page/manageAccountant/ManageAccountant";
-import ManageCustomer from "../page/manageCustomer/ManageCustomer";
+import ManageAccountant from "../page/manageaccountant/ManageAccountant";
+import ManageCustomer from "../page/managecustomer/ManageCustomer";
+import {AuthProvider} from '../component/authencontext/AuthenProvide'
+import { RequireAuth } from "../component/authencontext/RequireAuth";
 
 function RouterDefined() {
   return (
+   <AuthProvider>
     <Router>
+   < RequireAuth>
       <Switch>
         <Route path="/accountant/:path?" exact>
           <AccountantLayout>
@@ -41,7 +44,7 @@ function RouterDefined() {
                 component={BillCategory}
               />
                <Route
-                path="/chief-accountant/accountant"
+                path="/chief-accountant/user"
                 component={ManageAccountant}
               />
                <Route
@@ -53,7 +56,7 @@ function RouterDefined() {
           </ChiefLayout>
         </Route>
 
-        <Route>
+      <Route>
           <DefaultLayout>
             <Switch>
               <Route path="/about" component={About} />
@@ -66,7 +69,9 @@ function RouterDefined() {
           </DefaultLayout>
         </Route>
       </Switch>
+      </RequireAuth>
     </Router>
+    </AuthProvider>
   );
 }
 
