@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-function BillListPage() {
-  return <div>Bill List Page</div>;
-}
-
-export default BillListPage;
-=======
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -137,4 +130,3 @@ function BillListPage() {
 }
 
 export default BillListPage;
->>>>>>> 2a96b1098f9fc006b0fd9893e014a9d545caf4b4

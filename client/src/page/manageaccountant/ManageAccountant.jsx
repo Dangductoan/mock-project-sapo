@@ -36,7 +36,7 @@ function ManageAccountant(props) {
             <div className="manageAccoutant-content">
               <div className="manageAccoutant-table">
                 <div className="column">
-                  <input class="checkAllAccountant" type="checkbox" data-indeterminate="false" value=""/>
+                  <input className="checkAllAccountant" type="checkbox" data-indeterminate="false" value=""/>
                   <h5>Tên</h5>
                   <h5>Số điện thoại</h5>
                   <h5>Địa chỉ</h5>

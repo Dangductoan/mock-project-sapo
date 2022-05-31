@@ -25,10 +25,6 @@ public class BillDTO extends BaseDTO<Long> {
 
     private String description;
 
-    private Instant createdAt;
-
-    private Instant modifiedAt;
-
     private String createdBy;
 
     private String modifiedBy;

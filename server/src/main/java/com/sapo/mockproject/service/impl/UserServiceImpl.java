@@ -54,12 +54,22 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> {
     }
     @Override
     public UserDTO update(UserDTO userDTO){
-//        if(!(userDTO.getUsername()==null))
-//            throw new InvalidResourceException("We don't provide change usename");
+
         User user = userRepository.getById(userDTO.getId());
-        user.setPassword(encoder.encode(userDTO.getPassword()));
+        if(!(userDTO.getUsername()== null))
+            user.setUsername(userDTO.getUsername());
+        if(!(userDTO.getPassword()== null))
+            user.setPassword(encoder.encode(userDTO.getPassword()));
+        if(!(userDTO.getPhoneNumber()== null))
+            user.setPhoneNumber(userDTO.getPhoneNumber());
+        if(!(userDTO.getAddress()== null))
+            user.setAddress(userDTO.getAddress());
+        if(!(userDTO.getName()== null))
+            user.setName(userDTO.getName());
+
         user = userRepository.save(user);
         userDTO = userConverter.toDto(user);
         return genericMapper.toDto(userRepository.save(genericMapper.toEntity(userDTO)));
+
     }
 }
