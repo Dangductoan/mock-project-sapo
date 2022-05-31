@@ -7,7 +7,11 @@ import com.sapo.mockproject.domain.RevenueStats;
 import com.sapo.mockproject.dto.BillDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.repository.*;
+import com.sapo.mockproject.security.UserDetailsImpl;
 import com.sapo.mockproject.service.mapper.GenericMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,19 +53,28 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
     public BillDTO save(BillDTO billDTO) {
         if (checkUniqueFields(billDTO)) return null;
 
-        Optional<Customer> customer = customerRepository.findById(billDTO.getCustomer_id());
-        if (customer.isEmpty()) {
-            throw new InvalidResourceException("Customer doesn't exist!");
-        } else {
-            billDTO.setCustomer(customer.get());
+        if (billDTO.getCustomer_id() != null) {
+            Optional<Customer> customer = customerRepository.findById(billDTO.getCustomer_id());
+            if (customer.isEmpty()) {
+                throw new InvalidResourceException("Customer doesn't exist!");
+            } else {
+                billDTO.setCustomer(customer.get());
+            }
+        }
+        if (billDTO.getBill_category_id() != null) {
+            Optional<BillCategory> billCategory = billCategoryRepository.findById(billDTO.getBill_category_id());
+            if (billCategory.isEmpty()) {
+                throw new InvalidResourceException("Bill Category doesn't exist!");
+            } else {
+                billDTO.setBillCategory(billCategory.get());
+            }
         }
 
-        Optional<BillCategory> billCategory = billCategoryRepository.findById(billDTO.getBill_category_id());
-        if (billCategory.isEmpty()) {
-            throw new InvalidResourceException("Bill Category doesn't exist!");
-        } else {
-            billDTO.setBillCategory(billCategory.get());
-        }
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
+                = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) usernamePasswordAuthenticationToken.getPrincipal();
+        billDTO.setCreatedBy(userDetails.getUsername());
+        billDTO.setModifiedBy(userDetails.getUsername());
 
         billDTO = genericMapper.toDto(billRepository.save(genericMapper.toEntity(billDTO)));
 
@@ -75,6 +88,7 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
             revenueStats.get().setBillQuantity(revenueStats.get().getBillQuantity() + 1);
             revenueStatsRepository.save(revenueStats.get());
         }
+        /** end created Revenue Stats */
 
         return billDTO;
     }
