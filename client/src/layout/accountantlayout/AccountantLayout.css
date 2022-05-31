@@ -1,0 +1,8 @@
+.accountant-layout {
+  display: flex;
+}
+
+.layout-left {
+  height: 100%;
+  width: 230px;
+}

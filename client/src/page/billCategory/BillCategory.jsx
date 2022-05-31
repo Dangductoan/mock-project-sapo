@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Row from '../../component/row/Row'
 import Form from '../../component/form/Form'
 import BillCategoryService from '../../api/BillCategoryService'
-import './billCategory.css'
+import './BillCategory.css'
 function BillCategory() {
   const [billCategories, setBillCategories] = useState([])
   const [showFormUpdate, setShowFormUpdate] = useState(false)

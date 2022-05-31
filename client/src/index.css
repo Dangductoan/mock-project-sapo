@@ -1,6 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
 }
 
 body {
@@ -9,7 +10,10 @@ body {
   color: rgb(112, 112, 112);
   overflow-x: hidden;
 }
+li {
+  list-style: none;
 
+}
 a {
   text-decoration: none;
   /* color: inherit; */
@@ -26,7 +30,7 @@ img {
 }
 
 .container {
-  width: 1000px;
+  width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -46,4 +50,20 @@ img {
 
 .danger {
   color: red;
+}
+
+.btn {
+background-color: #0088FF;
+color: #fff;
+outline: none;
+border: 1px solid #08f;
+cursor:pointer;
+box-shadow: inset 0 1px 0 0 #1391ff;
+padding: 10px 15px;
+font-family: inherit;
+white-space: nowrap;
+border-radius: 3px;
+}
+.ml-230 {
+  margin-left: 230px;
 }
