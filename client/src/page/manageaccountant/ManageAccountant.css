@@ -16,7 +16,7 @@
 
 /* manageAccoutant-content */
 .manageAccoutant-content {
-    background-color: rgb(243 244 245);
+    background-color: #fff;
     margin-top: 25px;
     margin-bottom: 40px;
 
@@ -55,4 +55,8 @@
 a.link {
     color:#0088ff;
     padding-left: 5px;
+}
+.checkAllAccountant{
+    position: relative;
+    left: 60px
 }

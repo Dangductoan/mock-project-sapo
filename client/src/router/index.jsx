@@ -5,7 +5,7 @@ import Login from "../page/login/Login";
 import Support from "../page/support/Support";
 import Customer from "../page/customer/Customer";
 import { DefaultLayout } from "../layout/DefaultLayout";
-import  AccountantLayout from "../layout/accountantlayout/AccountantLayout";
+import  AccountantLayout  from "../layout/accountantlayout/AccountantLayout";
 import { ChiefLayout } from "../layout/ChiefLayout";
 import NotFound from "../page/notfound/NotFound";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -16,12 +16,12 @@ import ManageAccountant from "../page/manageaccountant/ManageAccountant";
 import ManageCustomer from "../page/managecustomer/ManageCustomer";
 import {AuthProvider} from '../component/authencontext/AuthenProvide'
 import { RequireAuth } from "../component/authencontext/RequireAuth";
-import Report from '../page/report/Report'
+
 function RouterDefined() {
   return (
-   <AuthProvider>
+    <AuthProvider>
     <Router>
-   {/* < RequireAuth> */}
+    <RequireAuth>
       <Switch>
         <Route path="/accountant/:path?" exact>
           <AccountantLayout>
@@ -42,10 +42,6 @@ function RouterDefined() {
               <Route
                 path="/chief-accountant/bill-category"
                 component={BillCategory}
-              />
-              <Route
-                path="/chief-accountant/report"
-                component={Report}
               />
                <Route
                 path="/chief-accountant/user"
@@ -73,7 +69,7 @@ function RouterDefined() {
           </DefaultLayout>
         </Route>
       </Switch>
-      {/* </RequireAuth> */}
+      </RequireAuth>
     </Router>
     </AuthProvider>
   );

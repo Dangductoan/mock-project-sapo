@@ -1,46 +1,45 @@
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useRef} from 'react'
 import { useHistory } from 'react-router-dom'
 import LoginService from '../../api/LoginService'
 import {AuthProvider} from '../../component/authencontext/AuthenProvide'
 function Login() {
     let history = useHistory()
     const [user,setUser] = useState({})
-    const [apires,setApires] = useState({})
+    const api = useRef([]);
+    const code = useRef('');
+    const show = useRef(false);
     const [name,setName] = useState(null)
-    const [show,setShow] = useState(false)
     const [password,setPassword] = useState('')
-    const [code,setCode] = useState('')
-    const [role,setRole] = useState('')
+ 
+    
     useEffect(() => {
       setUser({username:name,password:password})
   },[name,password]);
-  
 
   const handleLogin = () => {
+    console.log(user)
     LoginService.loginService(user)
-    .then(res => {
-      const data = res.data;
-      const code = res.status;
-      setApires(data)
-      setCode(code)
-      console.log(apires)
-    }).catch((error) => {
-      // console.warn('Not good man :(');
-  })
-    // console.log(apires)
-    if(code === 200){
-      setRole(apires.user.role.name);
-      if(role==="ROLE_ACCOUNTANT")
-      history.push("/accountant");
-      else if(role==="ROLE_CHIEF_ACCOUNTANT")
-      history.push("/chief-accountant");
-    }
-    else 
-    setShow(!show)
-  }
-    const checkLogin = ()=>{
-      return (code === 200);
+      .then(res => {
+        api.current= res.data.user;
+        code.current= res.status;
+        console.log(api);
       
+      }).then(()=>{
+        if(code.current == "200"){
+          console.log(api.current.role.name)
+          if(api.current.role.name=="ROLE_ACCOUNTANT")
+          history.push("/accountant");
+          else if(api.current.role.name=="ROLE_CHIEF_ACCOUNTANT")
+          history.push("/chief-accountant");
+        }
+        show.current=true;  
+      }) .catch((error) => {
+    console.warn('Not good man :(');
+})}
+
+
+    const checkLogin = ()=>{
+      return (code.current == "200");
     }
   
   return (
@@ -57,7 +56,7 @@ function Login() {
 	
 				<button onClick={handleLogin}className="button ">submit</button>
 	
-					{show && <h3>Tai khoan hoac mat khau sai </h3>}
+					{(show.current) && <h3>Tai khoan hoac mat khau sai </h3>}
           <AuthProvider user={user} setUser={setUser}></AuthProvider>
 	</div>
 

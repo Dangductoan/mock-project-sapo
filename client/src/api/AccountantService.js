@@ -21,8 +21,14 @@ const createAccountant = (accountant) => {
 const updateAccountant = (id, accountant) => {
   return call_api({
     method: "PUT",
-    url: `chief/${id}`,
+    url: `chief-accountant/user/${id}`,
     data: accountant
+  })
+}
+const deleteAccountant = (id) => {
+  return call_api({
+    method: "DELETE",
+    url: `chief/${id}`
   })
 }
 
@@ -31,6 +37,7 @@ const AccountantService = {
    getAccountant,
   createAccountant,
   updateAccountant,
+  deleteAccountant
 }
 
 export default AccountantService;

@@ -36,6 +36,7 @@ function ManageAccountant(props) {
             <div className="manageAccoutant-content">
               <div className="manageAccoutant-table">
                 <div className="column">
+                  <input class="checkAllAccountant" type="checkbox" data-indeterminate="false" value=""/>
                   <h5>Tên</h5>
                   <h5>Số điện thoại</h5>
                   <h5>Địa chỉ</h5>
@@ -44,7 +45,7 @@ function ManageAccountant(props) {
                 </div>
                 {accountant.map(account => {
                   const { id,name, phoneNumber, address,createdAt } = account;
-                  return <ListAccountant key={id} index={id} name={name}  phone={phoneNumber} address={address} createdAt={createdAt} show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex} />
+                  return  <ListAccountant key={id} index={id} name={name}  phone={phoneNumber} address={address} createdAt={createdAt} show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex} />
     
                 })}
                

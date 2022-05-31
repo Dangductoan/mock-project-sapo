@@ -1,8 +1,15 @@
 .accountant-layout {
   display: flex;
+  background-color: #f4f6f8;
+  width: 100%;
 }
 
 .layout-left {
   height: 100%;
   width: 230px;
+}
+
+.layout-right {
+  height: 100%;
+  flex: 1;
 }
