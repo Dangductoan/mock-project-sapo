@@ -18,6 +18,8 @@ function Login() {
     console.log(user)
     LoginService.loginService(user)
       .then(res => {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.user.token);
         const data = res.data;
         const code = res.status;
         setApires(data)

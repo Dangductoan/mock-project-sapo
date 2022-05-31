@@ -6,7 +6,7 @@ function SidebarAcc() {
     <div className="sidebar">
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <Link to="/chief-accountant">
+          <Link to="/accountant">
             <img
               className="sapo-logo"
               src="https://sapo.dktcdn.net/fe-cdn-production/images/sapo-pos-w.png"
@@ -24,7 +24,7 @@ function SidebarAcc() {
       <div className="sidebar-container">
         <ul className="sidebar-list">
           <li className="sidebar-list_item">
-            <Link className="sidebar-list_link" to="/">
+            <Link className="sidebar-list_link" to="/accountant">
               <svg
                 className="MuiSvgIcon-root"
                 focusable="false"
@@ -41,7 +41,7 @@ function SidebarAcc() {
           <li className="sidebar-list_item">
             <Link
               className="sidebar-list_link"
-              to="/chief-accountant/bill-category"
+              to="/accountant/bills"
             >
               <svg
                 className="MuiSvgIcon-root"
@@ -57,7 +57,7 @@ function SidebarAcc() {
             </Link>
           </li>
           <li className="sidebar-list_item">
-            <Link className="sidebar-list_link" to="/">
+            <Link className="sidebar-list_link" to="/accountant">
               <svg
                 className="MuiSvgIcon-root"
                 focusable="false"
@@ -71,7 +71,7 @@ function SidebarAcc() {
             </Link>
           </li>
           <li className="sidebar-list_item">
-            <Link className="sidebar-list_link" to="/">
+            <Link className="sidebar-list_link" to="/accountant">
               Góp ý
             </Link>
           </li>

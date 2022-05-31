@@ -22,4 +22,5 @@ export const AuthProvider = ({user,setUser,children}) => {
 export const useAuth = () =>{
     return useContext(AuthContext)
 }
- 
+
+export default AuthContext;

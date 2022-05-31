@@ -1,0 +1,41 @@
+.overlay {
+  animation: modalBgOpen 0.2s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  outline: 0;
+  /* width: 600px;
+  background-color: #fff; */
+}
+
+.modal-title {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: 1px solid #dfe4e8;
+  height: 65px;
+  fill: #637381;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+}
+
+.modal-title > h3 {
+  flex: 1;
+}
+
+.modal-title > span {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 400;
+}
