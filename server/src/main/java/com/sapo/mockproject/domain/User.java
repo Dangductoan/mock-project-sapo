@@ -19,7 +19,6 @@ public class User extends BaseDomain<Integer> {
     private String username;
 
     @Column(nullable = false)
-    @JsonIgnore
     private String password;
 
     @Column(length = 63)

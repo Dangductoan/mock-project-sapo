@@ -64,8 +64,8 @@ public class AuthServiceImpl implements AuthService {
         Optional<User> user = userRepository.findByUsername(userDTO.getUsername());
         if (user.isEmpty())
             throw new ResourceNotFoundException("Username does not exist!");
-        if (!encoder.matches(userDTO.getPassword(), user.get().getPassword()))
-            throw new ResourceNotFoundException("Password is incorrect!");
+      if (!encoder.matches(userDTO.getPassword(), user.get().getPassword()))
+           throw new ResourceNotFoundException("Password is incorrect!");
 
         String token = jwtUtils.generateJwtToken(userDTO.getUsername());
         userDTO = userConverter.toDto(user.get());

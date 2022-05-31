@@ -41,7 +41,7 @@ function SidebarAcc() {
           <li className="sidebar-list_item">
             <Link
               className="sidebar-list_link"
-              to="/chief-accountant/bill-category"
+              to="/"
             >
               <svg
                 className="MuiSvgIcon-root"
