@@ -1,28 +1,36 @@
 import call_api from "./Request";
 
-export const createCustomer = (customer) => {
-  return call_api({
-    url: "customers",
-    method: "POST",
-    data: customer
-  });
-}
 
-export const searchCustomer = ({ query, page, size }) => {
+
+const getCustomer = () => {
   return call_api({
-    url: "customers",
     method: "GET",
-    params: {
-      query,
-      page,
-      size
-    }
+    // url: "chief-Customer/user"
+    url:"customers/"
   })
 }
 
+const createCustomer = (Customer) => {
+  return call_api({
+    method: "POST",
+    url: "customers/",
+    data: Customer
+  })
+}
+
+const updateCustomer = (id, Customer) => {
+  return call_api({
+    method: "PUT",
+    url: `customers/${id}`,
+    data: Customer
+  })
+}
+
+
 const CustomerService = {
+   getCustomer,
   createCustomer,
-  searchCustomer
+  updateCustomer,
 }
 
 export default CustomerService;
