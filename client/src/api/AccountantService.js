@@ -25,12 +25,19 @@ const updateAccountant = (id, accountant) => {
     data: accountant
   })
 }
+const deleteAccountant = (id) => {
+  return call_api({
+    method: "DELETE",
+    url: `chief/${id}`
+  })
+}
 
 
 const AccountantService = {
    getAccountant,
   createAccountant,
   updateAccountant,
+  deleteAccountant
 }
 
 export default AccountantService;

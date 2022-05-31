@@ -6,7 +6,7 @@
 .list-item{
     font-size: 13px;
     font-weight: 300;
-   
+    color: inherit;
     width: 33.333%;
     text-align: center;
     padding: 15px 0 ;
@@ -14,3 +14,11 @@
 .list:hover {
     background-color: #f4f6f8;
 }   
+.checkAccountant{
+    position: relative;
+    left: 60px;
+    top: 15px;
+    margin: 0;
+    cursor:'pointer';
+    padding: 10px 10px;
+}
