@@ -59,14 +59,9 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
                 : dto.responseDataName() + "s";
         if (page != null && size != null) {
             data.put(dataName, genericService.fetchByQuery(query, PageRequest.of(page, size)));
-        }
-
-        else {
+        } else {
             data.put(dataName, genericService.fetchByQuery(query));
         }
-
-
-
 
         return data;
     }
