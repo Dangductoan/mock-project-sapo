@@ -4,14 +4,18 @@ import { useHistory } from 'react-router-dom'
 import './ListAccountant.css'
 function ListAccountant(props) {
   const [idlist,setIdList] = useState([]);
-  let history=useHistory();
   const handleClick = () => {
+    props.setAccountant({
+      username:props.username,
+      name:props.name,
+      phoneNumber:props.phone,
+      address:props.address
+
+    })
     props.setShow(!props.show)
     props. setIndex(props.index)
   }
-  // AccountantService.deleteAccountant(id);
-  // console.log('delete')
-  // history.push('/chief-accountant/user')
+
   const handleChange = (id) => {
    idlist.push(id);
    setIdList(idlist);

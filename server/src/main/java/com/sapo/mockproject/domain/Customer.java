@@ -31,8 +31,7 @@ public class Customer extends BaseDomain<Integer> {
     @Column(length = 50, nullable = false)
     private String groupCustomer;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "created_by", nullable = false, length = 50)
+    private String createdBy;
 
 }

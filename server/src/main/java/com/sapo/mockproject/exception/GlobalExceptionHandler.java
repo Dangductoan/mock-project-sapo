@@ -3,7 +3,7 @@ package com.sapo.mockproject.exception;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.TransactionSystemException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -48,6 +48,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, ErrorDetails>> globalExceptionHandler(Exception ex,
                                                                             ServletWebRequest request) {
+        Throwable cause = ex.getCause();
+        if (cause instanceof ConstraintViolationException) {
+            Map<String, ErrorDetails> data = new HashMap<>();
+            ErrorDetails errorDetails = new ErrorDetails(
+                    new Date(),
+                    HttpStatus.BAD_REQUEST.value(),
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                    "Some field are invalid!",
+                    request.getRequest().getRequestURI()
+            );
+            data.put("error", errorDetails);
+            return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+        }
+
         Map<String, ErrorDetails> data = new HashMap<>();
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
@@ -58,6 +72,21 @@ public class GlobalExceptionHandler {
         );
         data.put("error", errorDetails);
         return new ResponseEntity<>(data, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, ErrorDetails>> validateException(MethodArgumentNotValidException ex,
+                                                                              ServletWebRequest request) {
+        Map<String, ErrorDetails> data = new HashMap<>();
+        ErrorDetails errorDetails = new ErrorDetails(
+                new Date(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "Some field are invalid!",
+                request.getRequest().getRequestURI()
+        );
+        data.put("error", errorDetails);
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
 }

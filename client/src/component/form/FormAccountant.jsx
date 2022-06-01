@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import './Form.css'
+import BillCategoryService from '../../api/BillCategoryService'
 import AccountantService from '../../api/AccountantService'
-function FormAccountant({ title, action, show, setShow, id }) {
-    const [accountant, setAccountant] = useState({
-        username:'',
-        name: '',
+function FormAccountant({ title, action, show, setShow, id , account,handleCreate,handleUpdate }) {
+    const [accountant, setAccountant] = useState(action === 'Thêm'?{
+        name:'',
+        username: '',
+        password: '',
         phoneNumber: '',
-        address: '',
-        
-    })
+        address:''
+    }:
+    {
+        name:account.name,
+        username:account.username,
+        password: '',
+        phoneNumber:account.phoneNumber,
+        address:account.address
+    }
+    )
     const accountantForUpdate = {id:id,...accountant}
     const handleChange = (e) => {
         setAccountant({ ...accountant, [e.target.name]: e.target.value })
@@ -17,15 +26,14 @@ function FormAccountant({ title, action, show, setShow, id }) {
         e.preventDefault()
       
         if(action === 'Thêm') {
-            AccountantService.createAccountant(accountant) 
+            AccountantService.createAccountant(accountant).then(res=>handleCreate())
 
         } else {
-            AccountantService.updateAccountant(id, accountantForUpdate)
+            AccountantService.updateAccountant(id, accountantForUpdate).then(res=>handleUpdate())
 
         }          
       
         setShow(!show)
-        window.location.reload(false);
     }
     const handleClick = () => {
         setShow(!show)
@@ -39,11 +47,14 @@ function FormAccountant({ title, action, show, setShow, id }) {
                         <span onClick={handleClick}>X</span>
                     </div>
                     <div className="form-content">
-                        <label htmlFor="">Tên đăng nhập</label><br></br>
-                        <input onChange={handleChange} name="username" value={accountant.name} type="text" />
-
                         <label htmlFor="">Tên*</label><br></br>
-                        <input onChange={handleChange} name="name" value={accountant.name} type="text" />
+                        <input onChange={handleChange} name="name" value={accountant.name} type="text"  />
+
+                        <label htmlFor="">Tên đăng nhập*</label><br></br>
+                        <input onChange={handleChange} name="username" value={accountant.username} type="text" />
+
+                        <label htmlFor="">Mật khẩu*</label><br></br>
+                        <input onChange={handleChange} name="password" value={accountant.password} type="password" />
 
                         <label htmlFor="">Số điện thoại</label><br></br>
                         <input onChange={handleChange} name="phoneNumber" value={accountant.phoneNumber} type="text" />
@@ -53,7 +64,7 @@ function FormAccountant({ title, action, show, setShow, id }) {
                     </div>
                     <div className="form-btn">
                         <button className='btn btn-no-active' onClick={handleClick}>Thoát</button>
-                        <button className='btn'>{action}</button>
+                        <button className='btn' >{action}</button>
                     </div>
                 </form>
 
