@@ -1,9 +1,14 @@
 import React from 'react'
 import './Row.css'
-function Row({name,code,desc,index,show,setShow,setIndex}) {
+function Row({name,code,desc,index,show,setShow,setIndex,handleBillCategory}) {
   const handleClick = () => {
     setShow(!show)
     setIndex(index)
+    handleBillCategory({
+      name:name,
+      code:code,
+      desc:desc
+    })
   }
   return (
     <div className="row" onClick={handleClick}>
