@@ -7,7 +7,7 @@ export const Provider = ({ children }) => {
   const [data, setData] = useState({
     type: 'Theo thời gian',
     time: 'Ngày',
-    
+    shape:'Biểu diễn dưới dạng bảng'
   })
   const [start,setStart] = useState(moment().subtract(29, "days")._d)
   const [end,setEnd] = useState(moment()._d)

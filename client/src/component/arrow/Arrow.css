@@ -1,0 +1,8 @@
+.rorate-2 {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 0;
+  }
+  .rorate-0 {
+    transform: rotate(0deg);
+  }
