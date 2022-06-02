@@ -1,6 +1,5 @@
 package com.sapo.mockproject.dto;
 
-import com.sapo.mockproject.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -24,8 +23,8 @@ public class CustomerDTO extends BaseDTO<Integer>{
     private String email;
 
     private String groupCustomer;
-    @NotNull
-    private User user;
+
+    private String createdBy;
 
     @Override
     public String responseDataName() {

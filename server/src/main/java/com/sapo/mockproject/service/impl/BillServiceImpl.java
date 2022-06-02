@@ -44,7 +44,7 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
     @Override
     public boolean checkUniqueFields(BillDTO billDTO) {
         if (billRepository.findByCode(billDTO.getCode()).isPresent())
-            throw new InvalidResourceException("Code already in use!");
+            throw new InvalidResourceException("Mã phiếu thu đã tồn tại!");
         return false;
     }
 
@@ -70,12 +70,7 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
             }
         }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl userDetails = (UserDetailsImpl) usernamePasswordAuthenticationToken.getPrincipal();
-        billDTO.setCreatedBy(userDetails.getUsername());
-        billDTO.setModifiedBy(userDetails.getUsername());
-
+        billDTO.setCode(billDTO.getCode().toUpperCase());
         billDTO = genericMapper.toDto(billRepository.save(genericMapper.toEntity(billDTO)));
 
         /** create Revenue Stats */

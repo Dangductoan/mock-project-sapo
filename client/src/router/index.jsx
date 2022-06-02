@@ -23,7 +23,9 @@ import ManageAccountant from "../page/manageaccountant/ManageAccountant";
 import ManageCustomer from "../page/managecustomer/ManageCustomer";
 import NotFound from "../page/notfound/NotFound";
 import Support from "../page/support/Support";
-import Report from '../page/report/Report'
+import Report from "../page/report/Report";
+import BillDetail from "../page/bill/billdetail/BillDetail";
+
 import AuthService from "../api/AuthService";
 
 function RouterDefined() {
@@ -47,6 +49,11 @@ function RouterDefined() {
                   exact
                   component={BillAdd}
                 />
+                <Route
+                  path="/accountant/bills/:id"
+                  exact
+                  component={BillDetail}
+                />
                 <Route path="/*" exact component={NotFound} />
               </Switch>
             </AccountantLayout>
@@ -65,10 +72,7 @@ function RouterDefined() {
                   path="/chief-accountant/bill-category"
                   component={BillCategory}
                 />
-                 <Route
-                  path="/chief-accountant/report"
-                  component={Report}
-                />
+                <Route path="/chief-accountant/report" component={Report} />
                 <Route
                   path="/chief-accountant/user"
                   component={ManageAccountant}

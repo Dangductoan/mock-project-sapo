@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @Component
@@ -21,10 +22,9 @@ public class BillDTO extends BaseDTO<Long> {
 
     private String code;
 
-    private boolean status;
-
     private String description;
 
+    @NotNull
     private String createdBy;
 
     private String modifiedBy;

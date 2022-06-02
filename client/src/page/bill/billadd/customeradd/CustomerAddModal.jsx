@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ToastifyToast from "../../../../component/toast/template/ToastifyToast";
 import CustomerService from "../../../../api/CustomerService";
@@ -7,24 +7,23 @@ import Modal from "../../../../component/modal/Modal";
 import "./CustomerAddModal.css";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function CustomerAddModal({ open, setOpen }) {
+export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
   let user = JSON.parse(localStorage.getItem("user"));
-  const [customer, setCustomer] = useState({
-    name: "",
-    code: "",
-    phoneNumber: "",
-    address: "",
-    email: "",
-    groupCustomer: "",
-  });
+  const [customer, setCustomer] = useState({});
+
+  // reset customer state after opening or closing this modal.
+  useEffect(() => {
+    setCustomer({})
+  }, [open])
 
   const addCustomer = (e) => {
     e.preventDefault();
 
     // them truong user vao customer
-    CustomerService.createCustomer({ ...customer, user })
+    CustomerService.createCustomer({ ...customer, createdBy: user.name })
       .then(() => {
         showToast("Thêm khách hàng thành công", "success");
+        onCustomerChange();
         setOpen(false);
       })
       .catch(({ response }) => {
@@ -100,7 +99,7 @@ export default function CustomerAddModal({ open, setOpen }) {
                 </div>
               </div>
               <div className="content-field">
-                <label htmlFor="">Email</label>
+                <label htmlFor="">Nhóm khách hàng</label>
                 <div className="field-input">
                   <select name="groupCustomer" id="" onChange={handleInputChange}>
                     <option value="">Chọn nhóm khách hàng</option>

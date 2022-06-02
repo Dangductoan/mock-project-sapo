@@ -6,6 +6,7 @@ import MaterialPagination from "../../../component/pagination/template/MaterialP
 import "./BillListPage.css";
 import { useEffect, useState } from "react";
 import BillService from "../../../api/BillService";
+import AuthService from "../../../api/AuthService";
 
 const itemPerPage = 10;
 
@@ -36,7 +37,7 @@ function BillListPage() {
       .catch((err) => console.log(err));
   }, [totalItem]);
 
-  const handlePaginationChange = (page) => {
+  const handlePaginationChange = (event, page) => {
     setPage(page);
 
     BillService.searchBill({ query: query, page: page - 1, size: itemPerPage })
@@ -57,8 +58,8 @@ function BillListPage() {
       <div className="bill-header">
         <h2>Phiếu thu</h2>
         <div className="bill-header__right">
-          <p>Xin chào {user.name} </p>
-          <Link to={match.path}>Logout</Link>
+          <p>Xin chào "{user.name}"</p>
+          <Link to={match.path} onClick={() => AuthService.logout()}>Logout</Link>
         </div>
       </div>
       <div className="bill-option">
@@ -97,7 +98,6 @@ function BillListPage() {
                 <th>Mã phiếu</th>
                 <th>Loại phiếu</th>
                 <th>Hình thức thanh toán</th>
-                <th>Trạng thái</th>
                 <th>Người tạo</th>
                 <th>Số tiền thu</th>
                 <th>Ngày ghi nhận</th>
@@ -105,13 +105,13 @@ function BillListPage() {
             </thead>
             <tbody>
               {bills.map((bill) => (
-                <tr key={bill.id}>
+                <tr key={bill.id} onClick={() => history.push(`${match.path}/${bill.id}`)}>
                   <td>{bill.code}</td>
                   <td>{bill.billCategory.name}</td>
                   <td>{bill.payment}</td>
-                  <td>{bill.created_by}</td>
+                  <td>{bill.createdBy}</td>
                   <td>{bill.totalValue}</td>
-                  <td>{bill.created_at}</td>
+                  <td>{bill.createdAt}</td>
                 </tr>
               ))}
             </tbody>

@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
                     new Date(),
                     HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                    "Some field are invalid!",
+                    "Thông tin không hợp lệ!",
                     request.getRequest().getRequestURI()
             );
             data.put("error", errorDetails);
@@ -82,7 +82,7 @@ public class GlobalExceptionHandler {
                 new Date(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "Some field are invalid!",
+                "Thông tin không hợp lệ!",
                 request.getRequest().getRequestURI()
         );
         data.put("error", errorDetails);
