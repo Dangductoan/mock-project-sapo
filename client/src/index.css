@@ -64,9 +64,9 @@ font-family: inherit;
 white-space: nowrap;
 border-radius: 3px;
 }
-.ml-230 {
+/* .ml-230 {
   margin-left: 230px;
-}
+} */
 .flex {
   display: flex;
   flex-direction: row;
@@ -97,4 +97,16 @@ border-radius: 3px;
 }
 .mlr-50 {
   margin: 0 50px;
+}
+.block {
+  display: block;
+}
+
+@keyframes Fadein{
+  from{
+     height: 0px;
+  }
+  to{
+     height: 50px;
+  }
 }

@@ -3,6 +3,7 @@ import { useSelect } from "../../../context/Provider";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import moment from "moment";
+import RevenueService from "../../../api/RevenueService";
 export default function Demo() {
   const cd = useSelect()
   const [fromDate, setFromDate] = useState(cd.start);
@@ -44,7 +45,14 @@ export default function Demo() {
     padding:'0 10px',
     marginLeft:'5px'
   };
- 
+const formatYmd = date => date.toISOString().slice(0, 10);
+const start = formatYmd(fromDate)
+const end = formatYmd(toDate)
+
+  useEffect(() => {
+     RevenueService.getDataBetween(start,end)
+     .then(res => console.log(res))
+  },[start,end])
   
   
   const onApply = (event, picker) => {
