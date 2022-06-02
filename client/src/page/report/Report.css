@@ -34,4 +34,16 @@
     margin-bottom: 20px;
 }
 
-.report-content_data {}
+.report-content_data {
+    background-color: #fff;
+}
+.report-content_data-option {
+   padding: 20px 20px 20px 700px;
+}
+.shape {
+    width: 250px;
+    /* padding: 20px; */
+}
+/* .mg-60 {
+    margin: 20px!important;
+} */

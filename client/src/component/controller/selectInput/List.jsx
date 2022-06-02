@@ -4,10 +4,10 @@ function List({ items,typeSelect}) {
     const cd = useSelect()
     const [option,setOption] = useState(cd.data)
     const handleClick = (e) => {
-        // setOption({
-        //     ...option,
-        //     [typeSelect]:e.target.innerHTML
-        // })
+        setOption({
+            ...option,
+            [typeSelect]:e.target.innerHTML
+        })
         
         
     }
