@@ -24,8 +24,8 @@ public class CustomerDTO extends BaseDTO<Integer>{
     private String email;
 
     private String groupCustomer;
-    @NotNull
-    private User user;
+
+    private String createdBy;
 
     @Override
     public String responseDataName() {

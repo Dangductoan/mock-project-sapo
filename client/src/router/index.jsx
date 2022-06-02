@@ -32,7 +32,7 @@ function RouterDefined() {
   return (
     <Router>
       <Switch>
-        {user && user.role.name === "ROLE_ACCOUNTANT" && (
+        {/* {user && user.role.name === "ROLE_ACCOUNTANT" && ( */}
           <Route path="/accountant/:path?/:path?" exact>
             <AccountantLayout>
               <Switch>
@@ -51,8 +51,8 @@ function RouterDefined() {
               </Switch>
             </AccountantLayout>
           </Route>
-        )}
-        {user && user.role.name === "ROLE_CHIEF_ACCOUNTANT" && (
+        {/* )} */}
+        {/* {user && user.role.name === "ROLE_CHIEF_ACCOUNTANT" && ( */}
           <Route path="/chief-accountant/:path?" exact>
             <ChiefLayout>
               <Switch>
@@ -81,7 +81,7 @@ function RouterDefined() {
               </Switch>
             </ChiefLayout>
           </Route>
-        )}
+        {/* )} */}
 
         <Route>
           <DefaultLayout>

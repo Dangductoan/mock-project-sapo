@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './Form.css'
-import BillCategoryService from '../../api/BillCategoryService'
 import AccountantService from '../../api/AccountantService'
-function FormAccountant({ title, action, show, setShow, id , account,handleCreate,handleUpdate }) {
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+function FormAccountant({ title, action, show, setShow, id , account,handleCreate,handleUpdate,showToast }) {
+    const history = useHistory;
     const [accountant, setAccountant] = useState(action === 'Thêm'?{
         name:'',
         username: '',
@@ -17,7 +18,8 @@ function FormAccountant({ title, action, show, setShow, id , account,handleCreat
         phoneNumber:account.phoneNumber,
         address:account.address
     }
-    )
+    );
+   
     const accountantForUpdate = {id:id,...accountant}
     const handleChange = (e) => {
         setAccountant({ ...accountant, [e.target.name]: e.target.value })
@@ -26,10 +28,20 @@ function FormAccountant({ title, action, show, setShow, id , account,handleCreat
         e.preventDefault()
       
         if(action === 'Thêm') {
-            AccountantService.createAccountant(accountant).then(res=>handleCreate())
+            AccountantService.createAccountant(accountant).then(res=>handleCreate()).then(()=>{
+                showToast("Thêm nhân viên thành công", "success");
+                history.push("/chief-accountant/user")
+            }).catch(({ response }) => {
+                showToast(response.data?.error?.message, "error");
+              });
 
         } else {
-            AccountantService.updateAccountant(id, accountantForUpdate).then(res=>handleUpdate())
+            AccountantService.updateAccountant(id, accountantForUpdate).then(res=>handleUpdate()).then(()=>{
+                showToast("Cập nhật nhân viên thành công", "success");
+                history.push("/chief-accountant/user");
+            }).catch(({ response }) => {
+                showToast(response.data?.error?.message, "error");
+              });
 
         }          
       
@@ -38,6 +50,7 @@ function FormAccountant({ title, action, show, setShow, id , account,handleCreat
     const handleClick = () => {
         setShow(!show)
     }
+ 
     return (
         <>
             <div className="modal">
