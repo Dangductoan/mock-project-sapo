@@ -1,6 +1,5 @@
 package com.sapo.mockproject.dto;
 
-import com.sapo.mockproject.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;

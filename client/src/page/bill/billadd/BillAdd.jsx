@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import BillCategoryService from "../../../api/BillCategoryService";
 import BillService from "../../../api/BillService";
 import CustomerService from "../../../api/CustomerService";
+
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
-import "./BillAdd.css";
 import CustomerAddModal from "./customeradd/CustomerAddModal";
 
+import "./BillAdd.css";
+
 export default function BillAdd() {
+  const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
 
   const [bill, setBill] = useState({
@@ -38,11 +42,17 @@ export default function BillAdd() {
     let customer = customers.find(
       ({ name }) => name === `${bill.customerName}`
     );
-    // them truong createdBy
-    BillService.createBill({ ...bill, billCategory, customer })
-      .then(() => {
-        showToast("Thêm phiếu thu ngân thành công", "success");
-        history.push("/accountant/bills");
+    BillService.createBill({
+      ...bill,
+      billCategory,
+      customer,
+      createdBy: user.name,
+      modifidedBy: user.name,
+    })
+      .then((res) => {
+        history.push(`/accountant/bills/${res.data?.bill?.id}`, {
+          showBillAddSuccess: true,
+        });
       })
       .catch(({ response }) => {
         showToast(response.data?.error?.message, "error");
@@ -62,13 +72,21 @@ export default function BillAdd() {
     });
   };
 
+  const handleCustomerAdd = () => {
+    CustomerService.searchCustomer({})
+      .then((res) => setCustomers(res.data?.customers))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="bill-add">
       <div className="bill-heading">
         <h2>Thêm mới phiếu thu</h2>
         <button
           className="btn-create"
-          onClick={() => setCustomerAddModalOpen(true)}
+          onClick={() => {
+            setCustomerAddModalOpen(true);
+          }}
         >
           Thêm mới khách hàng
         </button>
@@ -147,6 +165,7 @@ export default function BillAdd() {
       <CustomerAddModal
         open={customerAddModalOpen}
         setOpen={setCustomerAddModalOpen}
+        onCustomerChange={handleCustomerAdd}
       />
       <ToastifyToast />
     </div>

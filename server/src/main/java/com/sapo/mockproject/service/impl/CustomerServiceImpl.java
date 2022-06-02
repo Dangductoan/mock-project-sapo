@@ -7,9 +7,12 @@ import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.repository.CustomerRepository;
 import com.sapo.mockproject.repository.GenericRepository;
 import com.sapo.mockproject.repository.UserRepository;
+import com.sapo.mockproject.security.UserDetailsImpl;
 import com.sapo.mockproject.service.mapper.CustomerMapper;
 import com.sapo.mockproject.service.mapper.GenericMapper;
 import com.sapo.mockproject.service.mapper.UserMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +36,9 @@ public class CustomerServiceImpl extends BaseServiceImpl<Integer, CustomerDTO, C
     @Override
     public boolean checkUniqueFields(CustomerDTO customerDTO) {
         if (customerRepository.findByCode(customerDTO.getCode()).isPresent())
-            throw new InvalidResourceException("Already have this customer!");
-//        if (userRepository.findByName(customerDTO.getCreatedBy()).isPresent())
-//            throw new InvalidResourceException("Name accountant isn't exist");
+            throw new InvalidResourceException("Mã khách hàng đã tồn tại!");
+        if (userRepository.findByName(customerDTO.getCreatedBy()).isEmpty())
+            throw new InvalidResourceException("Tên kế toán viên không tồn tại!");
         return false;
     }
 
@@ -70,7 +73,3 @@ public class CustomerServiceImpl extends BaseServiceImpl<Integer, CustomerDTO, C
         return genericMapper.toDto(customerRepository.save(genericMapper.toEntity(customerDTO)));
     }
 }
-
-
-
-

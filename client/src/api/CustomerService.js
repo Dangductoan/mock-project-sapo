@@ -1,6 +1,16 @@
 import call_api from "./Request";
 
-
+const searchCustomer = ({ query, page, size }) => {
+  return call_api({
+    url: "customers",
+    method: "GET",
+    params: {
+      query,
+      page,
+      size
+    }
+  })
+}
 
 const getCustomer = () => {
   return call_api({
@@ -27,9 +37,10 @@ const updateCustomer = (id, Customer) => {
 
 
 const CustomerService = {
-   getCustomer,
+  getCustomer,
   createCustomer,
   updateCustomer,
+  searchCustomer
 }
 
 export default CustomerService;

@@ -23,9 +23,6 @@ public class Bill extends BaseDomain<Long> {
     @Column(length = 50, nullable = false, unique = true)
     private String code;
 
-    @Column(nullable = false)
-    private boolean status;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
