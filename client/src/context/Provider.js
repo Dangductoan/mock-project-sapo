@@ -11,6 +11,7 @@ export const Provider = ({ children }) => {
   })
   const [start,setStart] = useState(moment().subtract(29, "days")._d)
   const [end,setEnd] = useState(moment()._d)
+  const [show,setShow] = useState(false)
   const receiveData = (option) => {
     setData(option)
   }
@@ -20,8 +21,11 @@ export const Provider = ({ children }) => {
   const receiveEnd = (endDate) => {
     setEnd(endDate)
   }
+  const receiveShow= (show) => {
+       setShow(show)
+  }
   return (
-    <SelectContext.Provider value={{ data, receiveData,start, receiveStart,end,receiveEnd}}>
+    <SelectContext.Provider value={{ data, receiveData,start, receiveStart,end,receiveEnd,receiveShow,show}}>
       {children}
     </SelectContext.Provider>
   )

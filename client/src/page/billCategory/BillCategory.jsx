@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from 'react'
+
 import Row from '../../component/row/Row'
 import Form from '../../component/form/Form'
 import BillCategoryService from '../../api/BillCategoryService'
 import './BillCategory.css'
 function BillCategory() {
   const [billCategories, setBillCategories] = useState([])
+  const [billCategory, setBillCategory] = useState({})
   const [showFormUpdate, setShowFormUpdate] = useState(false)
   const [showFormCreate, setShowFormCreate] = useState(false)
+  const [update, setUpdate] = useState(false)
+  const [create, setCreate] = useState(false)
   const [index, setIndex] = useState()
-  const arr = 12;
-  const handleClick = () => {
-    setShowFormCreate(!showFormCreate)
-  }
   useEffect(() => {
     BillCategoryService.getBillCategory()
       .then(res => {
         const data = res.data;
         setBillCategories(data)
       })
-  }, [])
-  console.log(billCategories.length)
+
+  }, [update, create])
+  const handleClick = () => {
+    setShowFormCreate(!showFormCreate)
+  }
+  const handleUpdate = () => {
+    setUpdate(!update)
+  }
+  const handleCreate = () => {
+    setCreate(!create)
+  }
+  const handleBillCategory = (data) => {
+    setBillCategory(data)
+  }
   return (
     <>
       <div className="billCategory ml-230">
@@ -40,8 +52,9 @@ function BillCategory() {
 
             </div>
             {billCategories.map(BillCategory => {
+
               const { name, code, description, id } = BillCategory;
-              return <Row key={id} index={id} name={name} code={code} desc={description} show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex} />
+              return <Row key={id} index={id} name={name} code={code} desc={description} show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex} handleBillCategory={handleBillCategory} />
 
             })}
             <div className="row-end">
@@ -52,17 +65,17 @@ function BillCategory() {
         </div>
         <div className="billCategory-footer">
           <div className="billCategory-footer_wrap">
-          <h3 className='sp'>Bạn có thể xem thêm về quản lý loại phiếu thu </h3>
-          <a className="link" href="/">tại đây</a>
+            <h3 className='sp'>Bạn có thể xem thêm về quản lý loại phiếu thu </h3>
+            <a className="link" href="/">tại đây</a>
 
           </div>
-          
+
 
         </div>
       </div>
 
-      {showFormUpdate && <Form title="Cập nhật loại phiếu thu" action="Lưu" show={showFormUpdate} setShow={setShowFormUpdate} id={index} />}
-      {showFormCreate && <Form title="Thêm loại phiếu thu" action="Thêm" show={showFormCreate} setShow={setShowFormCreate} />}
+      {showFormUpdate && <Form title="Cập nhật loại phiếu thu" action="Lưu" show={showFormUpdate} setShow={setShowFormUpdate} id={index} handleUpdate={handleUpdate} bl={billCategory} />}
+      {showFormCreate && <Form title="Thêm loại phiếu thu" action="Thêm" show={showFormCreate} setShow={setShowFormCreate} handleCreate={handleCreate} />}
 
     </>
 

@@ -5,7 +5,6 @@ import {useSelect} from '../../../context/Provider'
 function Time() {
     const dates = ['Ngày','Tháng','Năm']
     const cd = useSelect()
-   
     const isTime = Boolean(cd.data.type === 'Theo thời gian')
     return (
         <div className={`controller-time flex ${isTime ? '' : 'none'}`}>
