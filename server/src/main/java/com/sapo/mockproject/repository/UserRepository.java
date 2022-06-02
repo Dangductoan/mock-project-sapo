@@ -17,11 +17,13 @@ public interface UserRepository extends GenericRepository<User, Integer> {
 
     Optional<User> findByUsername(String username);
 
+    Optional<User> findByName(String name);
     Optional<User> findByPhoneNumber(String phoneNumber);
 
     Optional<User> findByName(String name);
 
     Boolean existsByUsername(String username);
+
     @Override
     @Query("SELECT u FROM User u where name = ?1")
     Page<User> fetchByQuery(String query, Pageable pageable);

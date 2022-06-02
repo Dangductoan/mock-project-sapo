@@ -15,15 +15,14 @@ const searchCustomer = ({ query, page, size }) => {
 const getCustomer = () => {
   return call_api({
     method: "GET",
-    // url: "chief-Customer/user"
-    url: "customers/"
+    url:"chief-accountant/customer"
   })
 }
 
 const createCustomer = (Customer) => {
   return call_api({
     method: "POST",
-    url: "customers/",
+    url: "chief-accountant/customer",
     data: Customer
   })
 }
@@ -31,7 +30,7 @@ const createCustomer = (Customer) => {
 const updateCustomer = (id, Customer) => {
   return call_api({
     method: "PUT",
-    url: `customers/${id}`,
+    url: `chief-accountant/customer/${id}`,
     data: Customer
   })
 }

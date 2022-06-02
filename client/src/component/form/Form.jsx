@@ -1,30 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Form.css'
 import BillCategoryService from '../../api/BillCategoryService'
-function Form({ title, action, show, setShow, id }) {
-    const [billCategory, setBillCategory] = useState({
+function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl}) {
+    const [billCategory, setBillCategory] = useState(action === 'Thêm' ? {
         name: '',
         code: '',
         description: ''
+    } : {
+        name: bl.name,
+        code: bl.code,
+        description: bl.desc
     })
     const billCategoryForUpdate = {id:id,...billCategory}
     const handleChange = (e) => {
         setBillCategory({ ...billCategory, [e.target.name]: e.target.value })
     }
     const handleSubmit = (e) => {
-        e.preventDefault()
       
         if(action === 'Thêm') {
             BillCategoryService.createBillCategory(billCategory) 
-
+                .then(res => handleCreate())
         } else {
             BillCategoryService.updateBillCategory(id, billCategoryForUpdate)
-
+                .then(res => handleUpdate())
         }          
-      
+        
         setShow(!show)
-        window.location.reload(false);
+       
     }
+   
     const handleClick = () => {
         setShow(!show)
     }

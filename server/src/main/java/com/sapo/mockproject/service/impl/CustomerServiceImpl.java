@@ -1,6 +1,7 @@
 package com.sapo.mockproject.service.impl;
 
 import com.sapo.mockproject.domain.Customer;
+import com.sapo.mockproject.domain.User;
 import com.sapo.mockproject.dto.CustomerDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.repository.CustomerRepository;
@@ -54,7 +55,20 @@ public class CustomerServiceImpl extends BaseServiceImpl<Integer, CustomerDTO, C
     public CustomerDTO update(CustomerDTO customerDTO){
         Customer customer = customerRepository.getById(customerDTO.getId());
         customer.setCode(customerDTO.getCode().toUpperCase());
-        customer = customerRepository.save(customer);
+        if(!(customerDTO.getName()== null))
+            customer.setName(customerDTO.getName());
+        if(!(customerDTO.getCode()== null))
+            customer.setCode(customerDTO.getCode().toUpperCase());
+        if(!(customerDTO.getGroupCustomer()== null))
+            customer.setGroupCustomer(customerDTO.getGroupCustomer());
+        if(!(customerDTO.getPhoneNumber()== null))
+            customer.setPhoneNumber(customerDTO.getPhoneNumber());
+        if(!(customerDTO.getEmail()== null))
+            customer.setEmail(customerDTO.getEmail());
+        if(!(customerDTO.getCreatedBy()== null))
+            customer.setCreatedBy(customerDTO.getCreatedBy());
+        if(!(customerDTO.getAddress()== null))
+            customer.setAddress(customerDTO.getAddress());
         customerDTO = customerMapper.toDto(customer);
         return genericMapper.toDto(customerRepository.save(genericMapper.toEntity(customerDTO)));
     }

@@ -66,8 +66,6 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> {
             user.setAddress(userDTO.getAddress());
         if(!(userDTO.getName()== null))
             user.setName(userDTO.getName());
-
-        user = userRepository.save(user);
         userDTO = userConverter.toDto(user);
         return genericMapper.toDto(userRepository.save(genericMapper.toEntity(userDTO)));
 

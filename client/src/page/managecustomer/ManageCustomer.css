@@ -1,21 +1,21 @@
-.manageAccoutant {
+.manageCustomer {
     background-color: #f4f6f8;
     width: 100%;
     padding: 40px 20px;
 }
 
-.manageAccoutant-header {
+.manageCustomer-header {
     display: flex;
 }
 
-.manageAccoutant-title {
+.manageCustomer-title {
     flex: 1;
     font-size: 1.8rem;
     font-weight: 600;
 }
 
-/* manageAccoutant-content */
-.manageAccoutant-content {
+/* manageCustomer-content */
+.manageCustomer-content {
     background-color: #fff;
     margin-top: 25px;
     margin-bottom: 40px;
@@ -35,8 +35,7 @@
     text-align: center;
     font-weight: 600;
     color: black;
-   position: relative;
-   left: 80px;
+   
 }
 
 .row-end {
@@ -61,4 +60,3 @@ a.link {
     position: relative;
     left: 60px
 }
-

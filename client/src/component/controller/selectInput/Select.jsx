@@ -9,8 +9,16 @@ function Select({list}) {
         setShow(!show)
         setActive(!isActive)
     }
-   
+    window.onclick = () => {
+      if(show) {
+        setShow(false)
+      }else {
+        console.log("hhh")
+      }
+    }
     
+     
+  
   return (
     <>
     <div className="select-form">
