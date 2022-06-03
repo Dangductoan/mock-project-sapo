@@ -19,7 +19,7 @@ function ListCustomer(props) {
     }
     return (
       <div className="list" >
-          <div><input class="checkCustomer" type="checkbox"  onChange={()=>handleChange(props.index)} data-indeterminate="false" value=""/></div>
+          <div><input className="checkCustomer" type="checkbox"  onChange={()=>handleChange(props.index)} data-indeterminate="false" value=""/></div>
           <h3 className='list-item' onClick={handleClick}>{props.code}</h3>
           <h3 className='list-item' onClick={handleClick}>{props.name}</h3>
           <h3 className='list-item' onClick={handleClick}>{props.phoneNumber}</h3>

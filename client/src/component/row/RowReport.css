@@ -1,0 +1,16 @@
+.row-report{
+    display: flex;
+    border-top: 1px solid #dfe4e8;
+    cursor: pointer;
+}
+.row-report_item{
+    font-size: 13px;
+    font-weight: 300;
+   
+    width: 20%;
+    text-align: center;
+    padding: 15px 0 ;
+}
+.row-report:hover {
+    background-color: #f4f6f8;
+}

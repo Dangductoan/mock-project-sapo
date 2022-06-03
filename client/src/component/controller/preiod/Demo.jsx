@@ -45,14 +45,7 @@ export default function Demo() {
     padding:'0 10px',
     marginLeft:'5px'
   };
-const formatYmd = date => date.toISOString().slice(0, 10);
-const start = formatYmd(fromDate)
-const end = formatYmd(toDate)
 
-  useEffect(() => {
-     RevenueService.getDataBetween(start,end)
-     .then(res => console.log(res))
-  },[start,end])
   
   
   const onApply = (event, picker) => {
