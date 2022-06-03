@@ -98,6 +98,11 @@ border-radius: 3px;
 .mlr-50 {
   margin: 0 50px;
 }
+
+svg, select {
+  cursor: pointer;
+}
+
 .block {
   display: block;
 }
