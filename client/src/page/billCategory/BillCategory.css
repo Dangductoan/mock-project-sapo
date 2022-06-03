@@ -22,14 +22,14 @@
 
 }
 
-.column {
+.columns {
     display: flex;
     padding: 20px 0;
 
 
 }
 
-.column>h5 {
+.columns>h5 {
     font-weight: 600;
     width: 33.333%;
     text-align: center;
