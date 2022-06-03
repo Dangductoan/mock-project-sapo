@@ -32,7 +32,6 @@ public abstract class BaseServiceImpl<ID extends Number, D extends BaseDTO<ID>, 
 
     @Override
     public D update(D d) {
-        if (checkUniqueFields(d)) return null;
         if (genericRepository.findById(d.getId()).isEmpty())
             throw new ResourceNotFoundException("Item does not exist!");
         return genericMapper.toDto(genericRepository.save(genericMapper.toEntity(d)));
