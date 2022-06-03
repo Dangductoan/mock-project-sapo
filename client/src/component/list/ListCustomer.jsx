@@ -20,13 +20,13 @@ function ListCustomer(props) {
     return (
       <div className="list" >
           <div><input className="checkCustomer" type="checkbox"  onChange={()=>handleChange(props.index)} data-indeterminate="false" value=""/></div>
-          <h3 className='list-item' onClick={handleClick}>{props.code}</h3>
-          <h3 className='list-item' onClick={handleClick}>{props.name}</h3>
-          <h3 className='list-item' onClick={handleClick}>{props.phoneNumber}</h3>
-          <h3 className='list-item' onClick={handleClick}>{props.groupCustomer}</h3>
-          <h3 className='list-item' onClick={handleClick}>{props.createdBy}</h3>
-          <h3 className='list-item' onClick={handleClick}>{props.address}</h3>
-          <h3 className='list-item' onClick={handleClick}>{props.createdAt}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.code}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.name}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.phoneNumber}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.groupCustomer}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.createdBy}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.address}</h3>
+          <h3 className='list-item-customer' onClick={handleClick}>{props.createdAt}</h3>
 
 
       </div>
