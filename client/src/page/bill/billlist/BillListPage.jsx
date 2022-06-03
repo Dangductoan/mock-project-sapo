@@ -1,14 +1,17 @@
+import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
+
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import SearchIcon from "@mui/icons-material/Search";
 import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
-import "./BillListPage.css";
-import { useEffect, useState } from "react";
+
 import BillService from "../../../api/BillService";
 import AuthService from "../../../api/AuthService";
 
-const itemPerPage = 10;
+import "./BillListPage.css";
+
+const ITEM_PER_PAGE = 10;
 
 function BillListPage() {
   let user = JSON.parse(localStorage.getItem("user"));
@@ -21,12 +24,12 @@ function BillListPage() {
   const [query, setQuery] = useState("");
 
   let totalPage =
-    totalItem % itemPerPage === 0
-      ? totalItem / itemPerPage
-      : Math.floor(totalItem / itemPerPage) + 1;
+    totalItem % ITEM_PER_PAGE === 0
+      ? totalItem / ITEM_PER_PAGE
+      : Math.floor(totalItem / ITEM_PER_PAGE) + 1;
 
   useEffect(() => {
-    BillService.searchBill({ query: query, page: 0, size: itemPerPage })
+    BillService.searchBill({ query: query, page: 0, size: ITEM_PER_PAGE })
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
   }, [query]);
@@ -40,7 +43,11 @@ function BillListPage() {
   const handlePaginationChange = (event, page) => {
     setPage(page);
 
-    BillService.searchBill({ query: query, page: page - 1, size: itemPerPage })
+    BillService.searchBill({
+      query: query,
+      page: page - 1,
+      size: ITEM_PER_PAGE,
+    })
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
   };
@@ -48,7 +55,7 @@ function BillListPage() {
   const searchBill = (e) => {
     e.preventDefault();
 
-    BillService.searchBill({ query: query, page: 0, size: itemPerPage })
+    BillService.searchBill({ query: query, page: 0, size: ITEM_PER_PAGE })
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
   };
@@ -59,15 +66,17 @@ function BillListPage() {
         <h2>Phiếu thu</h2>
         <div className="bill-header__right">
           <p>Xin chào "{user.name}"</p>
-          <Link to={match.path} onClick={() => AuthService.logout()}>Logout</Link>
+          <Link to={match.path} onClick={() => AuthService.logout()}>
+            Logout
+          </Link>
         </div>
       </div>
       <div className="bill-option">
         <div className="option-excel">
-          <FileDownloadIcon />
-          <span>Xuất file</span>
-          <FileUploadIcon />
-          <span>Nhập file</span>
+          <div className="export-excel">
+            <FileDownloadIcon />
+            <span>Xuất file</span>
+          </div>
         </div>
         <button
           className="btn-create"
@@ -91,8 +100,8 @@ function BillListPage() {
             </form>
           </div>
         </div>
-        <div className="content__table">
-          <table>
+        <div>
+          <table className="bill-table">
             <thead>
               <tr>
                 <th>Mã phiếu</th>
@@ -105,7 +114,10 @@ function BillListPage() {
             </thead>
             <tbody>
               {bills.map((bill) => (
-                <tr key={bill.id} onClick={() => history.push(`${match.path}/${bill.id}`)}>
+                <tr
+                  key={bill.id}
+                  onClick={() => history.push(`${match.path}/${bill.id}`)}
+                >
                   <td>{bill.code}</td>
                   <td>{bill.billCategory.name}</td>
                   <td>{bill.payment}</td>
