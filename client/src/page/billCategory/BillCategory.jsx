@@ -45,7 +45,7 @@ function BillCategory() {
         </div>
         <div className="billCategory-content">
           <div className="billCategory-table">
-            <div className="column">
+            <div className="columns">
               <h5>Tên</h5>
               <h5>Mã</h5>
               <h5>Mô tả</h5>

@@ -34,7 +34,7 @@ function ManageCustomer(props) {
     <>
       <div className="manageCustomer ml-230">
         <div className="manageCustomer-header">
-          <h2 className="manageCustomer-title">Danh sách nhân viên</h2>
+          <h2 className="manageCustomer-title">Danh sách khách hàng</h2>
           <div className="manageCustomer-btn ">
             <button onClick={handleClick} className="btn">
               Thêm khách hàng

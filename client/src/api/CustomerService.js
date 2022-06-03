@@ -2,7 +2,7 @@ import call_api from "./Request";
 
 const searchCustomer = ({ query, page, size }) => {
   return call_api({
-    url: "customers",
+    url: "accountant/customers",
     method: "GET",
     params: {
       query,
@@ -15,14 +15,14 @@ const searchCustomer = ({ query, page, size }) => {
 const getCustomer = () => {
   return call_api({
     method: "GET",
-    url:"chief-accountant/customer"
+    url:"accountant/customers"
   })
 }
 
 const createCustomer = (Customer) => {
   return call_api({
     method: "POST",
-    url: "chief-accountant/customer",
+    url: "accountant/customers",
     data: Customer
   })
 }
@@ -30,7 +30,7 @@ const createCustomer = (Customer) => {
 const updateCustomer = (id, Customer) => {
   return call_api({
     method: "PUT",
-    url: `chief-accountant/customer/${id}`,
+    url: `accountant/customers/${id}`,
     data: Customer
   })
 }

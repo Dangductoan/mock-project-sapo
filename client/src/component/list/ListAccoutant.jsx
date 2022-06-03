@@ -27,23 +27,23 @@ function ListAccountant(props) {
     <div className="list">
       <div className="placecheckbox">
         <input
-          class="checkAccountant"
+          className="checkAccountant"
           type="checkbox"
           onChange={() => handleChange(props.index)}
           checked={props.check.includes(props.index)}
           value=""
         />
       </div>
-      <h3 className="list-item" onClick={handleClick}>
+      <h3 className="list-item-accoutant" onClick={handleClick}>
         {props.name}
       </h3>
-      <h3 className="list-item" onClick={handleClick}>
+      <h3 className="list-item-accoutant" onClick={handleClick}>
         {props.phone}
       </h3>
-      <h3 className="list-item" onClick={handleClick}>
+      <h3 className="list-item-accoutant" onClick={handleClick}>
         {props.address}
       </h3>
-      <h3 className="list-item" onClick={handleClick}>
+      <h3 className="list-item-accoutant" onClick={handleClick}>
         {props.createdAt}
       </h3>
     </div>

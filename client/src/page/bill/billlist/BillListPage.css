@@ -1,3 +1,7 @@
+.bill-list {
+  padding-bottom: 20px;
+}
+
 .bill-list > * {
   padding: 0 50px;
 }
@@ -30,10 +34,15 @@
   right: 50px;
 }
 
+.option-excel {
+  cursor: pointer;
+}
+
 .bill-list-content {
   background-color: #fff;
   padding: 10px;
   margin: 0 50px;
+  border-radius: 5px;
 }
 
 .bill-searchbar {
@@ -50,4 +59,32 @@
   width: 100%;
   border: 0;
   outline: none;
+}
+
+.bill-table {
+  border-spacing: 0;
+}
+
+.bill-table th {
+  height: 40px;
+  border-bottom: 1px solid rgb(223, 228, 232);
+}
+
+.bill-table td {
+  height: 45px;
+  border-bottom: 1px solid rgb(223, 228, 232);
+}
+
+.bill-table tbody tr:hover {
+  cursor: pointer;
+  background-color: azure;
+}
+
+.bill-table th, .bill-table td {
+  text-align: left;
+  padding: 0 10px
+}
+
+.pagination {
+  margin-top: 20px;
 }

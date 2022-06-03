@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import BillCategoryService from "../../../api/BillCategoryService";
@@ -8,6 +8,7 @@ import CustomerService from "../../../api/CustomerService";
 
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import CustomerAddModal from "./customeradd/CustomerAddModal";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import "./BillAdd.css";
 
@@ -15,13 +16,9 @@ export default function BillAdd() {
   const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
 
-  const [bill, setBill] = useState({
-    billCategoryName: "",
-    customerName: "",
-  });
+  const [bill, setBill] = useState({});
   const [billCategories, setBillCategories] = useState([]);
   const [customers, setCustomers] = useState([]);
-  // const [error, setError] = useState({});
   const [customerAddModalOpen, setCustomerAddModalOpen] = useState(false);
 
   useEffect(() => {
@@ -80,6 +77,13 @@ export default function BillAdd() {
 
   return (
     <div className="bill-add">
+      <div
+        className="bill-bread-crumb"
+        onClick={() => history.push("/accountant/bills")}
+      >
+        <ArrowBackIosNewIcon style={{ width: "15px" }} />
+        <Link>Phiếu thu</Link>
+      </div>
       <div className="bill-heading">
         <h2>Thêm mới phiếu thu</h2>
         <button
