@@ -27,7 +27,7 @@ function ListAccountant(props) {
     <div className="list">
       <div className="placecheckbox">
         <input
-          class="checkAccountant"
+          className="checkAccountant"
           type="checkbox"
           onChange={() => handleChange(props.index)}
           checked={props.check.includes(props.index)}
