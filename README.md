@@ -29,4 +29,7 @@
 + Hoàn thiện các chức năng cơ bản
 
 ### Sáng thứ 6, 03/06/2022
-+ Ghép code, test sản phẩm
++ Ghép code, test chức năng cở bản
+
+### Thứ 7, 05/06/2022 - Chủ nhật, 06/06/2022
++ Nâng cấp tính năng báo cáo, hoàn thiện sản phẩm
