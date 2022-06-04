@@ -44,6 +44,14 @@
     width: 250px;
     /* padding: 20px; */
 }
-/* .mg-60 {
-    margin: 20px!important;
-} */
+.report-content_data-chart {
+    
+}
+.horizontal {
+    background-color: #f4f6f8;
+    height: 25px;
+}
+.report-content_footer {
+    height: 95px;
+    background-color: f4f6f8;
+}

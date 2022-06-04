@@ -1,6 +1,6 @@
 import React from 'react'
 import './RowReport.css'
-function TotalRowReport({value}) {
+function MonthAndYearReport({value,k}) {
     const total = value!== undefined && value.reduce((d,v) => {
         d.a = d.a + v.billQuantity;
         d.b = d.b + v.totalRevenue;
@@ -12,7 +12,7 @@ function TotalRowReport({value}) {
     
     return (
         <div className="row-report" >
-            <h3 className='row-report_item'>Tổng</h3>
+            <h3 className='row-report_item'>{k}</h3>
             <h3 className='row-report_item'>{total.a}</h3>
             <h3 className='row-report_item'>{total.b}</h3>
             <h3 className='row-report_item'>0</h3>
@@ -22,4 +22,4 @@ function TotalRowReport({value}) {
       )
 }
 
-export default TotalRowReport
+export default MonthAndYearReport

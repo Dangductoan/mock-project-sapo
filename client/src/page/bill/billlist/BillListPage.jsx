@@ -113,7 +113,10 @@ function BillListPage() {
               </tr>
             </thead>
             <tbody>
-              {bills.map((bill) => (
+              {bills.map(bill => {
+                // const createdAt = bill.createdAt.toString().slice(0,10)
+                console.log(bill.createdAt)
+                return (
                 <tr
                   key={bill.id}
                   onClick={() => history.push(`${match.path}/${bill.id}`)}
@@ -125,7 +128,7 @@ function BillListPage() {
                   <td>{bill.totalValue}</td>
                   <td>{bill.createdAt}</td>
                 </tr>
-              ))}
+              )})}
             </tbody>
           </table>
         </div>
