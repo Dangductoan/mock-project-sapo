@@ -58,7 +58,7 @@ function ManageCustomer(props) {
               <h5>Địa chỉ</h5>
               <h5>Ngày tạo</h5>
             </div>
-            {customers.map((customers) => {
+            {customers.map((customer) => {
               const {
                 id,
                 code,
@@ -67,15 +67,16 @@ function ManageCustomer(props) {
                 groupCustomer,
                 createdBy,
                 address,
-                createdAt,
-              } = customers;
+               
+              } = customer;
+              const createdAt = customer.createdAt.toString().slice(0, 10)
               return (
                 <ListCustomer
                   key={id}
                   index={id}
                   code={code}
                   name={name}
-                  phone={phoneNumber}
+                  phoneNumber={phoneNumber}
                   groupCustomer={groupCustomer}
                   createdBy={createdBy}
                   address={address}
