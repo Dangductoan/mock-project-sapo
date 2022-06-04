@@ -67,7 +67,10 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
     }
 
     @GetMapping("count")
-    public Long count() {
-        return genericService.count();
+    public Map<String, Long> count(@RequestParam(required = false) String query) {
+        Map<String, Long> data = new HashMap<>();
+        data.put("count", genericService.count(query));
+
+        return data;
     }
 }

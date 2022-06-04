@@ -21,4 +21,8 @@ public interface CustomerRepository extends GenericRepository<Customer, Integer>
     @Override
     @Query("SELECT c FROM Customer c where name = ?1")
     List<Customer> fetchByQuery(String query);
+
+    @Override
+    @Query("SELECT COUNT(c) FROM Customer c where name = ?1")
+    Long countSearch(String query);
 }

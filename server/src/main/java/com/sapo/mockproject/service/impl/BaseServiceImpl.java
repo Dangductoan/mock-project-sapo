@@ -67,8 +67,10 @@ public abstract class BaseServiceImpl<ID extends Number, D extends BaseDTO<ID>, 
     }
 
     @Override
-    public Long count() {
-        return genericRepository.count();
+    public Long count(String query) {
+        if (query == null || query.equals(""))
+            return genericRepository.count();
+        return genericRepository.countSearch(query);
     }
 
     public abstract boolean checkUniqueFields(D d);
