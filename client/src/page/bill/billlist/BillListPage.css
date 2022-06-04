@@ -51,7 +51,6 @@
   border-radius: 3px;
   align-items: center;
   margin: 15px 0;
-  width: 500px;
 }
 
 .bill-searchbar input {
@@ -59,30 +58,38 @@
   width: 100%;
   border: 0;
   outline: none;
+  padding: 10px 5px;
+  width: 100%;
 }
 
 .bill-table {
   border-spacing: 0;
+  width: 100%;
+  font-size: 13px;
 }
 
 .bill-table th {
   height: 40px;
-  border-bottom: 1px solid rgb(223, 228, 232);
+  border-bottom: 1px solid #dfe4e8;
+  font-weight: 600;
+  color: black;
 }
 
 .bill-table td {
   height: 45px;
   border-bottom: 1px solid rgb(223, 228, 232);
+  font-weight: 300;
 }
 
 .bill-table tbody tr:hover {
   cursor: pointer;
-  background-color: azure;
+  background-color: #f4f6f8;
 }
 
-.bill-table th, .bill-table td {
+.bill-table th,
+.bill-table td {
   text-align: left;
-  padding: 0 10px
+  padding: 0 10px;
 }
 
 .pagination {

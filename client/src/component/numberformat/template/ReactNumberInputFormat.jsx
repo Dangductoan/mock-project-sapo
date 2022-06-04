@@ -1,7 +1,7 @@
 import React from "react";
 import NumberFormat from "react-number-format";
 
-const NumberFormatExample = ({ name, value, onChange }) => {
+const ReactNumberInputFormat = ({ name, value, onChange }) => {
   return (
     <NumberFormat
       value={value}
@@ -17,4 +17,4 @@ const NumberFormatExample = ({ name, value, onChange }) => {
   );
 };
 
-export default NumberFormatExample;
+export default ReactNumberInputFormat;

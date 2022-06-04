@@ -9,7 +9,7 @@ import CustomerService from "../../../api/CustomerService";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import CustomerAddModal from "./customeradd/CustomerAddModal";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberFormat";
+import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 
 import "./BillAdd.css";
 
