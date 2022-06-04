@@ -34,7 +34,7 @@ function ManageCustomer(props) {
     <>
       <div className="manageCustomer ml-230">
         <div className="manageCustomer-header">
-          <h2 className="manageCustomer-title">Danh sách nhân viên</h2>
+          <h2 className="manageCustomer-title">Danh sách khách hàng</h2>
           <div className="manageCustomer-btn ">
             <button onClick={handleClick} className="btn">
               Thêm khách hàng
@@ -58,7 +58,7 @@ function ManageCustomer(props) {
               <h5>Địa chỉ</h5>
               <h5>Ngày tạo</h5>
             </div>
-            {customers.map((customers) => {
+            {customers.map((customer) => {
               const {
                 id,
                 code,
@@ -67,8 +67,9 @@ function ManageCustomer(props) {
                 groupCustomer,
                 createdBy,
                 address,
-                createdAt,
-              } = customers;
+               
+              } = customer;
+              const createdAt = customer.createdAt.toString().slice(0, 10)
               return (
                 <ListCustomer
                   key={id}

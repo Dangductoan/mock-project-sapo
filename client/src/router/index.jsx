@@ -54,7 +54,7 @@ function RouterDefined() {
                   exact
                   component={BillDetail}
                 />
-                <Route path="/*" exact component={NotFound} />
+                <Route path="/*"  component={NotFound} />
               </Switch>
             </AccountantLayout>
           </Route>
@@ -70,40 +70,40 @@ function RouterDefined() {
                 />
                 <Route
                   path="/chief-accountant/bill-category"
-                  component={BillCategory}
                   exact
+                  component={BillCategory}
                 />
                 <Route
                   path="/chief-accountant/bills"
+                  exact
                   component={BillListPage}
-                  exact
                 />
-                <Route
+                 <Route
                   path="/chief-accountant/bills/create"
-                  component={BillAdd}
                   exact
+                  component={BillAdd}
                 />
                 <Route
                   path="/chief-accountant/report"
-                  component={Report}
                   exact
+                  component={Report}
                 />
                 <Route
                   path="/chief-accountant/user"
-                  component={ManageAccountant}
                   exact
+                  component={ManageAccountant}
                 />
                 <Route
                   path="/chief-accountant/customer"
-                  component={ManageCustomer}
                   exact
+                  component={ManageCustomer}
                 />
                 <Route
                   path="/chief-accountant/bills/:id"
                   exact
                   component={BillDetail}
                 />
-                <Route path="/*" exact component={NotFound} />
+                <Route path="/*"  component={NotFound} />
               </Switch>
             </ChiefLayout>
           </Route>
