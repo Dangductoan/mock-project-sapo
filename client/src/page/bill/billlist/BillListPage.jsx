@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
 
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
 import SearchIcon from "@mui/icons-material/Search";
 import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
+import SingleModal from "../../../component/modal/singlemodal/SingleModal";
 
 import BillService from "../../../api/BillService";
 import AuthService from "../../../api/AuthService";
+import { exportBillList } from "./excel";
 
 import "./BillListPage.css";
 
@@ -22,6 +23,7 @@ function BillListPage() {
   const [totalItem, setTotalItem] = useState(0);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
+  const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
 
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
@@ -35,10 +37,10 @@ function BillListPage() {
   }, [query]);
 
   useEffect(() => {
-    BillService.count()
-      .then((res) => setTotalItem(res.data))
+    BillService.count(query)
+      .then((res) => setTotalItem(res.data?.count))
       .catch((err) => console.log(err));
-  }, [totalItem]);
+  }, [query, totalItem]);
 
   const handlePaginationChange = (event, page) => {
     setPage(page);
@@ -60,6 +62,16 @@ function BillListPage() {
       .catch((err) => console.log(err));
   };
 
+  const exportBillListExcel = () => {
+    let data = bills.map((bill) => ({
+      ...bill,
+      customerName: bill.customer.name,
+      billCategoryName: bill.billCategory.name,
+    }));
+    
+    exportBillList(data);
+  };
+
   return (
     <div className="bill-list">
       <div className="bill-header">
@@ -73,7 +85,10 @@ function BillListPage() {
       </div>
       <div className="bill-option">
         <div className="option-excel">
-          <div className="export-excel">
+          <div
+            className="export-excel"
+            onClick={() => setOpenExportExcelModal(true)}
+          >
             <FileDownloadIcon />
             <span>Xuất file</span>
           </div>
@@ -137,6 +152,12 @@ function BillListPage() {
           />
         </div>
       </div>
+      <SingleModal
+        open={openExportExcelModal}
+        setOpen={setOpenExportExcelModal}
+        title="Xác nhận xuất file Excel"
+        onConfirm={exportBillListExcel}
+      ></SingleModal>
     </div>
   );
 }
