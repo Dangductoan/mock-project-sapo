@@ -41,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDTO register(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername()))
-            throw new InvalidResourceException("Username is already in use!");
+            throw new InvalidResourceException("Tên tài khoản đã được sử dụng");
         User user = userConverter.toEntity(userDTO);
         Optional<Role> role = roleRepository.findByName(ERole.ROLE_ACCOUNTANT);
         if (role.isPresent()) {
@@ -55,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
             return userDTO;
         } else {
             System.out.println("ROLE_ACCOUNTANT doesn't exist in database!");
-            throw new ResourceNotFoundException("ROLE_ACCOUNTANT doesn't exist in database!");
+            throw new ResourceNotFoundException("Có lỗi gì đó");
         }
     }
 
@@ -63,9 +63,9 @@ public class AuthServiceImpl implements AuthService {
     public UserDTO login(UserDTO userDTO) {
         Optional<User> user = userRepository.findByUsername(userDTO.getUsername());
         if (user.isEmpty())
-            throw new ResourceNotFoundException("Username does not exist!");
-      if (!encoder.matches(userDTO.getPassword(), user.get().getPassword()))
-           throw new ResourceNotFoundException("Password is incorrect!");
+            throw new ResourceNotFoundException("Tên đăng nhập không tồn tại");
+        if (!encoder.matches(userDTO.getPassword(), user.get().getPassword()))
+            throw new ResourceNotFoundException("Mật khẩu không chính xác");
 
         String token = jwtUtils.generateJwtToken(userDTO.getUsername());
         userDTO = userConverter.toDto(user.get());
