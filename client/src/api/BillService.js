@@ -36,10 +36,13 @@ const updateBill = (id, bill) => {
   })
 }
 
-const count = () => {
+const count = (query) => {
   return call_api({
     method: "GET",
-    url: "accountant/bills/count"
+    url: "accountant/bills/count",
+    params: {
+      query
+    }
   })
 }
 

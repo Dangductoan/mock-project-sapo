@@ -75,7 +75,7 @@ function ManageCustomer(props) {
                   index={id}
                   code={code}
                   name={name}
-                  phone={phoneNumber}
+                  phoneNumber={phoneNumber}
                   groupCustomer={groupCustomer}
                   createdBy={createdBy}
                   address={address}

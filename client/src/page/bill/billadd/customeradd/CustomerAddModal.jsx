@@ -63,13 +63,13 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 </div>
               </div>
               <div className="content-field">
-                <label htmlFor="">Mã khách hàng</label>
+                <label htmlFor="">Mã khách hàng *</label>
                 <div className="field-input">
                   <input type="text" name="code" onChange={handleInputChange} />
                 </div>
               </div>
               <div className="content-field">
-                <label htmlFor="">Số điện thoại</label>
+                <label htmlFor="">Số điện thoại *</label>
                 <div className="field-input">
                   <input
                     type="text"
@@ -112,10 +112,10 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
             </div>
             <div className="modal-footer">
               <div className="form-btn">
-                <button className="btn btn-no-active" onClick={handleOpen}>
+                <button className="btn-cancle" onClick={handleOpen}>
                   Thoát
                 </button>
-                <button className="btn" type="submit">
+                <button className="btn-create" type="submit">
                   Thêm
                 </button>
               </div>

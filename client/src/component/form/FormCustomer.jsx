@@ -6,7 +6,7 @@ function FormCustomer({ title, action, show, setShow, id , cus,handleCreate,hand
     const [customer, setCustomer] = useState(action === 'Thêm'?{
         code:"",
         name:"",
-        phone:"",
+        phoneNumber:"",
         groupCustomer:"",
         createdBy:"",
         address:""
@@ -16,7 +16,7 @@ function FormCustomer({ title, action, show, setShow, id , cus,handleCreate,hand
     {
         code:cus.code,
         name:cus.name,
-        phone:cus.phoneNumber,
+        phoneNumber:cus.phoneNumber,
         groupCustomer:cus.groupCustomer,
         createdBy:cus.createdBy,
         address:cus.address
