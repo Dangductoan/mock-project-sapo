@@ -27,7 +27,10 @@ public interface BillRepository extends GenericRepository<Bill, Long> {
 
     Optional<Bill> findByCode(String code);
 
-
+    /////////Select data between date ranger
+    @Query("SELECT b FROM Bill b WHERE b.createdAt BETWEEN :start AND :end")
+    List<Bill> findAllBillWithDateRanger(
+           @Param("start") Instant start, @Param("end") Instant end);
 
 
 }
