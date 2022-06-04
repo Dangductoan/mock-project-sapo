@@ -8,6 +8,7 @@ import com.sapo.mockproject.dto.BillDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.repository.*;
 import com.sapo.mockproject.security.UserDetailsImpl;
+import com.sapo.mockproject.service.BillService;
 import com.sapo.mockproject.service.mapper.GenericMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,10 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
+public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implements BillService {
 
     private final BillRepository billRepository;
 
@@ -86,5 +88,10 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
         /** end created Revenue Stats */
 
         return billDTO;
+    }
+
+    @Override
+    public List<BillDTO> fetchBetweenDate(String start, String end) {
+        return genericMapper.toDto(billRepository.fetchBetweenDate(start, end));
     }
 }
