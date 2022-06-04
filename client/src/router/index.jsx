@@ -58,7 +58,7 @@ function RouterDefined() {
               </Switch>
             </AccountantLayout>
           </Route>
-         )}
+        )}
         {user && user.role.name === "ROLE_CHIEF_ACCOUNTANT" && (
           <Route path="/chief-accountant/:path?/:path?" exact>
             <ChiefLayout>
@@ -73,7 +73,7 @@ function RouterDefined() {
                   exact
                   component={BillCategory}
                 />
-                 <Route
+                <Route
                   path="/chief-accountant/bills"
                   exact
                   component={BillListPage}
@@ -83,7 +83,7 @@ function RouterDefined() {
                   exact
                   component={BillAdd}
                 />
-                 <Route
+                <Route
                   path="/chief-accountant/report"
                   exact
                   component={Report}
@@ -98,11 +98,16 @@ function RouterDefined() {
                   exact
                   component={ManageCustomer}
                 />
+                <Route
+                  path="/chief-accountant/bills/:id"
+                  exact
+                  component={BillDetail}
+                />
                 <Route path="/*"  component={NotFound} />
               </Switch>
             </ChiefLayout>
           </Route>
-           )}   
+        )}
 
         <Route>
           <DefaultLayout>

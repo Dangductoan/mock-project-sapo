@@ -25,6 +25,11 @@ public interface BillRepository extends GenericRepository<Bill, Long> {
             " OR b.createdBy LIKE %?1% OR b.modifiedBy LIKE %?1% ")
     List<Bill> fetchByQuery(String query);
 
+    @Override
+    @Query("SELECT COUNT(b) FROM Bill b WHERE b.payment LIKE %?1% OR b.code LIKE %?1% OR b.description LIKE %?1%" +
+            " OR b.createdBy LIKE %?1% OR b.modifiedBy LIKE %?1% ")
+    Long countSearch(String query);
+
     Optional<Bill> findByCode(String code);
 
 

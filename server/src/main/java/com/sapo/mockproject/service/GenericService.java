@@ -19,6 +19,6 @@ public interface GenericService<ID extends Number, D extends BaseDTO<ID>> {
 
     List<D> fetchByQuery(String query);
 
-    Long count();
+    Long count(String query);
 
 }
