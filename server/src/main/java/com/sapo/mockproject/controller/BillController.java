@@ -22,7 +22,12 @@ public class BillController extends BaseController<Long, BillDTO>{
 
 
     }
-
+    
+    ////select data between dat ranger 
+    @GetMapping("/{start}/{end}")
+    public List<Bill> findAllBillWithDateRanger(@PathVariable(value = "start")  @DateTimeFormat(pattern = "yyyy-MM-dd ") Instant start, @PathVariable(value = "end")  @DateTimeFormat(pattern = "yyyy-MM-dd ") Instant end) {
+        return repository.findAllBillWithDateRanger(start, end);
+    }
 
 
 
