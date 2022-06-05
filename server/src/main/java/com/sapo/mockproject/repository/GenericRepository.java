@@ -17,4 +17,7 @@ public interface GenericRepository<T extends BaseDomain<ID>, ID extends Number> 
 
     @Query
     List<T> fetchByQuery(String query);
+
+    @Query
+    Long countSearch(String query);
 }

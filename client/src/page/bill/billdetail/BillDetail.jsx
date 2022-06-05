@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useLocation, useParams, Link, useHistory } from "react-router-dom";
+import {
+  useLocation,
+  useParams,
+  Link,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 
 import BillService from "../../../api/BillService";
 
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 
 import "./BillDetail.css";
 
 export default function BillDetail() {
   const location = useLocation();
   const history = useHistory();
+  const match = useRouteMatch();
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [bill, setBill] = useState({});
-  let billCode = "";
 
   useEffect(() => {
     if (location.state?.showBillAddSuccess)
       toast.success("Thêm phiếu thu ngân thành công");
-  });
+  }, [location.state?.showBillAddSuccess]);
 
   useEffect(() => {
     BillService.getBill(id)
@@ -61,7 +68,11 @@ export default function BillDetail() {
     <div className="bill-add">
       <div
         className="bill-bread-crumb"
-        onClick={() => history.push("/accountant/bills")}
+        onClick={() =>
+          history.push(
+            `${match.path.substring(0, match.path.lastIndexOf("/"))}`
+          )
+        }
       >
         <ArrowBackIosNewIcon style={{ width: "15px" }} />
         <Link>Phiếu thu</Link>
@@ -75,23 +86,19 @@ export default function BillDetail() {
           <div>
             <div>
               <p>Tên khách hàng *</p>
-              <select
-                name="customerName"
-                onChange={handleInputChange}
-                className="select-update"
-              >
-                <option value="">{bill?.customer?.name}</option>
-              </select>
+              <div className="info-not-updated">
+                <select name="customerName" onChange={handleInputChange}>
+                  <option value="">{bill?.customer?.name}</option>
+                </select>
+              </div>
             </div>
             <div>
               <p>Loại phiếu thu *</p>
-              <select
-                name="billCategoryName"
-                onChange={handleInputChange}
-                className="select-update"
-              >
-                <option value="">{bill?.billCategory?.name}</option>
-              </select>
+              <div className="info-not-updated">
+                <select name="billCategoryName" onChange={handleInputChange}>
+                  <option value="">{bill?.billCategory?.name}</option>
+                </select>
+              </div>
             </div>
             <div>
               <p>Mã phiếu</p>
@@ -104,22 +111,26 @@ export default function BillDetail() {
             </div>
             <div>
               <p>Giá trị *</p>
-              <input
-                type="number"
+              <ReactNumberFormat
                 name="totalValue"
-                onChange={handleInputChange}
                 value={bill.totalValue}
+                onChange={(e) =>
+                  setBill({
+                    ...bill,
+                    [e.target.name]: parseFloat(
+                      e.target.value.replace(/,/g, "")
+                    ),
+                  })
+                }
               />
             </div>
             <div>
               <p>Hình thức thanh toán</p>
-              <select
-                name="payment"
-                onChange={handleInputChange}
-                className="select-update"
-              >
-                <option value="">{bill?.payment}</option>
-              </select>
+              <div className="info-not-updated">
+                <select name="payment" onChange={handleInputChange}>
+                  <option value="">{bill?.payment}</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>

@@ -76,7 +76,7 @@ export default function Demo() {
         onApply={onApply}
       >
         <div style={style} onClick={handleClick}>
-          {moment(fromDate).format("DD/MM/YYYY")} - {moment(toDate).format("DD/MM/YYYY")}
+          {moment(fromDate).format("YYYY/MM/DD")} - {moment(toDate).format("YYYY/MM/DD")}
         </div>
         
       </DateRangePicker>

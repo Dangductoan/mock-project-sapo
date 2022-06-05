@@ -26,7 +26,12 @@ const getBill = (id) => {
     url: `accountant/bills/${id}`
   })
 }
-
+const getDataBetween =(start,end)=>{
+  return call_api({
+      method: "GET",
+      url: `accountant/bills/${start}/${end}`,
+    })
+}
 const updateBill = (id, bill) => {
   if (bill.modifiedAt) delete bill.modifiedAt;
   return call_api({
@@ -36,10 +41,13 @@ const updateBill = (id, bill) => {
   })
 }
 
-const count = () => {
+const count = (query) => {
   return call_api({
     method: "GET",
-    url: "accountant/bills/count"
+    url: "accountant/bills/count",
+    params: {
+      query
+    }
   })
 }
 
@@ -48,7 +56,8 @@ const BillService = {
   searchBill,
   count,
   updateBill,
-  getBill
+  getBill,
+  getDataBetween
 }
 
 export default BillService;

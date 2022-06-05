@@ -9,6 +9,7 @@ body {
   font-size: 14px;
   color: rgb(112, 112, 112);
   overflow-x: hidden;
+  background-color: #f4f6f8;
 }
 li {
   list-style: none;

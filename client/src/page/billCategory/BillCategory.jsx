@@ -4,6 +4,8 @@ import Row from '../../component/row/Row'
 import Form from '../../component/form/Form'
 import BillCategoryService from '../../api/BillCategoryService'
 import './BillCategory.css'
+import { toast } from "react-toastify";
+import ToastifyToast from '../../component/toast/template/ToastifyToast'
 function BillCategory() {
   const [billCategories, setBillCategories] = useState([])
   const [billCategory, setBillCategory] = useState({})
@@ -32,6 +34,10 @@ function BillCategory() {
   const handleBillCategory = (data) => {
     setBillCategory(data)
   }
+  const showToast = (message, type) => {
+    if (type === "error") toast.error(message);
+    else toast.success(message);
+  };
   return (
     <>
       <div className="billCategory ml-230">
@@ -72,10 +78,11 @@ function BillCategory() {
 
 
         </div>
+        <ToastifyToast />
       </div>
 
-      {showFormUpdate && <Form title="Cập nhật loại phiếu thu" action="Lưu" show={showFormUpdate} setShow={setShowFormUpdate} id={index} handleUpdate={handleUpdate} bl={billCategory} />}
-      {showFormCreate && <Form title="Thêm loại phiếu thu" action="Thêm" show={showFormCreate} setShow={setShowFormCreate} handleCreate={handleCreate} />}
+      {showFormUpdate && <Form title="Cập nhật loại phiếu thu" action="Lưu" show={showFormUpdate} showToast={showToast} setShow={setShowFormUpdate} id={index} handleUpdate={handleUpdate} bl={billCategory} />}
+      {showFormCreate && <Form title="Thêm loại phiếu thu" action="Thêm" show={showFormCreate} showToast={showToast} setShow={setShowFormCreate} handleCreate={handleCreate} />}
 
     </>
 

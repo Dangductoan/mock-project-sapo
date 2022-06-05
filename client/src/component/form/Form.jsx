@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Form.css'
 import BillCategoryService from '../../api/BillCategoryService'
-function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl}) {
+function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl,showToast}) {
     const [billCategory, setBillCategory] = useState(action === 'Thêm' ? {
         name: '',
         code: '',
@@ -20,9 +20,21 @@ function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl}) 
         if(action === 'Thêm') {
             BillCategoryService.createBillCategory(billCategory) 
                 .then(res => handleCreate())
+                .then(() => {
+                    showToast("Thêm loại phiếu thu thành công", "success");
+                })
+                .catch(({ response }) => {
+                    showToast(response.data?.error?.message, "error");
+                  });
         } else {
             BillCategoryService.updateBillCategory(id, billCategoryForUpdate)
                 .then(res => handleUpdate())
+                .then(() => {
+                    showToast("Cập nhât loại phiếu thu thành công", "success");
+                })
+                .catch(({ response }) => {
+                    showToast(response.data?.error?.message, "error");
+                  });
         }          
         
         setShow(!show)

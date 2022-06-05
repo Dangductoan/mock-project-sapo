@@ -4,10 +4,11 @@ import moment from "moment";
 const SelectContext = createContext(null);
 
 export const Provider = ({ children }) => {
+  
   const [data, setData] = useState({
     type: 'Theo thời gian',
     time: 'Ngày',
-    shape: 'Biểu diễn dưới dạng bảng'
+    shape: 'Biểu đồ cột'
   })
   const [start, setStart] = useState(moment().subtract(15, "days")._d)
   const [end, setEnd] = useState(moment()._d)

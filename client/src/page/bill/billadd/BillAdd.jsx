@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useRouteMatch } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import BillCategoryService from "../../../api/BillCategoryService";
@@ -9,12 +9,14 @@ import CustomerService from "../../../api/CustomerService";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import CustomerAddModal from "./customeradd/CustomerAddModal";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 
 import "./BillAdd.css";
 
 export default function BillAdd() {
   const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
+  const match = useRouteMatch();
 
   const [bill, setBill] = useState({});
   const [billCategories, setBillCategories] = useState([]);
@@ -47,7 +49,8 @@ export default function BillAdd() {
       modifidedBy: user.name,
     })
       .then((res) => {
-        history.push(`/accountant/bills/${res.data?.bill?.id}`, {
+        let path = match.path.substring(0, match.path.lastIndexOf("/"));
+        history.push(`${path}/${res.data?.bill?.id}`, {
           showBillAddSuccess: true,
         });
       })
@@ -79,7 +82,11 @@ export default function BillAdd() {
     <div className="bill-add">
       <div
         className="bill-bread-crumb"
-        onClick={() => history.push("/accountant/bills")}
+        onClick={() =>
+          history.push(
+            `${match.path.substring(0, match.path.lastIndexOf("/"))}`
+          )
+        }
       >
         <ArrowBackIosNewIcon style={{ width: "15px" }} />
         <Link>Phiếu thu</Link>
@@ -122,21 +129,27 @@ export default function BillAdd() {
               </select>
             </div>
             <div>
-              <p>Mã phiếu</p>
+              <p>Mã phiếu *</p>
               <input type="text" name="code" onChange={handleInputChange} />
             </div>
             <div>
               <p>Giá trị *</p>
-              <input
-                type="number"
+              <ReactNumberFormat
                 name="totalValue"
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  setBill({
+                    ...bill,
+                    [e.target.name]: parseFloat(
+                      e.target.value.replace(/,/g, "")
+                    ),
+                  })
+                }
               />
             </div>
             <div>
-              <p>Hình thức thanh toán</p>
-              <select name="payment" id="" onChange={handleInputChange}>
-                <option value="">--Please choose an option--</option>
+              <p>Hình thức thanh toán *</p>
+              <select name="payment" onChange={handleInputChange}>
+                <option value="">Chọn hình thức thanh toán</option>
                 <option value="Tiền mặt">Tiền mặt</option>
                 <option value="Quẹt thẻ">Quẹt thẻ</option>
                 <option value="Chuyển khoản">Chuyển khoản</option>

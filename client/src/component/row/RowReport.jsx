@@ -1,13 +1,14 @@
 import React from 'react'
 import './RowReport.css'
-function RowReport({date,amount,turnover,cost,profit}) {
+import ReactNumberTextFormat from '../numberformat/template/ReactNumberTextFormat'
+function RowReport(props) {
     return (
         <div className="row-report" >
-            <h3 className='row-report_item'>{date}</h3>
-            <h3 className='row-report_item'>{amount}</h3>
-            <h3 className='row-report_item'>{turnover}</h3>
-            <h3 className='row-report_item'>{cost}</h3>
-            <h3 className='row-report_item'>{profit}</h3>
+            <h3 className='row-report_item'>{props.date}</h3>
+            <h3 className='row-report_item'>{props.amount}</h3>
+            <h3 className='row-report_item'><ReactNumberTextFormat value={props.turnover}/></h3>
+            <h3 className='row-report_item'>{props.cost}</h3>
+            <h3 className='row-report_item'><ReactNumberTextFormat value={props.profit}/></h3>
     
         </div>
       )
