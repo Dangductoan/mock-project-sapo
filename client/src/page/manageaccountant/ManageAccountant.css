@@ -1,7 +1,7 @@
 .manageAccoutant {
     background-color: #f4f6f8;
     width: 100%;
-    padding: 40px 20px;
+    padding: 40px ;
 }
 
 .manageAccoutant-header {
@@ -22,21 +22,20 @@
 
 }
 
-.column {
+.manageAccoutant-table_column {
     display: flex;
     padding: 20px 0;
 
 
 }
 
-.column>h5 {
+.manageAccoutant-table_column>h5 {
    
-    width: 50%;
+    width: 20%;
     text-align: center;
     font-weight: 600;
     color: black;
-   position: relative;
-   left: 80px;
+   
 }
 
 .row-end {
