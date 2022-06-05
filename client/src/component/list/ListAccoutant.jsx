@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import "./ListAccountant.css";
 function ListAccountant(props) {
   const handleClick = () => {
@@ -26,6 +26,7 @@ function ListAccountant(props) {
   return (
     <div className="list">
       <div className="placecheckbox">
+
         <input
           className="checkAccountant"
           type="checkbox"

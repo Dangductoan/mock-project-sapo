@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ListAccountant from '../../component/list/ListAccoutant'
 import FormAccountant from '../../component/form/FormAccountant.jsx'
 import './ManageAccountant.css'
@@ -41,15 +41,15 @@ function ManageAccountant(props) {
 
 
   const handleDelete = () => {
-    if (check == []) {
+    if (check === []) {
       console.log("nothing on checked")
 
     }
     else {
-      check.map(id => {
-        AccountantService.deleteAccountant(id).
-          then(res => setDel(!del)).
-          then(() => {
+      check.map((id) => {
+        return AccountantService.deleteAccountant(id)
+          .then(res => setDel(!del))
+          .then(() => {
             showToast("Xóa nhân viên thành công", "success");
             history.push("/chief-accountant/user")
           })
@@ -75,8 +75,9 @@ function ManageAccountant(props) {
         </div>
         <div className="manageAccoutant-content">
           <div className="manageAccoutant-table">
-            <div className="column">
+            <div className="manageAccoutant-table_column">
               {/* <input className="checkAllAccountant" type="checkbox" checked={false} value=""/> */}
+              <h5></h5>
               <h5>Tên nhân viên</h5>
               <h5>Số điện thoại</h5>
               <h5>Địa chỉ</h5>
@@ -85,7 +86,7 @@ function ManageAccountant(props) {
             </div>
             {accountants.map(account => {
               const { id, name, username, phoneNumber, address } = account;
-              const createdAt =  account.createdAt.toString().slice(0, 10)
+              const createdAt = account.createdAt.toString().slice(0, 10)
               return <ListAccountant key={id} index={id} name={name} username={username} phone={phoneNumber} address={address} createdAt={createdAt}
                 show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex}
                 setAccountant={setAccountant} check={check} setCheck={setCheck} checkAll={checkAll} />
