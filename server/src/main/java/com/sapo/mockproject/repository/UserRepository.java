@@ -18,8 +18,7 @@ public interface UserRepository extends GenericRepository<User, Integer> {
     Optional<User> findByUsername(String username);
 
     Optional<User> findByPhoneNumber(String phoneNumber);
-
-
+    Optional<User> findByName(String name);
     Boolean existsByUsername(String username);
 
     @Override

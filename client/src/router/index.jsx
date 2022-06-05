@@ -54,6 +54,7 @@ function RouterDefined() {
                   exact
                   component={BillDetail}
                 />
+              
                 <Route path="/*" exact component={NotFound} />
               </Switch>
             </AccountantLayout>

@@ -3,8 +3,12 @@ import CustomerService from "../../api/CustomerService";
 import FormCustomer from "../../component/form/FormCustomer";
 import ListCustomer from "../../component/list/ListCustomer";
 import './ManageCustomer.css'
+import { toast } from "react-toastify";
+import ToastifyToast from "../../component/toast/template/ToastifyToast";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function ManageCustomer(props) {
+  const history = useHistory;
   const [customers, setCustomers] = useState([]);
   const [customer, setCustomer] = useState({});
   const [showFormUpdate, setShowFormUpdate] = useState(false);
@@ -12,7 +16,8 @@ function ManageCustomer(props) {
   const [index, setIndex] = useState();
   const [create, setCreate] = useState(false);
   const [update, setUpdate] = useState(false);
-  
+  const [del,setDel] = useState(false)
+  const [check, setCheck] = useState([])
 
   const handleClick = () => {
     setShowFormCreate(!showFormCreate);
@@ -23,12 +28,34 @@ function ManageCustomer(props) {
       console.log(data);
       setCustomers(data.customers);
     });
-  }, [create, update]);
+  }, [create, update,del]);
   const handleCreate = () => {
     setCreate(!create);
   };
   const handleUpdate = () => {
     setUpdate(!update);
+  };
+  const handleDelete=()=>{
+    if(check==[]){
+      console.log("nothing on checked")
+  
+    }
+    else{
+    check.map(id =>{
+      CustomerService.deleteCustomer(id).
+      then(res=> setDel(!del)).
+      then(()=>{
+        showToast("Xóa khách hàng thành công", "success");
+        history.push("/accountant/customer")
+    })
+  
+    })
+    
+  }
+  }
+  const showToast = (message, type) => {
+    if (type === "error") toast.error(message);
+    else toast.success(message);
   };
   return (
     <>
@@ -44,19 +71,13 @@ function ManageCustomer(props) {
         <div className="manageCustomer-content">
           <div className="manageCustomer-table">
             <div className="column">
-              <input
-                className="checkAllAccountant"
-                type="checkbox"
-                data-indeterminate="false"
-                value=""
-              />
               <h5>Mã khách hàng</h5>
               <h5>Tên khách hàng</h5>
               <h5>Số điện thoại</h5>
               <h5>Nhóm khách hàng</h5>
               <h5>Nhân viên phụ trách</h5>
               <h5>Địa chỉ</h5>
-              <h5>Ngày tạo</h5>
+              <h5>Email</h5>
             </div>
             {customers.map((customers) => {
               const {
@@ -68,28 +89,36 @@ function ManageCustomer(props) {
                 createdBy,
                 address,
                 createdAt,
+                email
               } = customers;
+              const data = customers.createdAt.toString().slice(0,10);
+
               return (
                 <ListCustomer
                   key={id}
                   index={id}
                   code={code}
                   name={name}
-                  phone={phoneNumber}
+                  phoneNumber={phoneNumber}
                   groupCustomer={groupCustomer}
                   createdBy={createdBy}
                   address={address}
-                  createdAt={createdAt}
+                  createdAt={data}
+                  email={email}
                   show={showFormUpdate}
                   setShow={setShowFormUpdate}
                   setIndex={setIndex}
                   setCustomer={setCustomer}
+                  check={check}
+                  setCheck={setCheck}
                 />
               );
             })}
+             <button className='btn' style={{float:"right"}} onClick={handleDelete}>Xóa</button>
+
           </div>
         </div>
-        {/* footer */}
+        <ToastifyToast />
       </div>
 
       {showFormUpdate && (
@@ -101,6 +130,7 @@ function ManageCustomer(props) {
           id={index}
           cus={customer}
           handleUpdate={handleUpdate}
+          showToast={showToast}
         />
       )}
       {showFormCreate && (
@@ -110,6 +140,8 @@ function ManageCustomer(props) {
           show={showFormCreate}
           setShow={setShowFormCreate}
           handleCreate={handleCreate}
+          showToast={showToast}
+
         />
       )}
     </>

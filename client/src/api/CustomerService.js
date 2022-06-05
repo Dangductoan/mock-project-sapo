@@ -34,13 +34,20 @@ const updateCustomer = (id, Customer) => {
     data: Customer
   })
 }
+const deleteCustomer = (id) => {
+  return call_api({
+    method: "DELETE",
+    url: `accountant/customer/${id}`
+  })
+}
 
 
 const CustomerService = {
   getCustomer,
   createCustomer,
   updateCustomer,
-  searchCustomer
+  searchCustomer,
+  deleteCustomer
 }
 
 export default CustomerService;

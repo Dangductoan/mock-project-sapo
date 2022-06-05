@@ -95,3 +95,8 @@
     box-shadow: 0 1px 0 0 rgb(22 29 37 / 5%);
     margin-right: 10px;
 }
+.error{
+    margin-left: 5px;
+    font-size: 13px;
+    color: red;
+  }
