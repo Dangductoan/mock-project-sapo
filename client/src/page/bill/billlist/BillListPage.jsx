@@ -56,14 +56,6 @@ function BillListPage() {
       .catch((err) => console.log(err));
   };
 
-  const searchBill = (e) => {
-    e.preventDefault();
-
-    BillService.searchBill({ query: query, page: 0, size: ITEM_PER_PAGE })
-      .then((res) => setBills(res.data?.bills))
-      .catch((err) => console.log(err));
-  };
-
   const exportBillListExcel = () => {
     let data = bills.map((bill) => ({
       ...bill,
