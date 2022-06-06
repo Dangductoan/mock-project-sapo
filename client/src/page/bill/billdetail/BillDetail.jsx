@@ -20,7 +20,11 @@ export default function BillDetail() {
   const location = useLocation();
   const history = useHistory();
   const match = useRouteMatch();
+
   const { id } = useParams();
+  if (!parseInt(id))
+    history.push(`${match.path.substring(0, match.path.indexOf("/"))}/404`);
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [bill, setBill] = useState({});
