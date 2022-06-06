@@ -32,9 +32,9 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> {
     @Override
     public boolean checkUniqueFields(UserDTO userDTO) {
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent())
-            throw new InvalidResourceException("Username already in use!");
+            throw new InvalidResourceException("Tên đăng nhập đã tồn tại !");
         if (userRepository.findByPhoneNumber(userDTO.getPhoneNumber()).isPresent())
-            throw new InvalidResourceException("Phone number already in use!");
+            throw new InvalidResourceException("Số điện thoại đã tồn tại !");
         return false;
     }
     @Override

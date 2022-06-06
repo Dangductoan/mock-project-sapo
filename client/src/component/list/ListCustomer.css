@@ -10,8 +10,7 @@
     width: 33.333%;
     text-align: center;
     padding: 15px 0 ;
-    position: relative;
-    left: 50px;   
+   
 }
 .list:hover {
     background-color: #f4f6f8;
