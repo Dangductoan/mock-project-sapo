@@ -38,7 +38,10 @@ function RouterDefined() {
           <Route path="/accountant/:path?/:path?" exact>
             <AccountantLayout>
               <Switch>
-                <Route path="/accountant" exact component={Accountant} />
+                <Route
+                  path="/accountant"
+                  exact
+                  component={Accountant} />
                 <Route
                   path="/accountant/bills"
                   exact
@@ -54,12 +57,12 @@ function RouterDefined() {
                   exact
                   component={BillDetail}
                 />
-              
+
                 <Route path="/*" exact component={NotFound} />
               </Switch>
             </AccountantLayout>
           </Route>
-         )}
+        )}
         {user && user.role.name === "ROLE_CHIEF_ACCOUNTANT" && (
           <Route path="/chief-accountant/:path?/:path?" exact>
             <ChiefLayout>
@@ -72,32 +75,43 @@ function RouterDefined() {
                 <Route
                   path="/chief-accountant/bill-category"
                   component={BillCategory}
+                  exact
                 />
-                 <Route
+                <Route
                   path="/chief-accountant/bills"
                   component={BillListPage}
+                  exact
                 />
-                 <Route
-                  path="/chief-accountant/create"
+                <Route
+                  path="/chief-accountant/bills/create"
                   component={BillAdd}
+                  exact
                 />
-                 <Route
+                <Route
+                  path="/chief-accountant/bills/:id"
+                  component={BillDetail}
+                  exact
+                />
+                <Route
                   path="/chief-accountant/report"
                   component={Report}
+                  exact
                 />
                 <Route
                   path="/chief-accountant/user"
                   component={ManageAccountant}
+                  exact
                 />
                 <Route
                   path="/chief-accountant/customer"
                   component={ManageCustomer}
+                  exact
                 />
                 <Route path="/*" exact component={NotFound} />
               </Switch>
             </ChiefLayout>
           </Route>
-           )}   
+        )}
 
         <Route>
           <DefaultLayout>
