@@ -13,7 +13,6 @@ function ReportForCustomer() {
     const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForCustomerId(data.bills)
-  console.log(data)
     const chartCustomer = {
         labels: Object.keys(bills).map((key) => bills[key][0].customer.name),
         datasets: [
