@@ -1,12 +1,10 @@
 import React from "react";
 import NumberFormat from "react-number-format";
 
-const ReactNumberTextFormat = ({ name, value, onChange }) => {
+const ReactNumberTextFormat = ({ value }) => {
   return (
     <NumberFormat
       value={value}
-      name={name}
-      onChange={onChange}
       thousandsGroupStyle="thousand"
       decimalSeparator="."
       displayType="text"

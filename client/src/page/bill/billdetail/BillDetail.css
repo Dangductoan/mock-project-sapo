@@ -6,3 +6,7 @@
   pointer-events: none;
   background-color: #e9ecef;
 }
+
+.bill-bread-crumb {
+  cursor: pointer;
+}

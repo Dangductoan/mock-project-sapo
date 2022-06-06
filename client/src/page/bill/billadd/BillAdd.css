@@ -18,7 +18,7 @@
 
 .bill-content {
   margin-top: 50px;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
   display: flex;
   gap: 20px;
 }
@@ -54,6 +54,10 @@
   border: 1px solid #95a7b7;
   border-radius: 3px;
   outline: none;
+}
+
+.bill-info .text-danger {
+  width: 300px;
 }
 
 .bill-description textarea {

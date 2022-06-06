@@ -4,9 +4,9 @@ import com.sapo.mockproject.dto.BaseDTO;
 import com.sapo.mockproject.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +23,14 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
     }
 
     @PostMapping
-    public Map<String, D> create(@Valid @RequestBody D d) {
+    public Map<String, D> create(@Validated @RequestBody D d) {
         Map<String, D> data = new HashMap<>();
         data.put(d.responseDataName(), genericService.save(d));
         return data;
     }
 
     @PutMapping("{id}")
-    public Map<String, D> update(@Valid @RequestBody D d, @PathVariable ID id) {
+    public Map<String, D> update(@Validated @RequestBody D d, @PathVariable ID id) {
         d.setId(id);
         Map<String, D> data = new HashMap<>();
         data.put(d.responseDataName(), genericService.update(d));
