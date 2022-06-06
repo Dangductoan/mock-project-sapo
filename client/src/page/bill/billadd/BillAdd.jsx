@@ -1,24 +1,60 @@
-import { useEffect, useState } from "react";
-import { useHistory, Link, useRouteMatch } from "react-router-dom";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import * as Yup from "yup";
 import BillCategoryService from "../../../api/BillCategoryService";
 import BillService from "../../../api/BillService";
 import CustomerService from "../../../api/CustomerService";
-
-import ToastifyToast from "../../../component/toast/template/ToastifyToast";
-import CustomerAddModal from "./customeradd/CustomerAddModal";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
-
+import ToastifyToast from "../../../component/toast/template/ToastifyToast";
+import { CODE_REGEX } from "../../../utils/regex";
 import "./BillAdd.css";
+import CustomerAddModal from "./customeradd/CustomerAddModal";
 
 export default function BillAdd() {
   const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const match = useRouteMatch();
 
-  const [bill, setBill] = useState({});
+  // const [bill, setBill] = useState({});
+  const bill = useFormik({
+    initialValues: {
+      customerName: "",
+      billCategoryName: "",
+      code: "",
+      totalValue: "",
+      payment: "",
+      description: "",
+    },
+    validationSchema: validateBill,
+    onSubmit: (bill) => {
+      let billCategory = billCategories.find(
+        ({ name }) => name === `${bill.billCategoryName}`
+      );
+      let customer = customers.find(
+        ({ name }) => name === `${bill.customerName}`
+      );
+      BillService.createBill({
+        ...bill,
+        billCategory,
+        customer,
+        createdBy: user.name,
+        modifidedBy: user.name,
+        totalValue: parseFloat(bill.totalValue.replace(/,/g, "")),
+      })
+        .then((res) => {
+          let path = match.path.substring(0, match.path.lastIndexOf("/"));
+          history.push(`${path}/${res.data?.bill?.id}`, {
+            showBillAddSuccess: true,
+          });
+        })
+        .catch(({ response }) => {
+          showToast(response.data?.error?.message, "error");
+        });
+    },
+  });
   const [billCategories, setBillCategories] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [customerAddModalOpen, setCustomerAddModalOpen] = useState(false);
@@ -34,42 +70,9 @@ export default function BillAdd() {
       .catch((err) => console.log(err));
   }, []);
 
-  const addBill = () => {
-    let billCategory = billCategories.find(
-      ({ name }) => name === `${bill.billCategoryName}`
-    );
-    let customer = customers.find(
-      ({ name }) => name === `${bill.customerName}`
-    );
-    BillService.createBill({
-      ...bill,
-      billCategory,
-      customer,
-      createdBy: user.name,
-      modifidedBy: user.name,
-    })
-      .then((res) => {
-        let path = match.path.substring(0, match.path.lastIndexOf("/"));
-        history.push(`${path}/${res.data?.bill?.id}`, {
-          showBillAddSuccess: true,
-        });
-      })
-      .catch(({ response }) => {
-        showToast(response.data?.error?.message, "error");
-      });
-  };
-
   const showToast = (message, type) => {
     if (type === "error") toast.error(message);
     else toast.success(message);
-  };
-
-  const handleInputChange = (e) => {
-    let { name, value } = e.target;
-    setBill({
-      ...bill,
-      [name]: value,
-    });
   };
 
   const handleCustomerAdd = () => {
@@ -80,7 +83,7 @@ export default function BillAdd() {
 
   return (
     <div className="bill-add">
-      <div
+      <span
         className="bill-bread-crumb"
         onClick={() =>
           history.push(
@@ -89,8 +92,8 @@ export default function BillAdd() {
         }
       >
         <ArrowBackIosNewIcon style={{ width: "15px" }} />
-        <Link>Phiếu thu</Link>
-      </div>
+        <span>Phiếu thu</span>
+      </span>
       <div className="bill-heading">
         <h2>Thêm mới phiếu thu</h2>
         <button
@@ -102,83 +105,118 @@ export default function BillAdd() {
           Thêm mới khách hàng
         </button>
       </div>
-      <div className="bill-content">
-        <div className="bill-info">
-          <h3>Thông tin chung</h3>
-          <div>
+      <form onSubmit={bill.handleSubmit}>
+        <div className="bill-content">
+          <div className="bill-info">
+            <h3>Thông tin chung</h3>
             <div>
-              <p>Tên khách hàng *</p>
-              <select name="customerName" id="" onChange={handleInputChange}>
-                <option value="">Chọn tên khách hàng </option>
-                {customers.map((customer) => (
-                  <option value={customer.name}>{customer.name}</option>
-                ))}
-              </select>
+              <div>
+                <p>Tên khách hàng *</p>
+                <select
+                  name="customerName"
+                  onChange={bill.handleChange}
+                  onBlur={bill.handleBlur}
+                >
+                  <option value="">Chọn tên khách hàng </option>
+                  {customers.map((customer) => (
+                    <option value={customer.name}>{customer.name}</option>
+                  ))}
+                </select>
+                {bill.touched.customerName && bill.errors.customerName && (
+                  <div className="text-danger">{bill.errors.customerName}</div>
+                )}
+              </div>
+              <div>
+                <p>Loại phiếu thu *</p>
+                <select
+                  name="billCategoryName"
+                  onBlur={bill.handleBlur}
+                  onChange={bill.handleChange}
+                >
+                  <option value="">Chọn loại phiếu thu</option>
+                  {billCategories.map((billCategory) => (
+                    <option value={billCategory.name}>
+                      {billCategory.name}
+                    </option>
+                  ))}
+                </select>
+                {bill.touched.billCategoryName &&
+                  bill.errors.billCategoryName && (
+                    <div className="text-danger">
+                      {bill.errors.billCategoryName}
+                    </div>
+                  )}
+              </div>
+              <div>
+                <p>Mã phiếu *</p>
+                <input
+                  type="text"
+                  name="code"
+                  onBlur={bill.handleBlur}
+                  onChange={bill.handleChange}
+                />
+                {bill.touched.code && bill.errors.code && (
+                  <div className="text-danger">{bill.errors.code}</div>
+                )}
+              </div>
+              <div>
+                <p>Giá trị *</p>
+                <ReactNumberFormat
+                  name="totalValue"
+                  onChange={(e) =>
+                    bill.setFieldValue([e.target.name], e.target.value)
+                  }
+                  onBlur={bill.handleBlur}
+                />
+                {bill.touched.totalValue && bill.errors.totalValue && (
+                  <div className="text-danger">{bill.errors.totalValue}</div>
+                )}
+              </div>
+              <div>
+                <p>Hình thức thanh toán *</p>
+                <select
+                  name="payment"
+                  onChange={bill.handleChange}
+                  onBlur={bill.handleBlur}
+                >
+                  <option value="">Chọn hình thức thanh toán</option>
+                  <option value="Tiền mặt">Tiền mặt</option>
+                  <option value="Quẹt thẻ">Quẹt thẻ</option>
+                  <option value="Chuyển khoản">Chuyển khoản</option>
+                </select>
+                {bill.touched.payment && bill.errors.payment && (
+                  <div className="text-danger">{bill.errors.payment}</div>
+                )}
+              </div>
             </div>
+          </div>
+          <div className="bill-description">
+            <h3>Mô tả</h3>
             <div>
-              <p>Loại phiếu thu *</p>
-              <select
-                name="billCategoryName"
-                id=""
-                onChange={handleInputChange}
-              >
-                <option value="">Chọn loại phiếu thu</option>
-                {billCategories.map((billCategory) => (
-                  <option value={billCategory.name}>{billCategory.name}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <p>Mã phiếu *</p>
-              <input type="text" name="code" onChange={handleInputChange} />
-            </div>
-            <div>
-              <p>Giá trị *</p>
-              <ReactNumberFormat
-                name="totalValue"
-                onChange={(e) =>
-                  setBill({
-                    ...bill,
-                    [e.target.name]: parseFloat(
-                      e.target.value.replace(/,/g, "")
-                    ),
-                  })
-                }
+              <textarea
+                type="text"
+                name="description"
+                onChange={bill.handleChange}
               />
             </div>
-            <div>
-              <p>Hình thức thanh toán *</p>
-              <select name="payment" onChange={handleInputChange}>
-                <option value="">Chọn hình thức thanh toán</option>
-                <option value="Tiền mặt">Tiền mặt</option>
-                <option value="Quẹt thẻ">Quẹt thẻ</option>
-                <option value="Chuyển khoản">Chuyển khoản</option>
-              </select>
-            </div>
           </div>
         </div>
-        <div className="bill-description">
-          <h3>Mô tả</h3>
-          <div>
-            <textarea
-              type="text"
-              name="description"
-              onChange={handleInputChange}
-            />
-          </div>
+        <div className="bill-add-submit">
+          <button
+            className="btn-cancle"
+            onClick={() =>
+              history.push(
+                `${match.path.substring(0, match.path.lastIndexOf("/"))}`
+              )
+            }
+          >
+            Hủy
+          </button>
+          <button className="btn-create" type="submit">
+            Thêm
+          </button>
         </div>
-      </div>
-      <div className="bill-add-submit">
-        <button
-          className="btn-cancle"
-          onClick={() => history.push("/accountant/bills")}
-        >
-          Hủy
-        </button>
-        <button className="btn-create" onClick={addBill}>
-          Thêm
-        </button>
-      </div>
+      </form>
       <CustomerAddModal
         open={customerAddModalOpen}
         setOpen={setCustomerAddModalOpen}
@@ -188,3 +226,17 @@ export default function BillAdd() {
     </div>
   );
 }
+
+const validateBill = Yup.object().shape({
+  billCategoryName: Yup.string().required("Chưa chọn Loại phiếu thu"),
+  customerName: Yup.string().required("Chưa chọn tên khách hàng"),
+  code: Yup.string()
+    .required("Chưa nhập mã phiếu thu")
+    .matches(
+      CODE_REGEX,
+      "Mã phiếu thu chỉ chứa chữ hoa và số, không chứa dấu cách"
+    ),
+  payment: Yup.string().required("Chưa chọn hình thức thanh toán"),
+  totalValue: Yup.string().required("Chưa nhập giá trị phiếu thu"),
+  description: Yup.string().notRequired(),
+});

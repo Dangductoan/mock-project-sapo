@@ -56,6 +56,10 @@
   outline: none;
 }
 
+.bill-info .text-danger {
+  width: 300px;
+}
+
 .bill-description textarea {
   margin-top: 20px;
   height: 100px;
