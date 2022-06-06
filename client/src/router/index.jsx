@@ -54,11 +54,12 @@ function RouterDefined() {
                   exact
                   component={BillDetail}
                 />
-                <Route path="/*"  component={NotFound} />
+              
+                <Route path="/*" exact component={NotFound} />
               </Switch>
             </AccountantLayout>
           </Route>
-        )}
+         )}
         {user && user.role.name === "ROLE_CHIEF_ACCOUNTANT" && (
           <Route path="/chief-accountant/:path?/:path?" exact>
             <ChiefLayout>
@@ -70,44 +71,33 @@ function RouterDefined() {
                 />
                 <Route
                   path="/chief-accountant/bill-category"
-                  exact
                   component={BillCategory}
                 />
-                <Route
+                 <Route
                   path="/chief-accountant/bills"
-                  exact
                   component={BillListPage}
                 />
                  <Route
-                  path="/chief-accountant/bills/create"
-                  exact
+                  path="/chief-accountant/create"
                   component={BillAdd}
                 />
-                <Route
+                 <Route
                   path="/chief-accountant/report"
-                  exact
                   component={Report}
                 />
                 <Route
                   path="/chief-accountant/user"
-                  exact
                   component={ManageAccountant}
                 />
                 <Route
                   path="/chief-accountant/customer"
-                  exact
                   component={ManageCustomer}
                 />
-                <Route
-                  path="/chief-accountant/bills/:id"
-                  exact
-                  component={BillDetail}
-                />
-                <Route path="/*"  component={NotFound} />
+                <Route path="/*" exact component={NotFound} />
               </Switch>
             </ChiefLayout>
           </Route>
-        )}
+           )}   
 
         <Route>
           <DefaultLayout>

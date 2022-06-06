@@ -12,10 +12,21 @@ const GroupDataForYear =(data)=>{
         return item.date.substring(0,4);
     });
 }
-
+const GroupDataForCustomerId = (data) => {
+    return _.groupBy(data,function(item) {
+        return item.customer.id;
+    })
+}
+const GroupDataForBillCategoryId = (data) => {
+    return _.groupBy(data,function(item) {
+        return item.billCategory.id;
+    })
+}
 const GroupData = {
     GroupDataForMonth,
-    GroupDataForYear
+    GroupDataForYear,
+    GroupDataForCustomerId,
+    GroupDataForBillCategoryId
  }
  export default GroupData;
 
