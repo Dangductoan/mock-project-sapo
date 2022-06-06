@@ -14,7 +14,6 @@ function ReportForBillCategory() {
     const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForBillCategoryId(data.bills)
-    console.log(bills)
     const chartBillCategory = {
         labels: Object.keys(bills).map((key) => bills[key][0].billCategory.name),
         datasets: [

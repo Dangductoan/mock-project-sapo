@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ListCustomer.css";
 function ListCustomer(props) {
   const handleClick = () => {

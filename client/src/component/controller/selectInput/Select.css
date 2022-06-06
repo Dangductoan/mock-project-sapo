@@ -1,9 +1,10 @@
 .model-overlay {
-    z-index: -1;
+    z-index: 2;
     position: fixed;
     inset: 0px;
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
+    display: none;
 }
 .select-form {
     position: relative;
@@ -40,9 +41,11 @@
 }
 .rorate {
     transform: rotate(180deg);
+    z-index: 3;
 }
 .active {
     border-color: #0088FF;
+    z-index: 3;
 }
 .select-form_list li {
     cursor: pointer;

@@ -1,4 +1,4 @@
-import React, { useState,useRef, useEffect } from 'react'
+import React, { useState,useRef } from 'react'
 import './Form.css'
 import CustomerService from '../../api/CustomerService'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
