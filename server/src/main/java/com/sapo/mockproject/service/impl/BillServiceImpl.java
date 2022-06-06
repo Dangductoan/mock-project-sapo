@@ -1,18 +1,18 @@
 package com.sapo.mockproject.service.impl;
 
 import com.sapo.mockproject.domain.Bill;
-import com.sapo.mockproject.domain.BillCategory;
-import com.sapo.mockproject.domain.Customer;
 import com.sapo.mockproject.domain.RevenueStats;
+import com.sapo.mockproject.domain.User;
 import com.sapo.mockproject.dto.BillDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
-import com.sapo.mockproject.repository.*;
+import com.sapo.mockproject.repository.BillRepository;
+import com.sapo.mockproject.repository.GenericRepository;
+import com.sapo.mockproject.repository.RevenueStatsRepository;
+import com.sapo.mockproject.repository.UserRepository;
 import com.sapo.mockproject.security.UserDetailsImpl;
 import com.sapo.mockproject.service.BillService;
 import com.sapo.mockproject.service.mapper.GenericMapper;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,20 +27,16 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implem
 
     private final BillRepository billRepository;
 
-    private final CustomerRepository customerRepository;
-
-    private final BillCategoryRepository billCategoryRepository;
-
     private final RevenueStatsRepository revenueStatsRepository;
 
+    private final UserRepository userRepository;
+
     public BillServiceImpl(GenericRepository<Bill, Long> genericRepository, GenericMapper<Long, BillDTO, Bill> genericMapper,
-                           CustomerRepository customerRepository, BillCategoryRepository billCategoryRepository,
-                           RevenueStatsRepository revenueStatsRepository) {
+                           RevenueStatsRepository revenueStatsRepository, UserRepository userRepository) {
         super(genericRepository, genericMapper);
         this.billRepository = (BillRepository) genericRepository;
-        this.customerRepository = customerRepository;
-        this.billCategoryRepository = billCategoryRepository;
         this.revenueStatsRepository = revenueStatsRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -55,21 +51,11 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implem
     public BillDTO save(BillDTO billDTO) {
         if (checkUniqueFields(billDTO)) return null;
 
-        if (billDTO.getCustomer_id() != null) {
-            Optional<Customer> customer = customerRepository.findById(billDTO.getCustomer_id());
-            if (customer.isEmpty()) {
-                throw new InvalidResourceException("Customer doesn't exist!");
-            } else {
-                billDTO.setCustomer(customer.get());
-            }
-        }
-        if (billDTO.getBill_category_id() != null) {
-            Optional<BillCategory> billCategory = billCategoryRepository.findById(billDTO.getBill_category_id());
-            if (billCategory.isEmpty()) {
-                throw new InvalidResourceException("Bill Category doesn't exist!");
-            } else {
-                billDTO.setBillCategory(billCategory.get());
-            }
+        // check createdBy từ client truyền xuống
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByName(billDTO.getCreatedBy());
+        if (user.isEmpty() || !userDetails.getUsername().equals(user.get().getUsername())) {
+            throw new InvalidResourceException("Yêu cầu truyền đúng trường user.name từ user được trả về khi đăng nhập!");
         }
 
         billDTO.setCode(billDTO.getCode().toUpperCase());

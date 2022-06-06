@@ -11,6 +11,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -76,13 +77,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, ErrorDetails>> validateException(MethodArgumentNotValidException ex,
-                                                                              ServletWebRequest request) {
+                                                                       ServletWebRequest request) {
         Map<String, ErrorDetails> data = new HashMap<>();
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "Thông tin không hợp lệ!",
+                Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(),
                 request.getRequest().getRequestURI()
         );
         data.put("error", errorDetails);
