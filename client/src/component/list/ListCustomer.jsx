@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './ListCustomer.css'
 function ListCustomer(props) {
     const handleClick = () => {
@@ -11,7 +11,7 @@ function ListCustomer(props) {
         address:props.address
       })
       props.setShow(!props.show)
-      props. setIndex(props.index)
+      props.setIndex(props.index)
     }
   
     const handleChange = (id) => {

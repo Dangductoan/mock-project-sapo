@@ -4,7 +4,7 @@ import BillCategoryService from '../../api/BillCategoryService'
 function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl,showToast}) {
     const [billCategory, setBillCategory] = useState(action === 'Thêm' ? {
         name: '',
-        code: '',
+        code: Math.random().toString(36).substring(2,7).toLocaleUpperCase(),
         description: ''
     } : {
         name: bl.name,
