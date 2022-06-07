@@ -37,7 +37,7 @@ const deleteAccountant = (id) => {
     url: `chief-accountant/users/${id}`
   })
 }
-export const searchAccountant = ({ query, page, size }) => {
+ const searchAccountant = ({ query, page, size }) => {
   return call_api({
     url: "chief-accountant/users",
     method: "GET",

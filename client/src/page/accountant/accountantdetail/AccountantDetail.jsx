@@ -7,12 +7,9 @@ import {
   useHistory,
   useRouteMatch,
 } from "react-router-dom";
-
 import AccountantService from "../../../api/AccountantService";
-
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 
 import "./AccountantDetail.css";
 
