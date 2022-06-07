@@ -1,4 +1,5 @@
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import {
@@ -76,7 +77,7 @@ export default function BillDetail() {
           )
         }
       >
-        <ArrowBackIosNewIcon style={{ width: "15px" }} />
+        <FontAwesomeIcon icon={faAngleLeft} style={{ marginRight: "10px" }} />
         <span>Phiếu thu</span>
       </div>
       <div className="bill-heading">

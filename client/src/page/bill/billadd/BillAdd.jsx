@@ -1,4 +1,5 @@
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { faAngleLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
@@ -91,17 +92,18 @@ export default function BillAdd() {
           )
         }
       >
-        <ArrowBackIosNewIcon style={{ width: "15px" }} />
+        <FontAwesomeIcon icon={faAngleLeft} style={{ marginRight: "10px" }} />
         <span>Phiếu thu</span>
       </span>
       <div className="bill-heading">
         <h2>Thêm mới phiếu thu</h2>
         <button
-          className="btn-create"
+          className="btn-create btn__icon"
           onClick={() => {
             setCustomerAddModalOpen(true);
           }}
         >
+          <FontAwesomeIcon icon={faPlus} />
           Thêm mới khách hàng
         </button>
       </div>
