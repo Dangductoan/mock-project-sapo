@@ -14,6 +14,8 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends GenericRepository<Customer, Integer>{
     Optional<Customer> findByCode(String code);
+
+    Optional<Customer> findByEmail(String email);
     @Override
     @Query("SELECT c FROM Customer c where name = ?1")
     Page<Customer> fetchByQuery(String query, Pageable pageable);
