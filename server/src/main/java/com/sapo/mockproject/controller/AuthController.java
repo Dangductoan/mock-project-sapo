@@ -1,5 +1,6 @@
 package com.sapo.mockproject.controller;
 
+import com.sapo.mockproject.dto.UserAuthDTO;
 import com.sapo.mockproject.dto.UserDTO;
 import com.sapo.mockproject.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, UserDTO> login(@Valid @RequestBody UserDTO userDTO) {
+    public Map<String, UserDTO> login(@Valid @RequestBody UserAuthDTO userAuthDTO) {
         Map<String, UserDTO> data = new HashMap<>();
-        data.put(userDTO.responseDataName(), authService.login(userDTO));
+        data.put(userAuthDTO.responseDataName(), authService.login(userAuthDTO));
         return data;
     }
 
