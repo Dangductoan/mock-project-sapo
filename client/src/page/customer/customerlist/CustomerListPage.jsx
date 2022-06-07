@@ -58,7 +58,7 @@ function CustomerListPage() {
   return (
     <div className="customer-list">
       <div className="customer-header">
-        <h2>Phiếu thu</h2>
+        <h2>Danh sách khách hàng</h2>
         <div className="customer-header__right">
           <p>Xin chào "{user.name}"</p>
           <Link to={match.path} onClick={() => AuthService.logout()}>
@@ -71,7 +71,7 @@ function CustomerListPage() {
           className="btn-create"
           onClick={() => history.push(`${match.path}/create`)}
         >
-          Tạo phiếu thu
+          Tạo khách hàng
         </button>
       </div>
       <div className="customer-list-content">
@@ -97,7 +97,6 @@ function CustomerListPage() {
                 <th>Địa chỉ</th>
                 <th>Số điện thoại</th>
                 <th>Người tạo</th>
-                <th>Ngày tạo</th>
                 
               </tr>
             </thead>
@@ -116,7 +115,6 @@ function CustomerListPage() {
                     <td>{customer.phoneNumber}</td>
                     <td>{customer.createdBy}</td>
                    
-                    <td>{moment(customer.createdAt).format("DD/MM/YYYY hh:mm")}</td>
                   </tr>
                 );
               })}

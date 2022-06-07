@@ -99,8 +99,8 @@ export default function CustomerAdd() {
                   onChange={customer.handleChange}
                 >
                   <option value="">Chọn nhóm khách hàng</option>
-                  <option value="Bán lẻ">Bán lẻ</option>
-                  <option value="Bán buôn">Bán buôn</option>
+                  <option value="Ban le">Bán lẻ</option>
+                  <option value="Ban buon">Bán buôn</option>
                 </select>
                 {customer.touched.groupCustomer &&
                   customer.errors.groupCustomer && (
