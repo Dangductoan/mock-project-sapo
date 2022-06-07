@@ -1,0 +1,97 @@
+.customer-list {
+  padding-bottom: 20px;
+}
+
+.customer-list > * {
+  padding: 0 50px;
+}
+
+.customer-header {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+}
+
+.customer-header__right {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 50px;
+}
+
+.customer-option {
+  display: flex;
+  position: relative;
+  height: 70px;
+  align-items: center;
+}
+
+.customer-option > button {
+  position: absolute;
+  right: 50px;
+}
+
+.option-excel {
+  cursor: pointer;
+}
+
+.customer-list-content {
+  background-color: #fff;
+  padding: 10px;
+  margin: 0 40px;
+  border-radius: 5px;
+}
+
+.customer-searchbar {
+  display: flex;
+  border: 1px solid rgb(232, 234, 235);
+  border-radius: 3px;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.customer-searchbar input {
+  display: inline-block;
+  width: 100%;
+  border: 0;
+  outline: none;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.customer-table {
+  border-spacing: 0;
+  width: 100%;
+  font-size: 13px;
+}
+
+.customer-table th {
+  height: 40px;
+  border-bottom: 1px solid #dfe4e8;
+  font-weight: 600;
+  color: black;
+}
+
+.customer-table td {
+  height: 45px;
+  border-bottom: 1px solid rgb(223, 228, 232);
+  font-weight: 300;
+}
+
+.customer-table tbody tr:hover {
+  cursor: pointer;
+  background-color: #f4f6f8;
+}
+
+.customer-table th,
+.customer-table td {
+  text-align: left;
+  padding: 0 10px;
+}
+
+.pagination {
+  margin-top: 20px;
+}
