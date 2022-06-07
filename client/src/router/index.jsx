@@ -116,11 +116,21 @@ function RouterDefined() {
         <Route>
           <DefaultLayout>
             <Switch>
-              <Route path="/about" component={About} />
-              <Route path="/customer" component={Customer} />
-              <Route path="/login" component={Login} />
-              <Route path="/support" component={Support} />
-              <Route path="/" exact component={Home} />
+              <Route path="/about" component={About}>
+                {redirectToDashboard("/about")}
+              </Route>
+              <Route path="/customer" component={Customer}>
+                {redirectToDashboard("/customer")}
+              </Route>
+              <Route path="/login" component={Login}>
+                {redirectToDashboard("/login")}
+              </Route>
+              <Route path="/support" component={Support}>
+                {redirectToDashboard("/support")}
+              </Route>
+              <Route path="/" exact component={Home}>
+                {redirectToDashboard("/")}
+              </Route>
               <Route path="/*" exact component={NotFound}>
                 {redirectToNotFoundPage}
               </Route>
@@ -142,7 +152,23 @@ function redirectToNotFoundPage() {
       case "ROLE_CHIEF_ACCOUNTANT":
         return <Redirect to="/chief-accountant/404" />;
       default:
-        break;
+        return null;
+    }
+  }
+  return null;
+}
+
+function redirectToDashboard(baseRoute) {
+  const user = AuthService.getUserFormLocalStorage();
+
+  if (user) {
+    switch (user.role?.name) {
+      case "ROLE_ACCOUNTANT":
+        return <Redirect to="/accountant" />;
+      case "ROLE_CHIEF_ACCOUNTANT":
+        return <Redirect to="/chief-accountant" />;
+      default:
+        return <Redirect to={baseRoute} />;
     }
   }
   return null;
