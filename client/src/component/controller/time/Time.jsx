@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import Select from '../selectInput/Select'
 import List from '../selectInput/List'
 import {useSelect} from '../../../context/Provider'
