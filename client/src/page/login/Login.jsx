@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AuthService from "../../api/AuthService";
-
+import logo from "./logo.svg"
+import "./Login.css"
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,23 +28,41 @@ function Login() {
 
   return (
     <>
-      <div>
+    <div className="login-container">
+      <div className="login-logo" >
+        <img  src={logo}/>
+      </div>
+    <div className="login-form">
         <form onSubmit={handleLogin}>
-          <label>Username</label>
+          <div className="form-ele">
           <input
             type="text"
-            className="input"
+            className="input-name"
+            placeholder="Tên đăng nhập của bạn"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
-          <label>Password</label>
+          </div>
+        
+          <div className="form-ele">
           <input
             type="password"
+            className="input-password"
+            placeholder="Mật khẩu đăng nhập"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <input type="submit" value="Đăng Nhập" />
+          </div>
+
+          <div className="form-ele">
+          <input className="input-submit" type="submit" value="Đăng Nhập" />
+          </div>
+        
+          
+         
         </form>
         {error && <p style={{ color: "red" }}>{error.message}</p>}
       </div>
+    </div>
+       
     </>
   );
 }
