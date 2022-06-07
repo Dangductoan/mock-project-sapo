@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { useHistory, useRouteMatch, Link } from "react-router-dom";
+import {
+  faDownload,
+  faMagnifyingGlass,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import SearchIcon from "@mui/icons-material/Search";
-import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
+import { useEffect, useState } from "react";
+import { useHistory, useRouteMatch } from "react-router-dom";
+import BillService from "../../../api/BillService";
 import SingleModal from "../../../component/modal/singlemodal/SingleModal";
 import ReactNumberTextFormat from "../../../component/numberformat/template/ReactNumberTextFormat";
-
-import BillService from "../../../api/BillService";
-import AuthService from "../../../api/AuthService";
-import { exportBillList } from "./excel";
-
+import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
 import "./BillListPage.css";
+import { exportBillList } from "./excel";
 
 const ITEM_PER_PAGE = 20;
 
@@ -74,9 +74,6 @@ function BillListPage() {
         <h2>Phiếu thu</h2>
         <div className="bill-header__right">
           <p>Xin chào "{user.name}"</p>
-          <Link to={match.path} onClick={() => AuthService.logout()}>
-            Logout
-          </Link>
         </div>
       </div>
       <div className="bill-option">
@@ -85,21 +82,25 @@ function BillListPage() {
             className="export-excel"
             onClick={() => setOpenExportExcelModal(true)}
           >
-            <FileDownloadIcon />
+            <FontAwesomeIcon
+              icon={faDownload}
+              className="svg-khutx"
+            />
             <span>Xuất file</span>
           </div>
         </div>
         <button
-          className="btn-create"
+          className="btn-create btn__icon"
           onClick={() => history.push(`${match.path}/create`)}
         >
+          <FontAwesomeIcon icon={faPlus} />
           Tạo phiếu thu
         </button>
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
           <div className="bill-searchbar">
-            <SearchIcon />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
               type="text"
               placeholder="Tìm theo mã phiếu, loại phiếu, hình thức thanh toán và người tạo"
@@ -117,8 +118,8 @@ function BillListPage() {
                 <th>Loại phiếu</th>
                 <th>Hình thức thanh toán</th>
                 <th>Người tạo</th>
-                <th>Số tiền thu</th>
-                <th>Ngày ghi nhận</th>
+                <th className="table__price">Số tiền thu</th>
+                <th className="table__price">Ngày ghi nhận</th>
               </tr>
             </thead>
             <tbody>
@@ -133,10 +134,10 @@ function BillListPage() {
                     <td>{bill.billCategory.name}</td>
                     <td>{bill.payment}</td>
                     <td>{bill.createdBy}</td>
-                    <td>
+                    <td className="table__price">
                       <ReactNumberTextFormat value={bill.totalValue} />
                     </td>
-                    <td>{moment(bill.createdAt).format("DD/MM/YYYY hh:mm")}</td>
+                    <td className="table__price">{moment(bill.createdAt).format("DD/MM/YYYY hh:mm")}</td>
                   </tr>
                 );
               })}

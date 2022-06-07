@@ -7,7 +7,7 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
-  color: rgb(112, 112, 112);
+  color: #212529;
   overflow-x: hidden;
   background-color: #f4f6f8;
 }
@@ -121,4 +121,8 @@ svg, select {
   color: red;
   font-size: 13px;
   margin-top: 5px;
+}
+
+.btn__icon > svg {
+  margin-right: 10px;
 }

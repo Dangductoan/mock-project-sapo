@@ -54,22 +54,6 @@ function RouterDefined() {
                   exact
                   component={BillDetail}
                 />
-                <Route
-                  path="/accountant/customers"
-                  exact
-                  component={CustomerListPage}
-                />
-                <Route
-                  path="/accountant/customers/create"
-                  exact
-                  component={CustomerAdd}
-                />
-                <Route
-                  path="/accountant/customers/:id"
-                  exact
-                  component={CustomerDetail}
-                />
-
                 <Route path="/*" exact component={NotFound} />
               </Switch>
             </AccountantLayout>
