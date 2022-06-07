@@ -28,7 +28,7 @@ export default function CustomerAdd() {
       CustomerService.createCustomer({
         ...customer,
         createdBy:user.name,
-        code:"CRNN"
+        code:makeid()
         
       })
         .then((res) => {
@@ -42,7 +42,16 @@ export default function CustomerAdd() {
         });
     },
   });
-
+  const makeid=()=> {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (var i = 0; i < 5; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+    return text;
+  }
+  
   const showToast = (message, type) => {
     if (type === "error") toast.error(message);
     else toast.success(message);
