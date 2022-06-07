@@ -5,9 +5,11 @@
     
 }
 .login-logo{
-width: 150px;
-height: 150px;
-padding-top:50px ;
+  
+    width: 150px;
+    height: 150px;
+    padding-top:50px ;
+    vertical-align: middle
 }
    
 

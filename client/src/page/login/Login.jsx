@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AuthService from "../../api/AuthService";
 import logo from "./logo.svg"
+import "./Login.css"
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,8 +29,8 @@ function Login() {
   return (
     <>
     <div className="login-container">
-      <div className="login-logo">
-        <img src={logo}/>
+      <div className="login-logo" >
+        <img  src={logo}/>
       </div>
     <div className="login-form">
         <form onSubmit={handleLogin}>
