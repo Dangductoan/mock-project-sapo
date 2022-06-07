@@ -102,7 +102,7 @@ function BillListPage() {
             <SearchIcon />
             <input
               type="text"
-              placeholder="Tìm theo..."
+              placeholder="Tìm theo mã phiếu, loại phiếu, hình thức thanh toán và người tạo"
               onKeyPress={(e) => {
                 if (e.key === "Enter") setQuery(e.target.value);
               }}
@@ -123,7 +123,6 @@ function BillListPage() {
             </thead>
             <tbody>
               {bills.map((bill) => {
-                // const createdAt = bill.createdAt.toString().slice(0,10)
                 console.log(bill.createdAt);
                 return (
                   <tr

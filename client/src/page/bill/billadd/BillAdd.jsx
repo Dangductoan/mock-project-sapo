@@ -3,13 +3,12 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as Yup from "yup";
 import BillCategoryService from "../../../api/BillCategoryService";
 import BillService from "../../../api/BillService";
 import CustomerService from "../../../api/CustomerService";
-import ReactNumberFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
+import ReactNumberInputFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
-import { CODE_REGEX } from "../../../utils/regex";
+import { validateBillCreate } from "../../../validation/bill";
 import "./BillAdd.css";
 import CustomerAddModal from "./customeradd/CustomerAddModal";
 
@@ -28,7 +27,7 @@ export default function BillAdd() {
       payment: "",
       description: "",
     },
-    validationSchema: validateBill,
+    validationSchema: validateBillCreate,
     onSubmit: (bill) => {
       let billCategory = billCategories.find(
         ({ name }) => name === `${bill.billCategoryName}`
@@ -36,13 +35,14 @@ export default function BillAdd() {
       let customer = customers.find(
         ({ name }) => name === `${bill.customerName}`
       );
+      if (!Number.isInteger(bill.totalValue))
+        bill.totalValue = parseFloat(bill.totalValue.replace(/,/g, ""));
       BillService.createBill({
         ...bill,
         billCategory,
         customer,
         createdBy: user.name,
         modifidedBy: user.name,
-        totalValue: parseFloat(bill.totalValue.replace(/,/g, "")),
       })
         .then((res) => {
           let path = match.path.substring(0, match.path.lastIndexOf("/"));
@@ -150,7 +150,6 @@ export default function BillAdd() {
               <div>
                 <p>Mã phiếu *</p>
                 <input
-                  type="text"
                   name="code"
                   onBlur={bill.handleBlur}
                   onChange={bill.handleChange}
@@ -161,11 +160,9 @@ export default function BillAdd() {
               </div>
               <div>
                 <p>Giá trị *</p>
-                <ReactNumberFormat
+                <ReactNumberInputFormat
                   name="totalValue"
-                  onChange={(e) =>
-                    bill.setFieldValue([e.target.name], e.target.value)
-                  }
+                  onChange={bill.handleChange}
                   onBlur={bill.handleBlur}
                 />
                 {bill.touched.totalValue && bill.errors.totalValue && (
@@ -226,17 +223,3 @@ export default function BillAdd() {
     </div>
   );
 }
-
-const validateBill = Yup.object().shape({
-  billCategoryName: Yup.string().required("Chưa chọn Loại phiếu thu"),
-  customerName: Yup.string().required("Chưa chọn tên khách hàng"),
-  code: Yup.string()
-    .required("Chưa nhập mã phiếu thu")
-    .matches(
-      CODE_REGEX,
-      "Mã phiếu thu chỉ chứa chữ hoa và số, không chứa dấu cách"
-    ),
-  payment: Yup.string().required("Chưa chọn hình thức thanh toán"),
-  totalValue: Yup.string().required("Chưa nhập giá trị phiếu thu"),
-  description: Yup.string().notRequired(),
-});
