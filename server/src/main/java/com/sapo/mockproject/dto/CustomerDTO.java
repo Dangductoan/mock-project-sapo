@@ -10,18 +10,20 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class CustomerDTO extends BaseDTO<Integer>{
-
+    @NotNull(message = "Chưa nhập tên")
     private String name;
 
-    @NotNull
     private String code;
 
+    @NotNull(message = "Chưa nhập số điện thoại")
     private String phoneNumber;
 
+    @NotNull(message = "Chưa nhập địa chỉ")
     private String address;
 
     private String email;
 
+    @NotNull(message = "Chưa chọn nhóm khách hàng")
     private String groupCustomer;
 
     private String createdBy;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/v1/chief-accountant/user")
+@RequestMapping("/api/v1/chief-accountant/users")
 
 public class UserController extends BaseController<Integer, UserDTO> {
 

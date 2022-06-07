@@ -31,4 +31,5 @@ public interface UserRepository extends GenericRepository<User, Integer> {
     @Override
     @Query("SELECT u FROM User u where name = ?1")
     Long countSearch(String query);
+
 }
