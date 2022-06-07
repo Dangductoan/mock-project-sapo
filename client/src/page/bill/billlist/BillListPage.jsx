@@ -14,7 +14,7 @@ import { exportBillList } from "./excel";
 
 import "./BillListPage.css";
 
-const ITEM_PER_PAGE = 10;
+const ITEM_PER_PAGE = 20;
 
 function BillListPage() {
   let user = JSON.parse(localStorage.getItem("user"));
