@@ -64,8 +64,8 @@ function BillListPage() {
       createdAt: moment(bill.createdAt).format("DD/MM/YYYY hh:mm"),
       modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY hh:mm"),
     }));
-
-    exportBillList(data);
+     console.log([{x:"helli",y:"hello"},...data])
+    // exportBillList(data);
   };
 
   return (

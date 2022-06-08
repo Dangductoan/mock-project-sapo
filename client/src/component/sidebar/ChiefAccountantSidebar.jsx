@@ -145,6 +145,7 @@ function SideBarChief() {
         setOpen={setOpenLogoutModal}
         title="Bạn có chắc muốn đăng xuất"
         onConfirm={AuthService.logout}
+        style={{zIndex:'1000'}}
       />
     </div>
   );
