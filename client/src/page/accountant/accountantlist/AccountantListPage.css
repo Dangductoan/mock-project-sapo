@@ -1,12 +1,12 @@
-.bill-list {
+.accountant-list {
   padding-bottom: 20px;
 }
 
-.bill-list > * {
+.accountant-list > * {
   padding: 0 50px;
 }
 
-.bill-header {
+.accountant-header {
   display: flex;
   position: relative;
   background-color: #fff;
@@ -15,21 +15,21 @@
   align-items: center;
 }
 
-.bill-header__right {
+.accountant-header__right {
   display: flex;
   align-items: center;
   position: absolute;
   right: 50px;
 }
 
-.bill-option {
+.accountant-option {
   display: flex;
   position: relative;
   height: 70px;
   align-items: center;
 }
 
-.bill-option > button {
+.accountant-option > button {
   position: absolute;
   right: 50px;
 }
@@ -38,69 +38,60 @@
   cursor: pointer;
 }
 
-.bill-list-content {
+.accountant-list-content {
   background-color: #fff;
   padding: 10px;
-  margin: 0 50px;
+  margin: 0 40px;
   border-radius: 5px;
 }
 
-.bill-searchbar {
+.accountant-searchbar {
   display: flex;
   border: 1px solid rgb(232, 234, 235);
   border-radius: 3px;
   align-items: center;
-  padding: 10px 15px;
   margin: 15px 0;
 }
 
-.bill-searchbar input {
+.accountant-searchbar input {
   display: inline-block;
   width: 100%;
   border: 0;
   outline: none;
+  padding: 10px 5px;
   width: 100%;
 }
 
-.bill-table {
+.accountant-table {
   border-spacing: 0;
   width: 100%;
   font-size: 13px;
 }
 
-.bill-table th {
+.accountant-table th {
   height: 40px;
   border-bottom: 1px solid #dfe4e8;
   font-weight: 600;
   color: black;
 }
 
-.bill-table td {
+.accountant-table td {
   height: 45px;
   border-bottom: 1px solid rgb(223, 228, 232);
   font-weight: 300;
 }
 
-.bill-table tbody tr:hover {
+.accountant-table tbody tr:hover {
   cursor: pointer;
   background-color: #f4f6f8;
 }
 
-.bill-table th,
-.bill-table td {
+.accountant-table th,
+.accountant-table td {
   text-align: left;
   padding: 0 10px;
 }
 
 .pagination {
   margin-top: 20px;
-}
-
-.svg-khutx {
-  color: rgb(163, 168, 175);
-  margin-right: 10px;
-}
-
-.bill-table .table__price {
-  text-align: right;
 }

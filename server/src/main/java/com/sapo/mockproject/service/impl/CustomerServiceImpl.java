@@ -39,6 +39,8 @@ public class CustomerServiceImpl extends BaseServiceImpl<Integer, CustomerDTO, C
             throw new InvalidResourceException("Mã khách hàng đã tồn tại!");
 //        if (userRepository.findByName(customerDTO.getCreatedBy()).isEmpty())
 //            throw new InvalidResourceException("Tên kế toán viên không tồn tại!");
+        if (customerRepository.findByEmail(customerDTO.getEmail()).isPresent())
+            throw new InvalidResourceException("Email đã được sử dụng!");
         return false;
     }
 

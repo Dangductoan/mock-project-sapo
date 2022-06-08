@@ -15,7 +15,7 @@ function Navbar() {
              <li className='navbar_list-item'>
                  <Link className='navbar_list-item_link'to='/about'>About</Link></li>
              <li className='navbar_list-item'>
-                 <Link className='navbar_list-item_link'to='/customer'>Customer</Link></li>
+                 <Link className='navbar_list-item_link'to='/product'>Product</Link></li>
              <li className='navbar_list-item'>
                  <Link className='navbar_list-item_link'to='/support'>Support</Link></li>
              <li className='navbar_list-item'>

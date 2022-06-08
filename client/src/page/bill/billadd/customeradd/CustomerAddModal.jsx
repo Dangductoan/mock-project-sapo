@@ -154,7 +154,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                     onBlur={customer.handleBlur}
                   >
                     <option value="">Chọn nhóm khách hàng</option>
-                    <option value="Tiền mặt">Enterprise</option>
+                    <option value="Enterprise">Enterprise</option>
                     <option value="Bán buôn">Bán buôn</option>
                     <option value="Bán lẻ">Bán lẻ</option>
                   </select>

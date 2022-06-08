@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
     }
 
     @PutMapping("{id}")
-    public Map<String, D> update(@Validated @RequestBody D d, @PathVariable ID id) {
+    public Map<String, D> update(@Validated @RequestBody D d, @Positive @PathVariable ID id) {
         d.setId(id);
         Map<String, D> data = new HashMap<>();
         data.put(d.responseDataName(), genericService.update(d));
@@ -38,14 +39,14 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
     }
 
     @GetMapping("{id}")
-    public Map<String, D> getById(@PathVariable ID id) {
+    public Map<String, D> getById(@Positive @PathVariable ID id) {
         Map<String, D> data = new HashMap<>();
         data.put(dto.responseDataName(), genericService.getById(id));
         return data;
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable ID id) {
+    public void delete(@Positive @PathVariable ID id) {
         genericService.deleteById(id);
     }
 

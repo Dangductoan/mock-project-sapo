@@ -1,70 +1,66 @@
-.bill-add {
-  padding: 40px 80px;
+.accountant-add {
+  padding: 40px 40px;
   height: 100%;
   width: 100%;
   background-color: #f4f6f8;
 }
 
-.bill-heading {
+.accountant-heading {
   display: flex;
   vertical-align: center;
   position: relative;
 }
 
-.bill-heading > button {
+.accountant-heading > button {
   position: absolute;
   right: 0;
 }
 
-.bill-content {
+.accountant-content {
   margin-top: 50px;
   margin-bottom: 150px;
   display: flex;
   gap: 20px;
 }
 
-.bill-content > * {
-  box-shadow: 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%);
-}
-
-.bill-info,
-.bill-description {
+.accountant-info,
+.accountant-description {
   border-radius: 2px;
   background-color: #fff;
-  padding: 20px;
+  padding: 20px 160px;
 }
 
-.bill-info > div {
+.accountant-info > div {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
-.bill-info > h3 {
+.accountant-info > h3 {
   margin-bottom: 20px;
 }
 
-.bill-info div > p {
+.accountant-info div > p {
   margin-bottom: 10px;
 }
 
-.bill-info div > select,
-.bill-info div > input,
-.bill-description textarea {
+.accountant-info div > select,
+.accountant-info div > input,
+.accountant-description textarea {
   display: inline-block;
   width: 300px;
   height: 35px;
   padding: 5px;
-  border: 1px solid rgb(196, 205, 213);
+  border: 1px solid #95a7b7;
   border-radius: 3px;
   outline: none;
 }
 
-.bill-info .text-danger {
+.accountant-info .text-danger {
   width: 300px;
 }
 
-.bill-description textarea {
+.accountant-description textarea {
   margin-top: 20px;
   height: 100px;
 }
@@ -76,6 +72,18 @@
   border: 1px solid #08f;
   cursor: pointer;
   box-shadow: inset 0 1px 0 0 #1391ff;
+  padding: 10px 15px;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+.btn-delete {
+  background-color: red;
+  color: #fff;
+  outline: none;
+  border: 1px solid #fff;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 red;
   padding: 10px 15px;
   font-family: inherit;
   white-space: nowrap;
@@ -99,7 +107,7 @@
   margin-right: 10px;
 }
 
-.bill-add-submit {
+.accountant-add-submit {
   padding-top: 20px;
   text-align: right;
   border-top: 1px solid rgb(196, 205, 213);

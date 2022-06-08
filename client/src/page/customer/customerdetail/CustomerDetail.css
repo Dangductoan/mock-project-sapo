@@ -7,8 +7,6 @@
   background-color: #e9ecef;
 }
 
-.bill-bread-crumb {
-  display: inline-block;
+.customer-bread-crumb {
   cursor: pointer;
-  margin-bottom: 20px;
 }

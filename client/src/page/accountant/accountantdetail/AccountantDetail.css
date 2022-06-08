@@ -8,7 +8,5 @@
 }
 
 .bill-bread-crumb {
-  display: inline-block;
   cursor: pointer;
-  margin-bottom: 20px;
 }
