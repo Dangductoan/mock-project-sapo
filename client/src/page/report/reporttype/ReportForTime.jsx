@@ -14,10 +14,8 @@ function ReportForTime() {
     const cd = useSelect()
     const time = cd.data.time
     const revenues = ReportController.GetData()
-    console.log(revenues)
     const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
     const revenuesMonth = revenues !== undefined && GroupData.GroupDataForMonth(revenues)
-    console.log(revenuesMonth)
     const revenuesYear = revenues !== undefined && GroupData.GroupDataForYear(revenues)
     const shape = cd.data.shape
     const chartData = {

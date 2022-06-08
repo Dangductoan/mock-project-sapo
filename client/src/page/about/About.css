@@ -1,0 +1,49 @@
+.about {
+    background-image: url(https://www.sapo.vn/Themes/Portal/Default/Images/aboutus/bg-banner-update-2.png);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 238px 0 188px;
+    
+}
+
+
+.about-title {
+    padding: 0 0 25px;
+    font-weight: 300;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 1.231;
+    text-align: center;
+}
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.about-separate {
+    background: linear-gradient(to right, #2ad38b, #0cceb0);
+    height: 2px;
+    width: 200px;
+    margin-bottom: 25px ;
+    text-align: center;
+}
+
+.about-info {
+    font-size: 21px;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 55px;
+    line-height: 1.2;
+    /* margin: 0 60px; */
+}
+
+.about-btn {
+    color: #fff;
+
+}

@@ -7,7 +7,7 @@ import Time from '../../component/controller/time/Time'
 import ReportForTime from './reporttype/ReportForTime'
 import ReportForCustomer from './reporttype/ReportForCustomer'
 import ReportForBillCategory from './reporttype/ReportForBillCategory'
-import {useSelect} from '../../context/Provider'
+import { useSelect } from '../../context/Provider'
 function Report() {
   const cd = useSelect()
   const type = cd.data.type
@@ -25,15 +25,18 @@ function Report() {
           <Time />
         </div>
         <div className="report-content_data">
-        {type==="Theo thời gian" && <ReportForTime/>}
-        {type==="Theo khách hàng" && <ReportForCustomer/>}
-        {/* {type==="Theo nhân viên kế toán" && <ReportForAccountant/>} */}
-        {type==="Theo loại phiếu thu" && <ReportForBillCategory/>}
+          {type === "Theo thời gian" && <ReportForTime />}
+          {type === "Theo khách hàng" && <ReportForCustomer />}
+          {/* {type==="Theo nhân viên kế toán" && <ReportForAccountant/>} */}
+          {type === "Theo loại phiếu thu" && <ReportForBillCategory />}
 
         </div>
         <div className="report-content_footer">
 
         </div>
+      </div>
+      <div className="model-overlay" >
+
       </div>
     </div>
 

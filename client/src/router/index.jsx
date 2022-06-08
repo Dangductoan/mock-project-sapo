@@ -20,6 +20,7 @@ import Login from "../page/login/Login";
 import NotFound from "../page/notfound/NotFound";
 import Support from "../page/support/Support";
 import Report from "../page/report/Report";
+import Product from "../page/product/Product";
 import BillDetail from "../page/bill/billdetail/BillDetail";
 import AccountantDetail from "../page/accountant/accountantdetail/AccountantDetail";
 import AccountantAdd from "../page/accountant/accountantadd/AccountantAdd";
@@ -135,9 +136,9 @@ function RouterDefined() {
               <Route path="/about" component={About}>
                 {redirectToDashboard("/about")}
               </Route>
-              {/* <Route path="/customer" component={Customer}>
-                {redirectToDashboard("/customer")}
-              </Route> */}
+              <Route path="/product" component={Product}>
+                {redirectToDashboard("/product")}
+              </Route>
               <Route path="/login" component={Login}>
                 {redirectToDashboard("/login")}
               </Route>

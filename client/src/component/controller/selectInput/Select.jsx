@@ -1,14 +1,23 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import "./Select.css"
 
 function Select({list,cl}) {
     const [show,setShow] = useState(false)
     const [isActive,setActive] = useState(false)
-   
     const handleClick = () => {
         setShow(!show)
         setActive(!isActive)
+        document.querySelector('.model-overlay').classList.toggle('block')
     }
+    useEffect(() => {
+      document.querySelector('.model-overlay').addEventListener('click',function() {
+        document.querySelector('.model-overlay').classList.remove('block')
+        setShow(false)
+        setActive(false)
+      })
+
+    },[show,isActive])
+  
     
     
      
@@ -25,9 +34,7 @@ function Select({list,cl}) {
                 </ul>
         </div>}
     </div>
-    <div className="model-overlay" >
-     
-    </div>
+   
     </>
       
     
