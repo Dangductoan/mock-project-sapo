@@ -10,6 +10,7 @@ function MonthAndYearReport({value,k}) {
         a:0,
         b:0,
     })
+    console.log('addd')
     
     return (
         <div className="row-report" >

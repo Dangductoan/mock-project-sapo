@@ -7,13 +7,28 @@ import GroupData from '../../../component/groupdata/GroupData'
 import RowBillCategoryReport from '../../../component/row/RowBillCategoryReport'
 import BarChart from '../../../component/chart/BarChart'
 import LineChart from '../../../component/chart/LineChart'
-
+import {exports} from '../excel/ReportExcelType'
 function ReportForBillCategory() {
     const cd = useSelect()
+    const type = cd.data.type
     const shape = cd.data.shape
     const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForBillCategoryId(data.bills)
+    // console.log(bills)
+    const newData = Object.keys(bills).map((key) => {
+        return {
+            name:bills[key][0].billCategory.name,
+            code:bills[key][0].billCategory.code,
+            count:bills[key].length,
+            description:bills[key][0].billCategory.description,
+            
+        }
+    })
+    const handleClick = () => {
+        exports(newData,type)
+    }
+    // console.log(newData)
     const chartBillCategory = {
         labels: Object.keys(bills).map((key) => bills[key][0].billCategory.name),
         datasets: [
@@ -37,7 +52,7 @@ function ReportForBillCategory() {
 
             </div>
             <div className="horizontal"></div>
-            <div className="report-content_data-table">
+            <div className="report-content_data-table" style={{textAlign:'center'}}>
                 <div className="report-column columns">
                     <h5>Loại phiếu thu  </h5>
                     <h5>Mã phiếu thu </h5>
@@ -50,6 +65,9 @@ function ReportForBillCategory() {
                         <RowBillCategoryReport key={i} k={key} value={bills[key]} />
                     )
                 })}
+                <button className='btn' style={{margin:"40px 60px 40px 0",}} onClick={handleClick}>
+            <svg className="MuiSvgIcon-root"  style={{width:'10px'}} focusable="false" viewBox="0 0 14 20" aria-hidden="true"><path d="M6 8.74228e-08L6 12.17L2.41 8.59L1 10L7 16L13 10L11.59 8.59L8 12.17L8 0L6 8.74228e-08Z" fill="currentColor"></path><path d="M0 18H14V20H0V18Z" fill="currentColor"></path></svg>
+              Xuất ra file excel</button>
             </div>
         </>
     )
