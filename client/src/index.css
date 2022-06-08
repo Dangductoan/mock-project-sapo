@@ -126,3 +126,7 @@ svg, select {
 .btn__icon > svg {
   margin-right: 10px;
 }
+
+.required-asterisk {
+  color: red;
+}

@@ -1,4 +1,5 @@
-import CloseIcon from "@mui/icons-material/Close";
+import { faArrowsRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -13,6 +14,7 @@ import {
   VIETNAMESE_NAME_REGEX,
   VIETNAM_PHONE_REGEX,
 } from "../../../../utils/regex";
+import { randomCode } from "../../../../utils/StringRandom";
 import "./CustomerAddModal.css";
 
 export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
@@ -31,9 +33,9 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
     onSubmit: (customer) => {
       // them truong createdBy tu user localStorage vao customer
       CustomerService.createCustomer({ ...customer, createdBy: user.name })
-        .then(() => {
+        .then((res) => {
           showToast("Thêm khách hàng thành công", "success");
-          onCustomerChange();
+          onCustomerChange(res.data?.customer);
           setOpen(false);
         })
         .catch(({ response }) => {
@@ -69,13 +71,18 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
           <form className="modal-form" onSubmit={customer.handleSubmit}>
             <div className="modal-title">
               <h3>Thêm mới khách hàng</h3>
-              <CloseIcon onClick={handleOpen} />
+              <FontAwesomeIcon
+                icon={faXmark}
+                onClick={handleOpen}
+                style={{ width: "20px", height: "20px" }}
+              />
             </div>
             <div className="modal-content">
               <div className="content-field">
-                <label>Tên khách hàng *</label>
+                <label>Tên khách hàng <span className="required-asterisk">*</span></label>
                 <div className="field-input">
                   <input
+                    className="customer-input"
                     type="text"
                     name="name"
                     onChange={customer.handleChange}
@@ -87,23 +94,34 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 </div>
               </div>
               <div className="content-field">
-                <label>Mã khách hàng *</label>
+                <label>Mã khách hàng <span className="required-asterisk">*</span></label>
                 <div className="field-input">
-                  <input
-                    type="text"
-                    name="code"
-                    onBlur={customer.handleBlur}
-                    onChange={customer.handleChange}
-                  />
+                  <span className="customer-input">
+                    <input
+                      className="input-hidden"
+                      name="code"
+                      onBlur={customer.handleBlur}
+                      onChange={customer.handleChange}
+                      value={customer.values.code}
+                    />
+                    <FontAwesomeIcon
+                      icon={faArrowsRotate}
+                      onClick={() => {
+                        customer.setFieldValue("code", randomCode(10));
+                      }}
+                      title="Tự động tạo"
+                    />
+                  </span>
                   {customer.touched.code && customer.errors.code && (
                     <div className="text-danger">{customer.errors.code}</div>
                   )}
                 </div>
               </div>
               <div className="content-field">
-                <label>Số điện thoại *</label>
+                <label>Số điện thoại <span className="required-asterisk">*</span></label>
                 <div className="field-input">
                   <input
+                    className="customer-input"
                     type="text"
                     name="phoneNumber"
                     onBlur={customer.handleBlur}
@@ -121,6 +139,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 <label>Địa chỉ</label>
                 <div className="field-input">
                   <input
+                    className="customer-input"
                     type="text"
                     name="address"
                     onBlur={customer.handleBlur}
@@ -135,6 +154,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 <label>Email</label>
                 <div className="field-input">
                   <input
+                    className="customer-input"
                     type="text"
                     name="email"
                     onBlur={customer.handleBlur}
@@ -146,9 +166,10 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 </div>
               </div>
               <div className="content-field">
-                <label>Nhóm khách hàng</label>
+                <label>Nhóm khách hàng <span className="required-asterisk">*</span></label>
                 <div className="field-input">
                   <select
+                    className="customer-input"
                     name="groupCustomer"
                     onChange={customer.handleChange}
                     onBlur={customer.handleBlur}
