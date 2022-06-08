@@ -7,7 +7,7 @@
 
 .bill-heading {
   display: flex;
-  vertical-align: center;
+  align-items: center;
   position: relative;
 }
 
@@ -50,6 +50,7 @@
 
 .bill-info div > select,
 .bill-info div > input,
+.bill-info div > span,
 .bill-description textarea {
   display: inline-block;
   width: 300px;
@@ -58,6 +59,19 @@
   border: 1px solid rgb(196, 205, 213);
   border-radius: 3px;
   outline: none;
+}
+
+.bill-info div span {
+  padding: 0;
+}
+
+.input-hidden {
+  display: inline-block;
+  height: 100%;
+  width: calc(100% - 17px);
+  padding: 5px;
+  outline: none;
+  border: 0;
 }
 
 .bill-info .text-danger {

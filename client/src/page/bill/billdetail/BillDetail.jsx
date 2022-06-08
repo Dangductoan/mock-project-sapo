@@ -38,7 +38,7 @@ export default function BillDetail() {
         bill.totalValue = parseFloat(bill.totalValue.replace(/,/g, ""));
       BillService.updateBill(id, {
         ...bill,
-        modifidedBy: user.name,
+        modifiedBy: user.name,
       })
         .then(() => {
           showToast("Cập nhật phiếu thu thành công", "success");

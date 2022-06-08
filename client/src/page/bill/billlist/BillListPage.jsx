@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import BillService from "../../../api/BillService";
 import SingleModal from "../../../component/modal/singlemodal/SingleModal";
@@ -82,10 +83,7 @@ function BillListPage() {
             className="export-excel"
             onClick={() => setOpenExportExcelModal(true)}
           >
-            <FontAwesomeIcon
-              icon={faDownload}
-              className="svg-khutx"
-            />
+            <FontAwesomeIcon icon={faDownload} className="svg-khutx" />
             <span>Xuất file</span>
           </div>
         </div>
@@ -115,6 +113,7 @@ function BillListPage() {
             <thead>
               <tr>
                 <th>Mã phiếu</th>
+                <th>Khách hàng</th>
                 <th>Loại phiếu</th>
                 <th>Hình thức thanh toán</th>
                 <th>Người tạo</th>
@@ -131,13 +130,16 @@ function BillListPage() {
                     onClick={() => history.push(`${match.path}/${bill.id}`)}
                   >
                     <td>{bill.code}</td>
+                    <td>{bill.customer.name}</td>
                     <td>{bill.billCategory.name}</td>
                     <td>{bill.payment}</td>
                     <td>{bill.createdBy}</td>
                     <td className="table__price">
                       <ReactNumberTextFormat value={bill.totalValue} />
                     </td>
-                    <td className="table__price">{moment(bill.createdAt).format("DD/MM/YYYY hh:mm")}</td>
+                    <td className="table__price">
+                      {moment(bill.createdAt).format("DD/MM/YYYY hh:mm")}
+                    </td>
                   </tr>
                 );
               })}

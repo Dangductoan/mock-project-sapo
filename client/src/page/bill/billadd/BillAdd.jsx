@@ -1,4 +1,8 @@
-import { faAngleLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faArrowsRotate,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -9,6 +13,7 @@ import BillService from "../../../api/BillService";
 import CustomerService from "../../../api/CustomerService";
 import ReactNumberInputFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
+import { randomCode } from "../../../utils/StringRandom";
 import { validateBillCreate } from "../../../validation/bill";
 import "./BillAdd.css";
 import CustomerAddModal from "./customeradd/CustomerAddModal";
@@ -18,7 +23,6 @@ export default function BillAdd() {
   const history = useHistory();
   const match = useRouteMatch();
 
-  // const [bill, setBill] = useState({});
   const bill = useFormik({
     initialValues: {
       customerName: "",
@@ -76,10 +80,11 @@ export default function BillAdd() {
     else toast.success(message);
   };
 
-  const handleCustomerAdd = () => {
+  const handleCustomersChange = (customer) => {
     CustomerService.searchCustomer({})
       .then((res) => setCustomers(res.data?.customers))
       .catch((err) => console.log(err));
+    bill.setFieldValue("customerName", customer.name);
   };
 
   return (
@@ -113,11 +118,14 @@ export default function BillAdd() {
             <h3>Thông tin chung</h3>
             <div>
               <div>
-                <p>Tên khách hàng *</p>
+                <p>
+                  Tên khách hàng <span className="required-asterisk">*</span>
+                </p>
                 <select
                   name="customerName"
                   onChange={bill.handleChange}
                   onBlur={bill.handleBlur}
+                  value={bill.values.customerName}
                 >
                   <option value="">Chọn tên khách hàng </option>
                   {customers.map((customer) => (
@@ -129,7 +137,7 @@ export default function BillAdd() {
                 )}
               </div>
               <div>
-                <p>Loại phiếu thu *</p>
+                <p>Loại phiếu thu <span className="required-asterisk">*</span></p>
                 <select
                   name="billCategoryName"
                   onBlur={bill.handleBlur}
@@ -150,18 +158,29 @@ export default function BillAdd() {
                   )}
               </div>
               <div>
-                <p>Mã phiếu *</p>
-                <input
-                  name="code"
-                  onBlur={bill.handleBlur}
-                  onChange={bill.handleChange}
-                />
+                <p>Mã phiếu <span className="required-asterisk">*</span></p>
+                <span>
+                  <input
+                    className="input-hidden"
+                    name="code"
+                    onBlur={bill.handleBlur}
+                    onChange={bill.handleChange}
+                    value={bill.values.code}
+                  />
+                  <FontAwesomeIcon
+                    icon={faArrowsRotate}
+                    onClick={() => {
+                      bill.setFieldValue("code", randomCode(10));
+                    }}
+                    title="Tự động tạo"
+                  />
+                </span>
                 {bill.touched.code && bill.errors.code && (
                   <div className="text-danger">{bill.errors.code}</div>
                 )}
               </div>
               <div>
-                <p>Giá trị *</p>
+                <p>Giá trị <span className="required-asterisk">*</span></p>
                 <ReactNumberInputFormat
                   name="totalValue"
                   onChange={bill.handleChange}
@@ -172,7 +191,7 @@ export default function BillAdd() {
                 )}
               </div>
               <div>
-                <p>Hình thức thanh toán *</p>
+                <p>Hình thức thanh toán <span className="required-asterisk">*</span></p>
                 <select
                   name="payment"
                   onChange={bill.handleChange}
@@ -219,7 +238,7 @@ export default function BillAdd() {
       <CustomerAddModal
         open={customerAddModalOpen}
         setOpen={setCustomerAddModalOpen}
-        onCustomerChange={handleCustomerAdd}
+        onCustomerChange={handleCustomersChange}
       />
       <ToastifyToast />
     </div>
