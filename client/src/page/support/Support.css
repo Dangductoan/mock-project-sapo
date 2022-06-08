@@ -1,0 +1,33 @@
+.support {
+    background-image: url(https://bizweb.dktcdn.net/100/319/535/themes/806337/assets/bg-searchbanner.jpg?1653015347858);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 238px 0 188px;
+} 
+ .support-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+ }
+.support-title {
+    padding: 0 0 25px;
+    font-weight: 300;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 1.231;
+    text-align: center;
+
+}
+.support-input {
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    padding-left: 20px;
+}
