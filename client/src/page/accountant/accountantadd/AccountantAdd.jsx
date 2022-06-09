@@ -1,7 +1,7 @@
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch,Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import AccountantService from "../../../api/AccountantService";
@@ -35,7 +35,7 @@ export default function AccountantAdd() {
         })
         .then((res) => {
           let path = match.path.substring(0, match.path.lastIndexOf("/"));
-          history.push(`${path}/${res.data?.user?.id}`, {
+          history.push(`${path}/${res.data?.users?.id}`, {
             showAccountantAddSuccess: true,
           });
         })
@@ -61,7 +61,7 @@ export default function AccountantAdd() {
         }
       >
         <ArrowBackIosNewIcon style={{ width: "15px" }} />
-        <span>Danh sách nhân viên</span>
+        <Link>Danh sách nhân viên</Link>
       </span>
       <div className="accountant-heading">
         <h2>Thêm mới nhân viên</h2>
@@ -140,6 +140,7 @@ export default function AccountantAdd() {
         <div className="accountant-add-submit">
           <button
             className="btn-cancle"
+            type="button"
             onClick={() =>
               history.push(
                 `${match.path.substring(0, match.path.lastIndexOf("/"))}`

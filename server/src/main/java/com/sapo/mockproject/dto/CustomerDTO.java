@@ -18,6 +18,7 @@ public class CustomerDTO extends BaseDTO<Integer>{
     @NotNull(message = "Chưa nhập số điện thoại")
     private String phoneNumber;
 
+
     @NotNull(message = "Chưa nhập địa chỉ")
     private String address;
 

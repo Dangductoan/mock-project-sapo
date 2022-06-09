@@ -17,7 +17,7 @@ export default function AccountantDetail() {
   const location = useLocation();
   const history = useHistory();
   const match = useRouteMatch();
-
+  let user = JSON.parse(localStorage.getItem("user"));
   const { id } = useParams();
   if (!parseInt(id))
     history.push(`${match.path.substring(0, match.path.indexOf("/"))}/404`);
@@ -43,6 +43,9 @@ export default function AccountantDetail() {
     })
       .then((res) => {
         showToast("Cập nhật nhân viên thành công", "success");
+        setTimeout(()=>{
+          history.push("/chief-accountant/users")
+       },2000) 
       })
       .catch(({ response }) => {
         showToast(response.data?.error?.message, "error");
@@ -52,7 +55,9 @@ export default function AccountantDetail() {
     AccountantService.deleteAccountant(id)
       .then((res) => {
         showToast("Xóa nhân viên thành công", "success");
-        history.push("/chief-accountant/users")
+       setTimeout(()=>{
+         history.push("/chief-accountant/users")
+      },2000) 
       })
       .catch(({ response }) => {
         showToast(response.data?.error?.message, "error");
@@ -83,10 +88,10 @@ export default function AccountantDetail() {
         }
       >
         <ArrowBackIosNewIcon style={{ width: "15px" }} />
-        <Link>Phiếu thu</Link>
+        <Link>Danh sách nhân viên</Link>
       </div>
       <div className="accountant-heading">
-        <h2>Thông tin chi tiết phiếu thu</h2>
+        <h2>Thông tin chi tiết nhân viên</h2>
       </div>
       <div className="accountant-content">
         <div className="accountant-info">
@@ -145,9 +150,11 @@ export default function AccountantDetail() {
         <button className="btn-create" onClick={updateAccountant}>
           Lưu
         </button>
-        <button className="btn-delete" onClick={deleteAccountant}>
+     {user.id != id &&   
+          <button className="btn-delete" onClick={deleteAccountant}>
           Xóa
         </button>
+      }
       </div>
       <ToastifyToast />
     </div>
