@@ -27,7 +27,6 @@ import AccountantAdd from "../page/accountant/accountantadd/AccountantAdd";
 import AccountantListPage from "../page/accountant/accountantlist/AccountantListPage";
 import AuthService from "../api/AuthService";
 import CustomerDetail from "../page/customer/customerdetail/CustomerDetail";
-import CustomerAdd from "../page/customer/customeradd/CustomerAdd";
 import CustomerListPage from "../page/customer/customerlist/CustomerListPage";
 
 function RouterDefined() {
@@ -112,11 +111,6 @@ function RouterDefined() {
                   path="/chief-accountant/customers"
                   exact
                   component={CustomerListPage}
-                />
-                <Route
-                  path="/chief-accountant/customers/create"
-                  exact
-                  component={CustomerAdd}
                 />
                 <Route
                   path="/chief-accountant/customers/:id"

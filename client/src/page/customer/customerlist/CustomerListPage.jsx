@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
-import moment from "moment";
-
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import SearchIcon from "@mui/icons-material/Search";
 import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
-import SingleModal from "../../../component/modal/singlemodal/SingleModal";
-import ReactNumberTextFormat from "../../../component/numberformat/template/ReactNumberTextFormat";
-
 import CustomerService from "../../../api/CustomerService";
 import AuthService from "../../../api/AuthService";
-
+import CustomerAddModal from "../../bill/billadd/customeradd/CustomerAddModal";
 import "./CustomerListPage.css";
+import { faAngleLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ITEM_PER_PAGE = 10;
 
@@ -24,8 +20,7 @@ function CustomerListPage() {
   const [totalItem, setTotalItem] = useState(0);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
-
+  const [customerAddModalOpen, setCustomerAddModalOpen] = useState(false);
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
       ? totalItem / ITEM_PER_PAGE
@@ -54,6 +49,11 @@ function CustomerListPage() {
       .then((res) => setCustomers(res.data?.customers))
       .catch((err) => console.log(err));
   };
+  const handleCustomerAdd = () => {
+    CustomerService.searchCustomer({})
+      .then((res) => setCustomers(res.data?.customers))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="customer-list">
@@ -67,11 +67,14 @@ function CustomerListPage() {
         </div>
       </div>
       <div className="customer-option">
-        <button
-          className="btn-create"
-          onClick={() => history.push(`${match.path}/create`)}
+      <button
+          className="btn-create btn__icon"
+          onClick={() => {
+            setCustomerAddModalOpen(true);
+          }}
         >
-          Tạo khách hàng
+          <FontAwesomeIcon icon={faPlus} />
+          Thêm mới khách hàng
         </button>
       </div>
       <div className="customer-list-content">
@@ -121,6 +124,11 @@ function CustomerListPage() {
             </tbody>
           </table>
         </div>
+        <CustomerAddModal
+        open={customerAddModalOpen}
+        setOpen={setCustomerAddModalOpen}
+        onCustomerChange={handleCustomerAdd}
+      />
         <div className="pagination">
           <MaterialPagination
             count={totalPage}

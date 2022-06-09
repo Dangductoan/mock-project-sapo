@@ -19,7 +19,7 @@ public class UserDTO extends BaseDTO<Integer> {
     @NotNull(message = "Chưa nhập tên đăng nhập")
     private String username;
 
-    @NotNull(message = "Chưa nhập tên mật khẩu")
+    @NotNull(message = "Chưa nhập mật khẩu")
     private String password;
 
     @NotNull(message = "Chưa nhập tên ")
