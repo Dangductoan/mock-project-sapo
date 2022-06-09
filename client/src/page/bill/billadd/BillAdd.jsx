@@ -137,7 +137,9 @@ export default function BillAdd() {
                 )}
               </div>
               <div>
-                <p>Loại phiếu thu <span className="required-asterisk">*</span></p>
+                <p>
+                  Loại phiếu thu <span className="required-asterisk">*</span>
+                </p>
                 <select
                   name="billCategoryName"
                   onBlur={bill.handleBlur}
@@ -158,7 +160,9 @@ export default function BillAdd() {
                   )}
               </div>
               <div>
-                <p>Mã phiếu <span className="required-asterisk">*</span></p>
+                <p>
+                  Mã phiếu <span className="required-asterisk">*</span>
+                </p>
                 <span>
                   <input
                     className="input-hidden"
@@ -180,7 +184,9 @@ export default function BillAdd() {
                 )}
               </div>
               <div>
-                <p>Giá trị <span className="required-asterisk">*</span></p>
+                <p>
+                  Giá trị <span className="required-asterisk">*</span>
+                </p>
                 <ReactNumberInputFormat
                   name="totalValue"
                   onChange={bill.handleChange}
@@ -191,7 +197,10 @@ export default function BillAdd() {
                 )}
               </div>
               <div>
-                <p>Hình thức thanh toán <span className="required-asterisk">*</span></p>
+                <p>
+                  Hình thức thanh toán{" "}
+                  <span className="required-asterisk">*</span>
+                </p>
                 <select
                   name="payment"
                   onChange={bill.handleChange}
@@ -221,6 +230,7 @@ export default function BillAdd() {
         </div>
         <div className="bill-add-submit">
           <button
+            type="button"
             className="btn-cancle"
             onClick={() =>
               history.push(
