@@ -95,3 +95,7 @@
 .pagination {
   margin-top: 20px;
 }
+.MuiSvgIcon-root {
+  color: rgb(163, 168, 175);
+  margin-right: 10px;
+}

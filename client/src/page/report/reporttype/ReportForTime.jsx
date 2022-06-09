@@ -10,6 +10,8 @@ import GroupData from '../../../component/groupdata/GroupData'
 import MonthAndYearReport from '../../../component/row/MonthAndYearReport'
 import BarChart from '../../../component/chart/BarChart'
 import LineChart from '../../../component/chart/LineChart'
+import {exports} from '../excel/ReportExcelTime'
+import ConvertDataToExport from '../convert/ConvertDataToExports'
 function ReportForTime() {
     const cd = useSelect()
     const time = cd.data.time
@@ -18,6 +20,16 @@ function ReportForTime() {
     const revenuesMonth = revenues !== undefined && GroupData.GroupDataForMonth(revenues)
     const revenuesYear = revenues !== undefined && GroupData.GroupDataForYear(revenues)
     const shape = cd.data.shape
+    const excelDataDate = ConvertDataToExport.date(revenues)
+    const excelDataMonth = ConvertDataToExport.monthAndYear(revenuesMonth,revenues)
+    const excelDataYear = ConvertDataToExport.monthAndYear(revenuesYear,revenues)
+    const handleClick = () => {
+      // exports(excelDataMonth)
+      time === "Ngày" && exports(excelDataDate,time);
+      time === "Tháng" && exports(excelDataMonth,time)
+      time === "Năm" && exports(excelDataYear,time)
+
+    }
     const chartData = {
       labels: revenues !== undefined && revenues.map((data) => data.date.toString().slice(0, 10)),
       datasets: [
@@ -84,8 +96,9 @@ function ReportForTime() {
 
 
           </div>
-          <div className="horizontal"></div>
-          <div className="report-content_data-table">
+          <div className="horizontal">
+          </div>
+          <div className="report-content_data-table" style={{textAlign:'center'}}>
             <div className="report-column columns">
               <h5>{time}</h5>
               <h5>Sô lượng đơn hàng</h5>
@@ -114,6 +127,10 @@ function ReportForTime() {
                 <MonthAndYearReport key={i} k={key} value={revenuesYear[key]} />
               )
             })}
+            <button className='btn' style={{margin:"40px 60px 40px 0",}} onClick={handleClick}>
+            <svg className="MuiSvgIcon-root"  style={{width:'10px'}} focusable="false" viewBox="0 0 14 20" aria-hidden="true"><path d="M6 8.74228e-08L6 12.17L2.41 8.59L1 10L7 16L13 10L11.59 8.59L8 12.17L8 0L6 8.74228e-08Z" fill="currentColor"></path><path d="M0 18H14V20H0V18Z" fill="currentColor"></path></svg>
+              Xuất ra file excel</button>
+
           </div>
     </>
   )
