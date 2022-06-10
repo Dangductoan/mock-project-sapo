@@ -17,11 +17,11 @@ public interface CustomerRepository extends GenericRepository<Customer, Integer>
 
     Optional<Customer> findByEmail(String email);
     @Override
-    @Query("SELECT c FROM Customer c where name = ?1")
+    @Query("SELECT c FROM Customer c WHERE name LIKE %?1%")
     Page<Customer> fetchByQuery(String query, Pageable pageable);
 
     @Override
-    @Query("SELECT c FROM Customer c where name = ?1")
+    @Query("SELECT c FROM Customer c WHERE name LIKE %?1%")
     List<Customer> fetchByQuery(String query);
 
     @Override
