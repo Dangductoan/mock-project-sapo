@@ -23,7 +23,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
   const customer = useFormik({
     initialValues: {
       name: "",
-      code: "",
+      code: randomCode(10),
       address: "",
       email: "",
       groupCustomer: "",
@@ -48,7 +48,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
     customer.setErrors({});
     customer.setValues({
       name: "",
-      code: "",
+      code: randomCode(10),
       address: "",
       email: "",
       groupCustomer: "",

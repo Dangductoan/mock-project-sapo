@@ -130,3 +130,21 @@ svg, select {
 .required-asterisk {
   color: red;
 }
+
+.searchbar {
+  display: flex;
+  border: 1px solid rgb(232, 234, 235);
+  border-radius: 3px;
+  align-items: center;
+  padding: 0px 15px;
+  background-color: inherit;
+}
+
+.searchbar input {
+  display: inline-block;
+  height: 35px;
+  width: 100%;
+  border: 0;
+  outline: none;
+  width: 100%;
+}

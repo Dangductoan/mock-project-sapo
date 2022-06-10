@@ -47,20 +47,7 @@
 }
 
 .bill-searchbar {
-  display: flex;
-  border: 1px solid rgb(232, 234, 235);
-  border-radius: 3px;
-  align-items: center;
-  padding: 10px 15px;
   margin: 15px 0;
-}
-
-.bill-searchbar input {
-  display: inline-block;
-  width: 100%;
-  border: 0;
-  outline: none;
-  width: 100%;
 }
 
 .bill-table {

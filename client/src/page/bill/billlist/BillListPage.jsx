@@ -1,12 +1,11 @@
 import {
   faDownload,
   faMagnifyingGlass,
-  faPlus,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import BillService from "../../../api/BillService";
 import SingleModal from "../../../component/modal/singlemodal/SingleModal";
@@ -65,8 +64,7 @@ function BillListPage() {
       createdAt: moment(bill.createdAt).format("DD/MM/YYYY hh:mm"),
       modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY hh:mm"),
     }));
-     console.log([{x:"helli",y:"hello"},...data])
-    // exportBillList(data);
+    exportBillList(data);
   };
 
   return (
@@ -97,7 +95,7 @@ function BillListPage() {
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
-          <div className="bill-searchbar">
+          <div className="bill-searchbar searchbar">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
               type="text"
