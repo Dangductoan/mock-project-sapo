@@ -8,8 +8,9 @@
     font-weight: 300;
    
     width: 33.333%;
-    text-align: center;
+    /* text-align: center; */
     padding: 15px 0 ;
+    padding-left: 20px;
 }
 .row:hover {
     background-color: #f4f6f8;

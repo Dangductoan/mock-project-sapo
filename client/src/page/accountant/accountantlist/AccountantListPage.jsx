@@ -56,9 +56,7 @@ function AccountantListPage() {
         <h2>Danh sách nhân viên</h2>
         <div className="accountant-header__right">
           <p>Xin chào "{user.name}"</p>
-          <Link to={match.path} onClick={() => AuthService.logout()}>
-            Logout
-          </Link>
+          
         </div>
       </div>
       <div className="accountant-option">

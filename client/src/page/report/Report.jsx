@@ -6,6 +6,7 @@ import Time from '../../component/controller/time/Time'
 import ReportForTime from './reporttype/ReportForTime'
 import ReportForCustomer from './reporttype/ReportForCustomer'
 import ReportForBillCategory from './reporttype/ReportForBillCategory'
+import ReportForAccountant from './reporttype/ReportForAccountant'
 import { useSelect } from '../../context/Provider'
 function Report() {
   const cd = useSelect()
@@ -35,9 +36,9 @@ function Report() {
         <div className="report-content_data">
           {type === "Theo thời gian" && <ReportForTime />}
           {type === "Theo khách hàng" && <ReportForCustomer />}
-          {/* {type==="Theo nhân viên kế toán" && <ReportForAccountant/>} */}
+          {type==="Theo nhân viên kế toán" && <ReportForAccountant/>}
           {type === "Theo loại phiếu thu" && <ReportForBillCategory />}
-
+          
         </div>
         <div className="report-content_footer">
 

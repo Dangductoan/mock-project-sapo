@@ -2,28 +2,34 @@ import React, { useState } from 'react'
 import { useSelect } from '../../../context/Provider'
 import ReportController from '../../../component/reportcontroller/ReportController'
 import GroupData from '../../../component/groupdata/GroupData'
-import RowBillCategoryReport from '../../../component/row/RowBillCategoryReport'
 import BarChart from '../../../component/chart/BarChart'
 import { exports } from '../excel/ReportExcelType'
 import SingleModal from '../../../component/modal/singlemodal/SingleModal'
-
-function ReportForBillCategory() {
+import RowAccountantReport from '../../../component/row/RowAccountantReport'
+function ReportForAccountant() {
     const cd = useSelect()
     const type = cd.data.type
     const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
 
     const data = ReportController.GetBillBetween()
-    const bills = data !== undefined && GroupData.GroupDataForBillCategoryId(data.bills)
-    // console.log(bills)
+    const bills = data !== undefined && GroupData.GroupDataForCreatedBy(data.bills)
+    console.log(bills)
     const newData = Object.keys(bills).map((key) => {
-        return {
-            name: bills[key][0].billCategory.name,
-            code: bills[key][0].billCategory.code,
+        const result = bills[key] !== undefined && bills[key].reduce((d, v) => {
+            d.total = d.total + v.totalValue;
+            d.profit = d.total - d.cost;
+            return d;
+        }, {
+            name: bills[key][0].createdBy,
             count: bills[key].length,
-            description: bills[key][0].billCategory.description,
+            total: 0,
+            cost: 0,
+            profit: 0
+        })
+        return result
 
-        }
     })
+    console.log(newData)
     const exportBillListExcel = () => {
 
         exports(newData, type)
@@ -33,12 +39,20 @@ function ReportForBillCategory() {
         setOpenExportExcelModal(true)
     }
     // console.log(newData)
-    const chartBillCategory = {
-        labels: Object.keys(bills).map((key) => bills[key][0].billCategory.name),
+    const chartAccountant = {
+        labels: Object.keys(bills).map((key) => bills[key][0].createdBy),
         datasets: [
             {
-                label: "Số đơn hàng sử dụng loại phiếu thu",
-                data: Object.keys(bills).map((key) => bills[key].length),
+                label: "Doanh thu theo nhân viên kế toán",
+                data: Object.keys(bills).map((key) => {
+                    const total = bills[key] !== undefined && bills[key].reduce((d, v) => {
+                        d.b = d.b + v.totalValue;
+                        return d;
+                    }, {
+                        b: 0,
+                    })
+                    return total.b;
+                }),
                 backgroundColor: ["#0088FF"]
             },
         ],
@@ -50,22 +64,24 @@ function ReportForBillCategory() {
             </div>
             <div className="report-content_data-chart">
 
-              <BarChart chartData={chartBillCategory} />
+              <BarChart chartData={chartAccountant} />
                   
 
             </div>
             <div className="horizontal"></div>
             <div className="report-content_data-table" style={{ textAlign: 'center' }}>
                 <div className="report-column ">
-                    <h5>Loại phiếu thu  </h5>
-                    <h5>Mã phiếu thu </h5>
-                    <h5>Số lượng phiếu thu sử dụng loại phiếu thu </h5>
-                    <h5>Mô tả</h5>
+                    <h5>Tên  </h5>
+                    <h5>Số phiếu thu đã tạo</h5>
+                    <h5>Doanh thu </h5>
+                    <h5>Chi phí</h5>
+                    <h5>Lợi nhuận</h5>
+
 
                 </div>
                 {Object.keys(bills).map((key, i) => {
                     return (
-                        <RowBillCategoryReport key={i} k={key} value={bills[key]} />
+                        <RowAccountantReport key={i} k={key} value={bills[key]} />
                     )
                 })}
                 <button className='btn export-btn' onClick={handleClick}>
@@ -82,4 +98,4 @@ function ReportForBillCategory() {
     )
 }
 
-export default ReportForBillCategory
+export default ReportForAccountant

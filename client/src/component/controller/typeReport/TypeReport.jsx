@@ -4,7 +4,7 @@ import List from '../selectInput/List'
 import { useSelect } from '../../../context/Provider'
 
 function TypeReport() {
-  const types = ['Theo thời gian', 'Theo khách hàng', 'Theo loại phiếu thu']
+  const types = ['Theo thời gian', 'Theo khách hàng', 'Theo loại phiếu thu','Theo nhân viên kế toán']
   const cd = useSelect()
   return (
     <div className="controller-typeReport flex mlr-50">

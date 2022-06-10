@@ -6,7 +6,7 @@
 }
 
 .report-content {
-    padding: 0 40px;
+    padding: 0 50px;
 }
 
 .report-content_title {
@@ -67,3 +67,18 @@
 .report-header_btn {
    margin: 0 10px;
 }
+.report-column {
+    display: flex;
+    margin: 20px 0;
+   
+}
+.report-column>h5 {
+    font-weight: 600;
+    width: 33.333%;
+    text-align: center;
+}
+ .export-btn{
+    position:absolute;
+    top:4px;
+    right:50px;
+ }

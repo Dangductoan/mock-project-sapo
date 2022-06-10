@@ -1,14 +1,29 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import Arrow from "../arrow/Arrow";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AuthService from "../../api/AuthService";
 import SingleModal from "../modal/singlemodal/SingleModal";
 
 function SideBarChief() {
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-
+  const [isActive, setIsACtive] = useState(false)
+  const handleClick = (e) => {
+    document.querySelector('.active-item').classList.remove('active-item')
+    e.target.classList.add("active-item")
+    document.querySelector('.sidebar-subList').classList.remove('block')
+    document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
+  }
+  const handleClickTwo = (e) => {
+    document.querySelector('.active-item').classList.remove('active-item')
+    e.target.classList.add("active-item")
+    setIsACtive(!isActive)
+    document.querySelector('.sidebar-subList').classList.toggle('block')
+  }
+  const handleClick3 = (e) => {
+    document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
+    e.target.classList.add('active-sub_item');
+  }
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -30,23 +45,9 @@ function SideBarChief() {
       </div>
       <div className="sidebar-container">
         <ul className="sidebar-list">
-          <li className="sidebar-list_item">
-            <Link className="sidebar-list_link" to="/chief-accountant">
-              <svg
-                className="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 512 512"
-                aria-hidden="true"
-              >
-                <path d="M501.333 490.667H10.667C4.779 490.667 0 495.445 0 501.333 0 507.221 4.779 512 10.667 512h490.667c5.888 0 10.667-4.779 10.667-10.667-.001-5.888-4.78-10.666-10.668-10.666z"></path>
-                <path d="M96 362.667H32c-5.888 0-10.667 4.779-10.667 10.667v128C21.333 507.221 26.112 512 32 512h64c5.888 0 10.667-4.779 10.667-10.667v-128c0-5.888-4.779-10.666-10.667-10.666zm-10.667 128H42.667V384h42.667v106.667zM224 256h-64c-5.888 0-10.667 4.779-10.667 10.667v234.667c0 5.888 4.779 10.667 10.667 10.667h64c5.888 0 10.667-4.779 10.667-10.667V266.667c0-5.888-4.779-10.667-10.667-10.667zm-10.667 234.667h-42.667V277.333h42.667v213.334zM352 298.667h-64c-5.888 0-10.667 4.779-10.667 10.667v192c0 5.888 4.779 10.667 10.667 10.667h64c5.888 0 10.667-4.779 10.667-10.667v-192c0-5.889-4.779-10.667-10.667-10.667zm-10.667 192h-42.667V320h42.667v170.667zM480 170.667h-64c-5.888 0-10.667 4.779-10.667 10.667v320c0 5.888 4.779 10.667 10.667 10.667h64c5.888 0 10.667-4.779 10.667-10.667v-320c0-5.889-4.779-10.667-10.667-10.667zm-10.667 320h-42.667V192h42.667v298.667zM64 192c-23.531 0-42.667 19.136-42.667 42.667 0 23.531 19.136 42.667 42.667 42.667 23.531 0 42.667-19.136 42.667-42.667C106.667 211.136 87.531 192 64 192zm0 64c-11.776 0-21.333-9.579-21.333-21.333 0-11.755 9.557-21.333 21.333-21.333s21.333 9.579 21.333 21.333C85.333 246.421 75.776 256 64 256zM192 85.333c-23.531 0-42.667 19.136-42.667 42.667 0 23.531 19.136 42.667 42.667 42.667s42.667-19.136 42.667-42.667c0-23.531-19.136-42.667-42.667-42.667zm0 64c-11.776 0-21.333-9.579-21.333-21.333 0-11.755 9.557-21.333 21.333-21.333s21.333 9.579 21.333 21.333c0 11.755-9.557 21.333-21.333 21.333zM320 128c-23.531 0-42.667 19.136-42.667 42.667 0 23.531 19.136 42.667 42.667 42.667 23.531 0 42.667-19.136 42.667-42.667C362.667 147.136 343.531 128 320 128zm0 64c-11.776 0-21.333-9.579-21.333-21.333 0-11.755 9.557-21.333 21.333-21.333s21.333 9.579 21.333 21.333c0 11.754-9.557 21.333-21.333 21.333zM448 0c-23.531 0-42.667 19.136-42.667 42.667 0 23.531 19.136 42.667 42.667 42.667 23.531 0 42.667-19.136 42.667-42.667C490.667 19.136 471.531 0 448 0zm0 64c-11.776 0-21.333-9.579-21.333-21.333 0-11.755 9.557-21.333 21.333-21.333s21.333 9.579 21.333 21.333C469.333 54.421 459.776 64 448 64z"></path>
-                <path d="M432.939 57.728c-4.16-4.16-10.923-4.16-15.083 0l-82.773 82.773c-4.16 4.16-4.16 10.923 0 15.083a10.716 10.716 0 0 0 7.552 3.115c2.709 0 5.44-1.024 7.531-3.115l82.773-82.773c4.16-4.16 4.16-10.923 0-15.083zM294.208 146.048l-68.523-19.541c-5.739-1.664-11.563 1.664-13.163 7.339-1.621 5.675 1.664 11.563 7.317 13.184l68.523 19.541a10.675 10.675 0 0 0 13.184-7.339c1.622-5.653-1.663-11.563-7.338-13.184zM175.36 141.291c-3.669-4.608-10.368-5.355-14.976-1.707l-80.427 64.128c-4.608 3.691-5.376 10.389-1.685 14.997a10.658 10.658 0 0 0 8.341 4.011c2.325 0 4.672-.768 6.635-2.304l80.427-64.128c4.608-3.691 5.376-10.389 1.685-14.997z"></path>
-              </svg>
-              Tổng quan
-            </Link>
-          </li>
-          <li className="sidebar-list_item">
-            <div className="sidebar-list_link">
+
+          <li className="sidebar-list_item  " onClick={handleClickTwo}>
+            <div className="sidebar-list_link active-item">
               <svg
                 className="MuiSvgIcon-root"
                 focusable="false"
@@ -58,12 +59,14 @@ function SideBarChief() {
                 <path d="M471.2 74.4H115.8c-6.6 0-12 5.4-12 12s5.4 12 12 12h343.4V289c0 6.6 5.4 12 12 12s12-5.4 12-12V86.4c0-6.6-5.4-12-12-12zM268.8 307.2h29.8c6.6 0 12-5.4 12-12s-5.4-12-12-12h-29.8c-6.6 0-12 5.4-12 12s5.4 12 12 12zM180.3 307.4h18.8c4.7 0 8.6 3.8 8.6 8.6s-3.8 8.6-8.6 8.6h-33.7c-6.6 0-12 5.4-12 12s5.4 12 12 12h12.3v7.9c0 6.6 5.4 12 12 12s12-5.4 12-12v-8c16.7-1.3 30-15.4 30-32.5 0-18-14.6-32.6-32.6-32.6h-18.8c-4.7 0-8.6-3.8-8.6-8.6 0-4.7 3.8-8.6 8.6-8.6h33.1c6.6 0 12-5.4 12-12s-5.4-12-12-12h-11.7v-7.6c0-6.6-5.4-12-12-12s-12 5.4-12 12v7.8c-16.7 1.3-30 15.4-30 32.5 0 17.9 14.6 32.5 32.6 32.5z"></path>
               </svg>
               Phiếu thu
-              <Arrow />
+              {/* <Arrow /> */}
+              <svg className={`MuiSvgIcon-root  rorate-2 ${isActive ? 'rorate-0' : ''} `} focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
             </div>
           </li>
           <ul className="sidebar-subList ">
             <li className="sidebar-subList_item">
               <Link
+                onClick={handleClick3}
                 className="sidebar-subList_item-link"
                 to="/chief-accountant/bills"
               >
@@ -72,6 +75,7 @@ function SideBarChief() {
             </li>
             <li className="sidebar-subList_item">
               <Link
+                onClick={handleClick3}
                 className="sidebar-subList_item-link"
                 to="/chief-accountant/bill-category"
               >
@@ -79,7 +83,7 @@ function SideBarChief() {
               </Link>
             </li>
           </ul>
-          <li className="sidebar-list_item">
+          <li className="sidebar-list_item" onClick={handleClick}>
             <Link className="sidebar-list_link" to="/chief-accountant/users">
               <svg
                 className="MuiSvgIcon-root"
@@ -93,7 +97,7 @@ function SideBarChief() {
               Quản lý nhân viên
             </Link>
           </li>
-          <li className="sidebar-list_item">
+          <li className="sidebar-list_item" onClick={handleClick}>
             <Link
               className="sidebar-list_link"
               to="/chief-accountant/customers"
@@ -111,7 +115,7 @@ function SideBarChief() {
               Quản lý khách hàng
             </Link>
           </li>
-          <li className="sidebar-list_item">
+          <li className="sidebar-list_item" onClick={handleClick}>
             <Link className="sidebar-list_link" to="/chief-accountant/report">
               <svg
                 className="MuiSvgIcon-root"
@@ -145,7 +149,7 @@ function SideBarChief() {
         setOpen={setOpenLogoutModal}
         title="Bạn có chắc muốn đăng xuất"
         onConfirm={AuthService.logout}
-        style={{zIndex:'1000'}}
+        style={{ zIndex: '1000' }}
       />
     </div>
   );

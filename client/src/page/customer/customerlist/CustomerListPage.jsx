@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useHistory, useRouteMatch, Link } from "react-router-dom";
+import { useHistory, useRouteMatch} from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
 import CustomerService from "../../../api/CustomerService";
-import AuthService from "../../../api/AuthService";
 import CustomerAddModal from "../../bill/billadd/customeradd/CustomerAddModal";
 import "./CustomerListPage.css";
-import { faAngleLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {  faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ITEM_PER_PAGE = 10;
@@ -61,9 +60,7 @@ function CustomerListPage() {
         <h2>Danh sách khách hàng</h2>
         <div className="customer-header__right">
           <p>Xin chào "{user.name}"</p>
-          <Link to={match.path} onClick={() => AuthService.logout()}>
-            Logout
-          </Link>
+          
         </div>
       </div>
       <div className="customer-option">
