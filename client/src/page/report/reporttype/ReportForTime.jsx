@@ -23,22 +23,21 @@ function ReportForTime() {
   const revenues = ReportController.GetData()
   const revenuesMonth = revenues !== undefined && GroupData.GroupDataForMonth(revenues)
   const revenuesYear = revenues !== undefined && GroupData.GroupDataForYear(revenues)
-  
-  const revenuesCharts = revenues===undefined ? [] : [...revenues];
-    revenuesCharts.push({date:end,totalRevenue:0})
-    revenuesCharts.unshift({date:start,totalRevenue:0})
-  
-  const revenuesYearCharts = revenuesYear;
-  console.log(revenuesMonth)
+
+  const revenuesCharts = revenues === undefined ? [] : [...revenues];
+  revenuesCharts.push({ date: end, totalRevenue: 0 })
+  revenuesCharts.unshift({ date: start, totalRevenue: 0 })
+  const revenuesMonthCharts = revenuesMonth === undefined ? {} : { 0: [{ billQuantity: 0, totalRevenue: 0 }], ...revenuesMonth }
+  const revenuesYearCharts = revenuesYear === undefined ? {} : { 0: [{ billQuantity: 0, totalRevenue: 0 }], ...revenuesYear };
   const excelDataDate = ConvertDataToExport.date(revenues)
   const excelDataMonth = ConvertDataToExport.monthAndYear(revenuesMonth, revenues)
   const excelDataYear = ConvertDataToExport.monthAndYear(revenuesYear, revenues)
 
   const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
 
-  
 
-  
+
+
   const exportBillListExcel = () => {
 
     time === "Ngày" && exports(excelDataDate, time);
@@ -61,12 +60,12 @@ function ReportForTime() {
     ],
   }
   const chartDataMonth = {
-    labels: Object.keys(revenuesMonth).map((key) => key),
+    labels: Object.keys(revenuesMonthCharts).map((key) => key),
     datasets: [
       {
         label: "Doanh thu theo tháng",
-        data: Object.keys(revenuesMonth).map((key) => {
-          const total = revenuesMonth[key] !== undefined && revenuesMonth[key].reduce((d, v) => {
+        data: Object.keys(revenuesMonthCharts).map((key) => {
+          const total = revenuesMonthCharts[key] !== undefined && revenuesMonthCharts[key].reduce((d, v) => {
             d.a = d.a + v.billQuantity;
             d.b = d.b + v.totalRevenue;
             return d;
@@ -81,12 +80,12 @@ function ReportForTime() {
     ],
   }
   const chartDataYear = {
-    labels: Object.keys(revenuesYear).map((key) => key),
+    labels: Object.keys(revenuesYearCharts).map((key) => key),
     datasets: [
       {
         label: "Doanh thu theo năm",
-        data: Object.keys(revenuesYear).map((key) => {
-          const total = revenuesYear[key] !== undefined && revenuesYear[key].reduce((d, v) => {
+        data: Object.keys(revenuesYearCharts).map((key) => {
+          const total = revenuesYearCharts[key] !== undefined && revenuesYearCharts[key].reduce((d, v) => {
             d.a = d.a + v.billQuantity;
             d.b = d.b + v.totalRevenue;
             return d;

@@ -18,6 +18,14 @@ const reportForCustomerColumn = [
     { header: "Số điên thoại", key: "phoneNumber" }
    
   ]
+  const reportForAccountant  = [
+    { header: "Tên ", key: "name" },
+    { header: "Số phiếu thu đã tạo", key: "count" },
+    { header: "Doanh thu ", key: "total" },
+    { header: "Chi phí", key: "cost" },
+    { header: "Lợi nhuận", key: "profit" }
+   
+  ]
   
 
 
@@ -27,7 +35,9 @@ export const exports = (data,type) => {
   const workSheetName = `Báo cáo theo ${type}`;
   const worksheet = workbook.addWorksheet(workSheetName);
   worksheet.columns = (type === "Theo khách hàng" && reportForCustomerColumn ) ||
-                      (type === "Theo loại phiếu thu" && reportForBillCategoryColumn );
+                      (type === "Theo loại phiếu thu" && reportForBillCategoryColumn ) ||
+                      (type === "Theo nhân viên kế toán" && reportForAccountant ) ;
+                      
   worksheet.addRows(data);
 
   workbook.xlsx.writeBuffer()

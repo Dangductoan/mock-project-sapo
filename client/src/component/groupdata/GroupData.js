@@ -22,11 +22,17 @@ const GroupDataForBillCategoryId = (data) => {
         return item.billCategory.id;
     })
 }
+const GroupDataForCreatedBy = (data) => {
+    return _.groupBy(data,function(item) {
+        return item.createdBy;
+    })
+}
 const GroupData = {
     GroupDataForMonth,
     GroupDataForYear,
     GroupDataForCustomerId,
-    GroupDataForBillCategoryId
+    GroupDataForBillCategoryId,
+    GroupDataForCreatedBy
  }
  export default GroupData;
 

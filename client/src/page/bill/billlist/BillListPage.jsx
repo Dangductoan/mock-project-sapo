@@ -6,7 +6,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import BillService from "../../../api/BillService";
 import SingleModal from "../../../component/modal/singlemodal/SingleModal";
