@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Select from '../../../component/controller/selectInput/Select'
 import List from '../../../component/controller/selectInput/List'
 import { useSelect } from '../../../context/Provider'
@@ -8,11 +8,15 @@ import RowCustomerReport from '../../../component/row/RowCustomerReport'
 import BarChart from '../../../component/chart/BarChart'
 import LineChart from '../../../component/chart/LineChart'
 import {exports} from '../excel/ReportExcelType'
+import SingleModal from '../../../component/modal/singlemodal/SingleModal'
+
 function ReportForCustomer() {
     const cd = useSelect()
     const shape = cd.data.shape
     const type= cd.data.type
     const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
+    const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
+
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForCustomerId(data.bills)
     // console.log(bills)
@@ -30,8 +34,13 @@ function ReportForCustomer() {
         return result
         
     })
-    const handleClick = () => {
+    const exportBillListExcel = () => {
+      
         exports(newData,type)
+      
+      };
+    const handleClick = () => {
+        setOpenExportExcelModal(true)
     }
     // console.log(newData)
     const chartCustomer = {
@@ -66,7 +75,7 @@ function ReportForCustomer() {
             </div>
             <div className="horizontal"></div>
             <div className="report-content_data-table" style={{textAlign:'center'}}>
-                <div className="report-column columns">
+                <div className="report-column ">
                     <h5>Tên khách hàng </h5>
                     <h5>Sô lượng đơn hàng</h5>
                     <h5>Doanh thu</h5>
@@ -79,10 +88,16 @@ function ReportForCustomer() {
                         <RowCustomerReport key={i} k={key} value={bills[key]} />
                     )
                 })}
-                <button className='btn' style={{margin:"40px 60px 40px 0",}} onClick={handleClick}>
+                <button className='btn export-btn'  onClick={handleClick}>
             <svg className="MuiSvgIcon-root"  style={{width:'10px'}} focusable="false" viewBox="0 0 14 20" aria-hidden="true"><path d="M6 8.74228e-08L6 12.17L2.41 8.59L1 10L7 16L13 10L11.59 8.59L8 12.17L8 0L6 8.74228e-08Z" fill="currentColor"></path><path d="M0 18H14V20H0V18Z" fill="currentColor"></path></svg>
               Xuất ra file excel</button>
             </div>
+            <SingleModal
+        open={openExportExcelModal}
+        setOpen={setOpenExportExcelModal}
+        title="Xác nhận xuất file Excel"
+        onConfirm={exportBillListExcel}
+      ></SingleModal>
         </>
     )
 }
