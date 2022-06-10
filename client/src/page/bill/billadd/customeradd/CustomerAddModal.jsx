@@ -23,7 +23,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
   const customer = useFormik({
     initialValues: {
       name: "",
-      code: "",
+      code: randomCode(10),
       address: "",
       email: "",
       groupCustomer: "",
@@ -48,7 +48,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
     customer.setErrors({});
     customer.setValues({
       name: "",
-      code: "",
+      code: randomCode(10),
       address: "",
       email: "",
       groupCustomer: "",
@@ -79,7 +79,9 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
             </div>
             <div className="modal-content">
               <div className="content-field">
-                <label>Tên khách hàng <span className="required-asterisk">*</span></label>
+                <label>
+                  Tên khách hàng <span className="required-asterisk">*</span>
+                </label>
                 <div className="field-input">
                   <input
                     className="customer-input"
@@ -94,7 +96,9 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 </div>
               </div>
               <div className="content-field">
-                <label>Mã khách hàng <span className="required-asterisk">*</span></label>
+                <label>
+                  Mã khách hàng <span className="required-asterisk">*</span>
+                </label>
                 <div className="field-input">
                   <span className="customer-input">
                     <input
@@ -118,7 +122,9 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 </div>
               </div>
               <div className="content-field">
-                <label>Số điện thoại <span className="required-asterisk">*</span></label>
+                <label>
+                  Số điện thoại <span className="required-asterisk">*</span>
+                </label>
                 <div className="field-input">
                   <input
                     className="customer-input"
@@ -166,7 +172,9 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                 </div>
               </div>
               <div className="content-field">
-                <label>Nhóm khách hàng <span className="required-asterisk">*</span></label>
+                <label>
+                  Nhóm khách hàng <span className="required-asterisk">*</span>
+                </label>
                 <div className="field-input">
                   <select
                     className="customer-input"
@@ -190,7 +198,11 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
             </div>
             <div className="modal-footer">
               <div className="form-btn">
-                <button className="btn-cancle" onClick={handleOpen}>
+                <button
+                  type="button"
+                  className="btn-cancle"
+                  onClick={handleOpen}
+                >
                   Thoát
                 </button>
                 <button className="btn-create" type="submit">

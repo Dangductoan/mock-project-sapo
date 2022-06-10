@@ -55,13 +55,13 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implem
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> user = userRepository.findByName(billDTO.getCreatedBy());
         if (user.isEmpty() || !userDetails.getUsername().equals(user.get().getUsername())) {
-            throw new InvalidResourceException("Yêu cầu truyền đúng trường user.name từ user được trả về khi đăng nhập!");
+            throw new InvalidResourceException("Yêu cầu truyền đúng trường createdBy từ user.name, với user được trả về khi đăng nhập!");
         }
 
         billDTO.setCode(billDTO.getCode().toUpperCase());
         billDTO = genericMapper.toDto(billRepository.save(genericMapper.toEntity(billDTO)));
 
-        /** create Revenue Stats */
+        // create Revenue Stats
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Optional<RevenueStats> revenueStats = revenueStatsRepository.findByStringDate(LocalDate.now().format(formatter));
         if (revenueStats.isEmpty()) {
@@ -71,7 +71,7 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implem
             revenueStats.get().setBillQuantity(revenueStats.get().getBillQuantity() + 1);
             revenueStatsRepository.save(revenueStats.get());
         }
-        /** end created Revenue Stats */
+        // end created Revenue Stats
 
         return billDTO;
     }

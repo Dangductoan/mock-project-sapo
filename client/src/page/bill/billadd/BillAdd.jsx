@@ -6,12 +6,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { toast } from "react-toastify";
 import BillCategoryService from "../../../api/BillCategoryService";
 import BillService from "../../../api/BillService";
 import CustomerService from "../../../api/CustomerService";
-import ReactNumberInputFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
+import DropDownHasSearch from "../../../component/dropdown/DropDownHasSearch";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import { randomCode } from "../../../utils/StringRandom";
 import { validateBillCreate } from "../../../validation/bill";
@@ -27,7 +28,7 @@ export default function BillAdd() {
     initialValues: {
       customerName: "",
       billCategoryName: "",
-      code: "",
+      code: randomCode(10),
       totalValue: "",
       payment: "",
       description: "",
@@ -70,7 +71,7 @@ export default function BillAdd() {
         setBillCategories(res.data);
       })
       .catch((err) => console.log(err));
-    CustomerService.searchCustomer({})
+    CustomerService.searchCustomer({ page: 0, size: 10 })
       .then((res) => setCustomers(res.data?.customers))
       .catch((err) => console.log(err));
   }, []);
@@ -115,30 +116,43 @@ export default function BillAdd() {
       <form onSubmit={bill.handleSubmit}>
         <div className="bill-content">
           <div className="bill-info">
-            <h3>Thông tin chung</h3>
+            <h3 className="bill-info-heading">Thông tin chung</h3>
             <div>
               <div>
                 <p>
                   Tên khách hàng <span className="required-asterisk">*</span>
                 </p>
-                <select
+                <DropDownHasSearch
+                  data={customers.map((customer) => customer.name)}
+                  onChange={(customerName) =>
+                    bill.setFieldValue("customerName", customerName)
+                  }
+                  onSearch={(query) => {
+                    CustomerService.searchCustomer({
+                      query: query,
+                      page: 0,
+                      size: 10,
+                    })
+                      .then((res) => setCustomers(res.data?.customers))
+                      .catch((err) => console.log(err));
+                  }}
+                  title="Chọn tên khách hàng"
+                  hasSearch={true}
+                  className="bill-input"
                   name="customerName"
-                  onChange={bill.handleChange}
-                  onBlur={bill.handleBlur}
+                  // onBlur={bill.handleBlur}
                   value={bill.values.customerName}
-                >
-                  <option value="">Chọn tên khách hàng </option>
-                  {customers.map((customer) => (
-                    <option value={customer.name}>{customer.name}</option>
-                  ))}
-                </select>
+                />
                 {bill.touched.customerName && bill.errors.customerName && (
                   <div className="text-danger">{bill.errors.customerName}</div>
                 )}
               </div>
               <div>
-                <p>Loại phiếu thu <span className="required-asterisk">*</span></p>
+                <p>
+                  Loại phiếu thu <span className="required-asterisk">*</span>
+                </p>
                 <select
+                  className="bill-input"
                   name="billCategoryName"
                   onBlur={bill.handleBlur}
                   onChange={bill.handleChange}
@@ -158,8 +172,10 @@ export default function BillAdd() {
                   )}
               </div>
               <div>
-                <p>Mã phiếu <span className="required-asterisk">*</span></p>
-                <span>
+                <p>
+                  Mã phiếu <span className="required-asterisk">*</span>
+                </p>
+                <span className="bill-input">
                   <input
                     className="input-hidden"
                     name="code"
@@ -180,19 +196,32 @@ export default function BillAdd() {
                 )}
               </div>
               <div>
-                <p>Giá trị <span className="required-asterisk">*</span></p>
-                <ReactNumberInputFormat
+                <p>
+                  Giá trị <span className="required-asterisk">*</span>
+                </p>
+                <NumberFormat
+                  className="bill-input"
                   name="totalValue"
                   onChange={bill.handleChange}
                   onBlur={bill.handleBlur}
+                  thousandsGroupStyle="thousand"
+                  decimalSeparator="."
+                  displayType="input"
+                  type="text"
+                  thousandSeparator={true}
+                  allowNegative={false}
                 />
                 {bill.touched.totalValue && bill.errors.totalValue && (
                   <div className="text-danger">{bill.errors.totalValue}</div>
                 )}
               </div>
               <div>
-                <p>Hình thức thanh toán <span className="required-asterisk">*</span></p>
+                <p>
+                  Hình thức thanh toán{" "}
+                  <span className="required-asterisk">*</span>
+                </p>
                 <select
+                  className="bill-input"
                   name="payment"
                   onChange={bill.handleChange}
                   onBlur={bill.handleBlur}
@@ -209,9 +238,10 @@ export default function BillAdd() {
             </div>
           </div>
           <div className="bill-description">
-            <h3>Mô tả</h3>
+            <h3 className="bill-info-heading">Mô tả</h3>
             <div>
               <textarea
+                className="bill-input"
                 type="text"
                 name="description"
                 onChange={bill.handleChange}
@@ -221,6 +251,7 @@ export default function BillAdd() {
         </div>
         <div className="bill-add-submit">
           <button
+            type="button"
             className="btn-cancle"
             onClick={() =>
               history.push(

@@ -128,19 +128,19 @@ function RouterDefined() {
           <DefaultLayout>
             <Switch>
               <Route path="/about" component={About}>
-                {redirectToDashboard("/about")}
+                {redirectToDashboard()}
               </Route>
               <Route path="/product" component={Product}>
-                {redirectToDashboard("/product")}
+                {redirectToDashboard()}
               </Route>
               <Route path="/login" component={Login}>
-                {redirectToDashboard("/login")}
+                {redirectToDashboard()}
               </Route>
               <Route path="/support" component={Support}>
-                {redirectToDashboard("/support")}
+                {redirectToDashboard()}
               </Route>
               <Route path="/" exact component={Home}>
-                {redirectToDashboard("/")}
+                {redirectToDashboard()}
               </Route>
               <Route path="/*" exact component={NotFound}>
                 {redirectToNotFoundPage}
@@ -169,7 +169,7 @@ function redirectToNotFoundPage() {
   return null;
 }
 
-function redirectToDashboard(baseRoute) {
+function redirectToDashboard() {
   const user = AuthService.getUserFormLocalStorage();
 
   if (user) {
@@ -179,7 +179,7 @@ function redirectToDashboard(baseRoute) {
       case "ROLE_CHIEF_ACCOUNTANT":
         return <Redirect to="/chief-accountant" />;
       default:
-        return <Redirect to={baseRoute} />;
+        return null;
     }
   }
   return null;

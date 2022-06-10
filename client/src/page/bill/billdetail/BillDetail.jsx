@@ -1,7 +1,8 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import NumberFormat from "react-number-format";
 import {
   useHistory,
   useLocation,
@@ -10,7 +11,6 @@ import {
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import BillService from "../../../api/BillService";
-import ReactNumberInputFormat from "../../../component/numberformat/template/ReactNumberInputFormat";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
 import { validateBillUpdate } from "../../../validation/bill";
 import "./BillDetail.css";
@@ -91,7 +91,7 @@ export default function BillDetail() {
               <div>
                 <p>Tên khách hàng *</p>
                 <div className="info-not-updated">
-                  <select name="customerName">
+                  <select name="customerName" className="bill-input">
                     <option value={bill.values?.customer?.name}>
                       {bill.values?.customer?.name}
                     </option>
@@ -101,7 +101,7 @@ export default function BillDetail() {
               <div>
                 <p>Loại phiếu thu *</p>
                 <div className="info-not-updated">
-                  <select name="billCategoryName">
+                  <select name="billCategoryName" className="bill-input">
                     <option value={bill.values?.billCategory?.name}>
                       {bill.values?.billCategory?.name}
                     </option>
@@ -111,6 +111,7 @@ export default function BillDetail() {
               <div>
                 <p>Mã phiếu *</p>
                 <input
+                  className="bill-input"
                   type="text"
                   name="code"
                   onBlur={bill.handleBlur}
@@ -123,11 +124,18 @@ export default function BillDetail() {
               </div>
               <div>
                 <p>Giá trị *</p>
-                <ReactNumberInputFormat
+                <NumberFormat
+                  className="bill-input"
                   name="totalValue"
                   onChange={bill.handleChange}
                   onBlur={bill.handleBlur}
-                  value={bill.values?.totalValue}
+                  value={bill.values.totalValue}
+                  thousandsGroupStyle="thousand"
+                  decimalSeparator="."
+                  displayType="input"
+                  type="text"
+                  thousandSeparator={true}
+                  allowNegative={false}
                 />
                 {bill.touched.totalValue && bill.errors.totalValue && (
                   <div className="text-danger">{bill.errors.totalValue}</div>
@@ -136,7 +144,7 @@ export default function BillDetail() {
               <div>
                 <p>Hình thức thanh toán</p>
                 <div className="info-not-updated">
-                  <select name="payment">
+                  <select name="payment" className="bill-input">
                     <option value={bill.values?.payment}>
                       {bill.values?.payment}
                     </option>
@@ -149,6 +157,7 @@ export default function BillDetail() {
             <h3>Mô tả</h3>
             <div>
               <textarea
+                className="bill-input"
                 type="text"
                 name="description"
                 onChange={bill.handleChange}
