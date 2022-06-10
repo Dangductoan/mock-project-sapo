@@ -1,14 +1,29 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import Arrow from "../arrow/Arrow";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AuthService from "../../api/AuthService";
 import SingleModal from "../modal/singlemodal/SingleModal";
 
 function SideBarChief() {
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-
+  const [isActive, setIsACtive] = useState(false)
+  const handleClick = (e) => {
+    document.querySelector('.active-item').classList.remove('active-item')
+    e.target.classList.add("active-item")
+    document.querySelector('.sidebar-subList').classList.remove('block')
+    document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
+  }
+  const handleClickTwo = (e) => {
+    document.querySelector('.active-item').classList.remove('active-item')
+    e.target.classList.add("active-item")
+    setIsACtive(!isActive)
+    document.querySelector('.sidebar-subList').classList.toggle('block')
+  }
+  const handleClick3 = (e) => {
+    document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
+    e.target.classList.add('active-sub_item');
+  }
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -30,9 +45,9 @@ function SideBarChief() {
       </div>
       <div className="sidebar-container">
         <ul className="sidebar-list">
-          
-          <li className="sidebar-list_item">
-            <div className="sidebar-list_link">
+
+          <li className="sidebar-list_item  " onClick={handleClickTwo}>
+            <div className="sidebar-list_link active-item">
               <svg
                 className="MuiSvgIcon-root"
                 focusable="false"
@@ -44,12 +59,14 @@ function SideBarChief() {
                 <path d="M471.2 74.4H115.8c-6.6 0-12 5.4-12 12s5.4 12 12 12h343.4V289c0 6.6 5.4 12 12 12s12-5.4 12-12V86.4c0-6.6-5.4-12-12-12zM268.8 307.2h29.8c6.6 0 12-5.4 12-12s-5.4-12-12-12h-29.8c-6.6 0-12 5.4-12 12s5.4 12 12 12zM180.3 307.4h18.8c4.7 0 8.6 3.8 8.6 8.6s-3.8 8.6-8.6 8.6h-33.7c-6.6 0-12 5.4-12 12s5.4 12 12 12h12.3v7.9c0 6.6 5.4 12 12 12s12-5.4 12-12v-8c16.7-1.3 30-15.4 30-32.5 0-18-14.6-32.6-32.6-32.6h-18.8c-4.7 0-8.6-3.8-8.6-8.6 0-4.7 3.8-8.6 8.6-8.6h33.1c6.6 0 12-5.4 12-12s-5.4-12-12-12h-11.7v-7.6c0-6.6-5.4-12-12-12s-12 5.4-12 12v7.8c-16.7 1.3-30 15.4-30 32.5 0 17.9 14.6 32.5 32.6 32.5z"></path>
               </svg>
               Phiếu thu
-              <Arrow />
+              {/* <Arrow /> */}
+              <svg className={`MuiSvgIcon-root  rorate-2 ${isActive ? 'rorate-0' : ''} `} focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
             </div>
           </li>
           <ul className="sidebar-subList ">
             <li className="sidebar-subList_item">
               <Link
+                onClick={handleClick3}
                 className="sidebar-subList_item-link"
                 to="/chief-accountant/bills"
               >
@@ -58,6 +75,7 @@ function SideBarChief() {
             </li>
             <li className="sidebar-subList_item">
               <Link
+                onClick={handleClick3}
                 className="sidebar-subList_item-link"
                 to="/chief-accountant/bill-category"
               >
@@ -65,7 +83,7 @@ function SideBarChief() {
               </Link>
             </li>
           </ul>
-          <li className="sidebar-list_item">
+          <li className="sidebar-list_item" onClick={handleClick}>
             <Link className="sidebar-list_link" to="/chief-accountant/users">
               <svg
                 className="MuiSvgIcon-root"
@@ -79,7 +97,7 @@ function SideBarChief() {
               Quản lý nhân viên
             </Link>
           </li>
-          <li className="sidebar-list_item">
+          <li className="sidebar-list_item" onClick={handleClick}>
             <Link
               className="sidebar-list_link"
               to="/chief-accountant/customers"
@@ -97,7 +115,7 @@ function SideBarChief() {
               Quản lý khách hàng
             </Link>
           </li>
-          <li className="sidebar-list_item">
+          <li className="sidebar-list_item" onClick={handleClick}>
             <Link className="sidebar-list_link" to="/chief-accountant/report">
               <svg
                 className="MuiSvgIcon-root"
@@ -131,7 +149,7 @@ function SideBarChief() {
         setOpen={setOpenLogoutModal}
         title="Bạn có chắc muốn đăng xuất"
         onConfirm={AuthService.logout}
-        style={{zIndex:'1000'}}
+        style={{ zIndex: '1000' }}
       />
     </div>
   );
