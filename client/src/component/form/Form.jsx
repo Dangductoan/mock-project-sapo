@@ -41,13 +41,14 @@ function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl,sh
        
     }
    
-    const handleClick = () => {
+    const handleClick = (e) => {
+        // e.preventDefault();
         setShow(!show)
     }
     return (
         <>
             <div className="modal">
-                <form onSubmit={handleSubmit} className="form">
+                <form  onSubmit={handleSubmit} className="form">
                     <div className="form-title">
                         <h3>{title}</h3>
                         <span onClick={handleClick}>X</span>
@@ -63,8 +64,8 @@ function Form({ title, action, show, setShow, id,handleUpdate,handleCreate,bl,sh
                         <input onChange={handleChange} name="description" value={billCategory.description} type="text" />
                     </div>
                     <div className="form-btn">
-                        <button className='btn btn-no-active' onClick={handleClick}>Thoát</button>
-                        <button className='btn'>{action}</button>
+                        <button type="button"className='btn btn-no-active' onClick={handleClick}>Thoát</button>
+                        <button type="submit" className='btn'>{action}</button>
                     </div>
                 </form>
 

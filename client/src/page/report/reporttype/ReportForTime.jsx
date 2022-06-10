@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../Report.css'
 import Select from '../../../component/controller/selectInput/Select'
 import List from '../../../component/controller/selectInput/List'
@@ -10,128 +10,154 @@ import GroupData from '../../../component/groupdata/GroupData'
 import MonthAndYearReport from '../../../component/row/MonthAndYearReport'
 import BarChart from '../../../component/chart/BarChart'
 import LineChart from '../../../component/chart/LineChart'
-import {exports} from '../excel/ReportExcelTime'
+import { exports } from '../excel/ReportExcelTime'
 import ConvertDataToExport from '../convert/ConvertDataToExports'
+import SingleModal from '../../../component/modal/singlemodal/SingleModal'
 function ReportForTime() {
-    const cd = useSelect()
-    const time = cd.data.time
-    const revenues = ReportController.GetData()
-    const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
-    const revenuesMonth = revenues !== undefined && GroupData.GroupDataForMonth(revenues)
-    const revenuesYear = revenues !== undefined && GroupData.GroupDataForYear(revenues)
-    const shape = cd.data.shape
-    const excelDataDate = ConvertDataToExport.date(revenues)
-    const excelDataMonth = ConvertDataToExport.monthAndYear(revenuesMonth,revenues)
-    const excelDataYear = ConvertDataToExport.monthAndYear(revenuesYear,revenues)
-    const handleClick = () => {
-      // exports(excelDataMonth)
-      time === "Ngày" && exports(excelDataDate,time);
-      time === "Tháng" && exports(excelDataMonth,time)
-      time === "Năm" && exports(excelDataYear,time)
+  const cd = useSelect()
+  const start = cd.start.toISOString().slice(0, 10);
+  const end = cd.end.toISOString().slice(0, 10);
+  const time = cd.data.time
+  const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
+  const shape = cd.data.shape
+  const revenues = ReportController.GetData()
+  const revenuesMonth = revenues !== undefined && GroupData.GroupDataForMonth(revenues)
+  const revenuesYear = revenues !== undefined && GroupData.GroupDataForYear(revenues)
+  
+  const revenuesCharts = revenues===undefined ? [] : [...revenues];
+    revenuesCharts.push({date:end,totalRevenue:0})
+    revenuesCharts.unshift({date:start,totalRevenue:0})
+  
+  const revenuesYearCharts = revenuesYear;
+  console.log(revenuesMonth)
+  const excelDataDate = ConvertDataToExport.date(revenues)
+  const excelDataMonth = ConvertDataToExport.monthAndYear(revenuesMonth, revenues)
+  const excelDataYear = ConvertDataToExport.monthAndYear(revenuesYear, revenues)
 
-    }
-    const chartData = {
-      labels: revenues !== undefined && revenues.map((data) => data.date.toString().slice(0, 10)),
-      datasets: [
-        {
-          label: "Doanh thu theo ngày",
-          data: revenues !== undefined && revenues.map((data) => data.totalRevenue),
-          backgroundColor: ["#0088FF"]
-        },
-      ],
-    }
-    const chartDataMonth = {
-      labels:Object.keys(revenuesMonth).map((key) => key),
-      datasets: [
-        {
-          label: "Doanh thu theo tháng",
-          data: Object.keys(revenuesMonth).map((key) => {
-            const total = revenuesMonth[key]!== undefined && revenuesMonth[key].reduce((d,v) => {
-              d.a = d.a + v.billQuantity;
-              d.b = d.b + v.totalRevenue;
-              return d;
-          } ,{
-              a:0,
-              b:0,
+  const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
+
+  
+
+  
+  const exportBillListExcel = () => {
+
+    time === "Ngày" && exports(excelDataDate, time);
+    time === "Tháng" && exports(excelDataMonth, time)
+    time === "Năm" && exports(excelDataYear, time)
+  };
+  const handleClick = () => {
+    // exports(excelDataMonth)
+    setOpenExportExcelModal(true)
+
+  }
+  const chartData = {
+    labels: revenuesCharts !== undefined && revenuesCharts.map((data) => data.date.toString().slice(0, 10)),
+    datasets: [
+      {
+        label: "Doanh thu theo ngày",
+        data: revenuesCharts !== undefined && revenuesCharts.map((data) => data.totalRevenue),
+        backgroundColor: ["#0088FF"]
+      },
+    ],
+  }
+  const chartDataMonth = {
+    labels: Object.keys(revenuesMonth).map((key) => key),
+    datasets: [
+      {
+        label: "Doanh thu theo tháng",
+        data: Object.keys(revenuesMonth).map((key) => {
+          const total = revenuesMonth[key] !== undefined && revenuesMonth[key].reduce((d, v) => {
+            d.a = d.a + v.billQuantity;
+            d.b = d.b + v.totalRevenue;
+            return d;
+          }, {
+            a: 0,
+            b: 0,
           })
           return total.b;
-          }),
-          backgroundColor: ["#0088FF"]
-        },
-      ],
-    }
-    const chartDataYear = {
-      labels:Object.keys(revenuesYear).map((key) => key),
-      datasets: [
-        {
-          label: "Doanh thu theo năm",
-          data:Object.keys(revenuesYear).map((key) => {
-            const total = revenuesYear[key]!== undefined && revenuesYear[key].reduce((d,v) => {
-              d.a = d.a + v.billQuantity;
-              d.b = d.b + v.totalRevenue;
-              return d;
-          } ,{
-              a:0,
-              b:0,
+        }),
+        backgroundColor: ["#0088FF"]
+      },
+    ],
+  }
+  const chartDataYear = {
+    labels: Object.keys(revenuesYear).map((key) => key),
+    datasets: [
+      {
+        label: "Doanh thu theo năm",
+        data: Object.keys(revenuesYear).map((key) => {
+          const total = revenuesYear[key] !== undefined && revenuesYear[key].reduce((d, v) => {
+            d.a = d.a + v.billQuantity;
+            d.b = d.b + v.totalRevenue;
+            return d;
+          }, {
+            a: 0,
+            b: 0,
           })
           return total.b;
-          }),
-          backgroundColor: ["#0088FF"]
-        },
-      ],
-    }
+        }),
+        backgroundColor: ["#0088FF"]
+      },
+    ],
+  }
   return (
     <>
-     <div className="report-content_data-option">
-            <span className='position-span mg-60'>{shape}</span>
-            <Select cl="shape" list={<List items={shapes} typeSelect='shape' />} />
-          </div>
-          <div className="report-content_data-chart">
-            {time === "Ngày" && shape==="Biểu đồ cột" && <BarChart chartData={chartData} />}
-            {time === "Ngày" && shape===" Biểu đồ đường" && <LineChart chartData={chartData} />}
-             {time === "Tháng" && shape==="Biểu đồ cột" && <BarChart chartData={chartDataMonth} />}
-             {time === "Tháng" && shape===" Biểu đồ đường" && <LineChart chartData={chartDataMonth} />}
-            {time === "Năm" && shape==="Biểu đồ cột" && <BarChart chartData={chartDataYear} />}
-            {time === "Năm" && shape===" Biểu đồ đường" &&<LineChart chartData={chartDataYear} />}
+      <div className="report-content_data-option">
+        <span className='position-span mg-60'>{shape}</span>
+        <Select cl="shape" list={<List items={shapes} typeSelect='shape' />} />
+      </div>
+      <div className="report-content_data-chart">
+        {time === "Ngày" && shape === "Biểu đồ cột" && <BarChart chartData={chartData} />}
+        {time === "Ngày" && shape === " Biểu đồ đường" && <LineChart chartData={chartData} />}
+        {time === "Tháng" && shape === "Biểu đồ cột" && <BarChart chartData={chartDataMonth} />}
+        {time === "Tháng" && shape === " Biểu đồ đường" && <LineChart chartData={chartDataMonth} />}
+        {time === "Năm" && shape === "Biểu đồ cột" && <BarChart chartData={chartDataYear} />}
+        {time === "Năm" && shape === " Biểu đồ đường" && <LineChart chartData={chartDataYear} />}
 
 
-          </div>
-          <div className="horizontal">
-          </div>
-          <div className="report-content_data-table" style={{textAlign:'center'}}>
-            <div className="report-column columns">
-              <h5>{time}</h5>
-              <h5>Sô lượng đơn hàng</h5>
-              <h5>Doanh thu</h5>
-              <h5>Chi phí</h5>
-              <h5>Lợi nhuận gộp</h5>
+      </div>
+      <div className="horizontal">
+      </div>
+      <div className="report-content_data-table" style={{ textAlign: 'center' }}>
+        <div className="report-column ">
+          <h5>{time}</h5>
+          <h5>Sô lượng đơn hàng</h5>
+          <h5>Doanh thu</h5>
+          <h5>Chi phí</h5>
+          <h5>Lợi nhuận gộp</h5>
 
-            </div>
-            <TotalRowReport value={revenues} />
-            {time === "Ngày" && revenues !== undefined && revenues.map(revenue => {
-              const { id, totalRevenue, billQuantity } = revenue;
-              const cost = 0;
-              const profit = totalRevenue - 0;
-              const date = revenue.date.toString().slice(0, 10)
-              return (
-                <RowReport key={id} date={date} amount={billQuantity} turnover={totalRevenue} cost={cost} profit={profit} />
-              )
-            })}
-            {time === "Tháng" && revenuesMonth !== false && Object.keys(revenuesMonth).map((key, i) => {
-              return (
-                <MonthAndYearReport key={i} k={key} value={revenuesMonth[key]} />
-              )
-            })}
-            {time === "Năm" && revenuesYear !== false && Object.keys(revenuesYear).map((key, i) => {
-              return (
-                <MonthAndYearReport key={i} k={key} value={revenuesYear[key]} />
-              )
-            })}
-            <button className='btn' style={{margin:"40px 60px 40px 0",}} onClick={handleClick}>
-            <svg className="MuiSvgIcon-root"  style={{width:'10px'}} focusable="false" viewBox="0 0 14 20" aria-hidden="true"><path d="M6 8.74228e-08L6 12.17L2.41 8.59L1 10L7 16L13 10L11.59 8.59L8 12.17L8 0L6 8.74228e-08Z" fill="currentColor"></path><path d="M0 18H14V20H0V18Z" fill="currentColor"></path></svg>
-              Xuất ra file excel</button>
+        </div>
+        <TotalRowReport value={revenues} />
+        {time === "Ngày" && revenues !== undefined && revenues.map(revenue => {
+          const { id, totalRevenue, billQuantity } = revenue;
+          const cost = 0;
+          const profit = totalRevenue - 0;
+          const date = revenue.date.toString().slice(0, 10)
+          return (
+            <RowReport key={id} date={date} amount={billQuantity} turnover={totalRevenue} cost={cost} profit={profit} />
+          )
+        })}
+        {time === "Tháng" && revenuesMonth !== false && Object.keys(revenuesMonth).map((key, i) => {
+          return (
+            <MonthAndYearReport key={i} k={key} value={revenuesMonth[key]} />
+          )
+        })}
+        {time === "Năm" && revenuesYear !== false && Object.keys(revenuesYear).map((key, i) => {
+          return (
+            <MonthAndYearReport key={i} k={key} value={revenuesYear[key]} />
+          )
+        })}
+        <button className='btn export-btn' onClick={handleClick}>
+          <svg className="MuiSvgIcon-root" style={{ width: '10px' }} focusable="false" viewBox="0 0 14 20" aria-hidden="true"><path d="M6 8.74228e-08L6 12.17L2.41 8.59L1 10L7 16L13 10L11.59 8.59L8 12.17L8 0L6 8.74228e-08Z" fill="currentColor"></path><path d="M0 18H14V20H0V18Z" fill="currentColor"></path></svg>
+          Xuất ra file excel</button>
 
-          </div>
+      </div>
+      <SingleModal
+        open={openExportExcelModal}
+        setOpen={setOpenExportExcelModal}
+        title="Xác nhận xuất file Excel"
+        onConfirm={exportBillListExcel}
+      ></SingleModal>
     </>
   )
 }

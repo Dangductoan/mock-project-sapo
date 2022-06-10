@@ -61,9 +61,7 @@ function CustomerListPage() {
         <h2>Danh sách khách hàng</h2>
         <div className="customer-header__right">
           <p>Xin chào "{user.name}"</p>
-          <Link to={match.path} onClick={() => AuthService.logout()}>
-            Logout
-          </Link>
+          
         </div>
       </div>
       <div className="customer-option">
