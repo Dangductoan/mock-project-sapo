@@ -1,7 +1,8 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
 import AuthService from "../../api/AuthService";
 import SingleModal from "../modal/singlemodal/SingleModal";
 
@@ -135,9 +136,7 @@ function SideBarChief() {
               className="sidebar-list_link"
               onClick={() => setOpenLogoutModal(true)}
             >
-              <LogoutIcon
-                style={{ width: "20px", fill: "#cad6e2", marginRight: "15px" }}
-              />
+              <FontAwesomeIcon icon={faArrowRightFromBracket} style={{width: "20px", height: "20px", marginRight: "10px"}} />
               Đăng xuất
             </span>
           </li>
