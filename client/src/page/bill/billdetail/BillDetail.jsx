@@ -86,7 +86,7 @@ export default function BillDetail() {
       <form onSubmit={bill.handleSubmit}>
         <div className="bill-content">
           <div className="bill-info">
-            <h3>Thông tin chung</h3>
+            <h3 className="bill-info-heading">Thông tin chung</h3>
             <div>
               <div>
                 <p>Tên khách hàng *</p>
@@ -154,7 +154,7 @@ export default function BillDetail() {
             </div>
           </div>
           <div className="bill-description">
-            <h3>Mô tả</h3>
+            <h3 className="bill-info-heading">Mô tả</h3>
             <div>
               <textarea
                 className="bill-input"

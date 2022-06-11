@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -72,6 +73,31 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implem
             revenueStatsRepository.save(revenueStats.get());
         }
         // end created Revenue Stats
+
+        return billDTO;
+    }
+
+    @Override
+    @Transactional
+    public BillDTO update(BillDTO billDTO) {
+        // check modifiedBy từ client truyền xuống
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByName(billDTO.getModifiedBy());
+        if (user.isEmpty() || !userDetails.getUsername().equals(user.get().getUsername())) {
+            throw new InvalidResourceException("Yêu cầu truyền đúng trường modifiedBy từ user.name, với user được trả về khi đăng nhập!");
+        }
+
+        Bill bill = billRepository.getById(billDTO.getId());
+
+        // modify Revenue Stats
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
+        Optional<RevenueStats> revenueStats = revenueStatsRepository.findByStringDate(formatter.format(billDTO.getCreatedAt()));
+        if (revenueStats.isPresent()) {
+            revenueStats.get().setTotalRevenue(revenueStats.get().getTotalRevenue() - bill.getTotalValue() + billDTO.getTotalValue());
+        }
+        // end modify Revenue Stats
+
+        billDTO = genericMapper.toDto(billRepository.save(genericMapper.toEntity(billDTO)));
 
         return billDTO;
     }
