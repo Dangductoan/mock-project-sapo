@@ -16,10 +16,13 @@ function SideBarChief() {
     document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
   }
   const handleClickTwo = (e) => {
-    document.querySelector('.active-item').classList.remove('active-item')
-    e.target.classList.add("active-item")
-    setIsACtive(!isActive)
-    document.querySelector('.sidebar-subList').classList.toggle('block')
+    if(e.target.className === "sidebar-list_link") {
+
+      document.querySelector('.active-item').classList.remove('active-item')
+      e.target.classList.add("active-item")
+      setIsACtive(!isActive)
+      document.querySelector('.sidebar-subList').classList.toggle('block')
+    }
   }
   const handleClick3 = (e) => {
     document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
@@ -64,11 +67,11 @@ function SideBarChief() {
               <svg className={`MuiSvgIcon-root  rorate-2 ${isActive ? 'rorate-0' : ''} `} focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
             </div>
           </li>
-          <ul className="sidebar-subList ">
-            <li className="sidebar-subList_item">
+          <ul className="sidebar-subList block ">
+            <li className="sidebar-subList_item ">
               <Link
                 onClick={handleClick3}
-                className="sidebar-subList_item-link"
+                className="sidebar-subList_item-link active-sub_item"
                 to="/chief-accountant/bills"
               >
                 Danh sách phiếu thu
