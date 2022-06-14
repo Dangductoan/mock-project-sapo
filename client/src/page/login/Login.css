@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 95px;
+    height: 600px;
     
 }
 .login-logo{
@@ -65,5 +65,5 @@
     backface-visibility: hidden;
     white-space: nowrap;
     font-size: 24px;
-   
+    cursor: pointer;
 }

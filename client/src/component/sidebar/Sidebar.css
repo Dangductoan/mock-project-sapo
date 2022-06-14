@@ -34,6 +34,7 @@
 
 .sidebar-list_item {
   height: 50px;
+  cursor: pointer;
 }
 .sidebar-list_item:hover {
   background-color: #2A3A51;

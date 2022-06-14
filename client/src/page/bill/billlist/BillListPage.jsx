@@ -1,7 +1,7 @@
 import {
   faDownload,
   faMagnifyingGlass,
-  faPlus
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
@@ -33,7 +33,12 @@ function BillListPage() {
       : Math.floor(totalItem / ITEM_PER_PAGE) + 1;
 
   useEffect(() => {
-    BillService.searchBill({ query: query, page: 0, size: ITEM_PER_PAGE })
+    BillService.searchBill({
+      query: query,
+      page: 0,
+      size: ITEM_PER_PAGE,
+      sort: "createdAt,desc",
+    })
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
   }, [query]);
@@ -51,6 +56,7 @@ function BillListPage() {
       query: query,
       page: page - 1,
       size: ITEM_PER_PAGE,
+      sort: "createdAt,desc",
     })
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
@@ -65,6 +71,7 @@ function BillListPage() {
       modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY hh:mm"),
     }));
     exportBillList(data);
+    setOpenExportExcelModal(false);
   };
 
   return (
@@ -99,7 +106,7 @@ function BillListPage() {
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
               type="text"
-              placeholder="Tìm theo mã phiếu, loại phiếu, hình thức thanh toán và người tạo"
+              placeholder="Tìm theo mã phiếu, tên khách hàng, loại phiếu, hình thức thanh toán và người tạo"
               onKeyPress={(e) => {
                 if (e.key === "Enter") setQuery(e.target.value);
               }}

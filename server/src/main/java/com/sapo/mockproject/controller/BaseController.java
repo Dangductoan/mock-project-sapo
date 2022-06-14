@@ -1,9 +1,11 @@
 package com.sapo.mockproject.controller;
 
 import com.sapo.mockproject.dto.BaseDTO;
+import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,15 +55,26 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
     @GetMapping
     public Map<String, List<D>> searchByQuery(@RequestParam(required = false) String query,
                                               @RequestParam(required = false) Integer page,
-                                              @RequestParam(required = false) Integer size) {
+                                              @RequestParam(required = false) Integer size,
+                                              @RequestParam(defaultValue = "id,desc", required = false) String sort) {
         Map<String, List<D>> data = new HashMap<>();
-        String dataName = dto.responseDataName().endsWith("y")
+        String responseDataName = dto.responseDataName().endsWith("y")
                 ? dto.responseDataName().substring(0, dto.responseDataName().length() - 1) + "ies"
                 : dto.responseDataName() + "s";
+
+        String property = sort.substring(0, sort.indexOf(","));
+        String direction = sort.substring(sort.indexOf(",") + 1);
+        Sort.Direction directionEnum;
+
+        if (direction.equals("asc")) directionEnum = Sort.Direction.ASC;
+        else if (direction.equals("desc")) directionEnum = Sort.Direction.DESC;
+        else throw new InvalidResourceException("Viết đúng trường sort theo mẫu: tên_trường,[acs hoặc desc]");
+
         if (page != null && size != null) {
-            data.put(dataName, genericService.fetchByQuery(query, PageRequest.of(page, size)));
+            data.put(responseDataName, genericService.fetchByQuery(query,
+                    PageRequest.of(page, size, Sort.by(directionEnum, property))));
         } else {
-            data.put(dataName, genericService.fetchByQuery(query));
+            data.put(responseDataName, genericService.fetchByQuery(query));
         }
 
         return data;

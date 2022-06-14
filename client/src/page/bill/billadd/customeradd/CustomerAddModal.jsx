@@ -203,7 +203,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
                   className="btn-cancle"
                   onClick={handleOpen}
                 >
-                  Thoát
+                  Hủy
                 </button>
                 <button className="btn-create" type="submit">
                   Thêm

@@ -6,9 +6,3 @@
   pointer-events: none;
   background-color: #e9ecef;
 }
-
-.bill-bread-crumb {
-  display: inline-block;
-  cursor: pointer;
-  margin-bottom: 20px;
-}

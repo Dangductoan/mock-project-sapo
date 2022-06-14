@@ -8,14 +8,15 @@ export const createBill = (bill) => {
   });
 }
 
-export const searchBill = ({ query, page, size }) => {
+export const searchBill = ({ query, page, size, sort }) => {
   return call_api({
     url: "accountant/bills",
     method: "GET",
     params: {
       query,
       page,
-      size
+      size,
+      sort
     }
   })
 }
@@ -26,11 +27,11 @@ const getBill = (id) => {
     url: `accountant/bills/${id}`
   })
 }
-const getDataBetween =(start,end)=>{
+const getDataBetween = (start, end) => {
   return call_api({
-      method: "GET",
-      url: `accountant/bills/${start}/${end}`,
-    })
+    method: "GET",
+    url: `accountant/bills/${start}/${end}`,
+  })
 }
 const updateBill = (id, bill) => {
   if (bill.modifiedAt) delete bill.modifiedAt;
