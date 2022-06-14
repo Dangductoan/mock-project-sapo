@@ -92,3 +92,13 @@
 .bill-table .table__price {
   text-align: right;
 }
+
+.bill-bread-crumb {
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.bill-bread-crumb:hover {
+  color: #212f8f;
+}

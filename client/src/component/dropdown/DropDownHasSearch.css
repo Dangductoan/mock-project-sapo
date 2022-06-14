@@ -31,7 +31,7 @@ div.dropdown * {
 
 .dropdown__content {
   width: inherit;
-  height: calc(35px * 5);
+  height: calc(35px * 6);
   overflow-y: scroll;
   display: none;
   position: absolute;

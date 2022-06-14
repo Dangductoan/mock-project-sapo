@@ -99,7 +99,7 @@ function BillListPage() {
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
               type="text"
-              placeholder="Tìm theo mã phiếu, loại phiếu, hình thức thanh toán và người tạo"
+              placeholder="Tìm theo mã phiếu, tên khách hàng, loại phiếu, hình thức thanh toán và người tạo"
               onKeyPress={(e) => {
                 if (e.key === "Enter") setQuery(e.target.value);
               }}
