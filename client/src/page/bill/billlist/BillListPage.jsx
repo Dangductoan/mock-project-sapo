@@ -71,6 +71,7 @@ function BillListPage() {
       modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY hh:mm"),
     }));
     exportBillList(data);
+    setOpenExportExcelModal(false);
   };
 
   return (
