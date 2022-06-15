@@ -27,6 +27,7 @@ function ReportForBillCategory() {
     const exportBillListExcel = () => {
 
         exports(newData, type)
+        setOpenExportExcelModal(false);
 
     };
     const handleClick = () => {
@@ -46,12 +47,12 @@ function ReportForBillCategory() {
     return (
         <>
             <div className="report-content_data-option">
-                
+
             </div>
             <div className="report-content_data-chart">
 
-              <BarChart chartData={chartBillCategory} />
-                  
+                <BarChart chartData={chartBillCategory} />
+
 
             </div>
             <div className="horizontal"></div>
