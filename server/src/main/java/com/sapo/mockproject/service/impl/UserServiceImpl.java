@@ -60,6 +60,8 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, UserDTO, User> {
             user.setUsername(userDTO.getUsername());
         if(!(userDTO.getPassword()== null))
             user.setPassword(encoder.encode(userDTO.getPassword()));
+        if(userDTO.getPassword()== null)
+            user.setPassword(user.getPassword());
         if(!(userDTO.getPhoneNumber()== null))
             user.setPhoneNumber(userDTO.getPhoneNumber());
         if(!(userDTO.getAddress()== null))
