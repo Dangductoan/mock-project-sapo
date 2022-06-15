@@ -128,7 +128,6 @@ function BillListPage() {
             </thead>
             <tbody>
               {bills.map((bill) => {
-                console.log(bill.createdAt);
                 return (
                   <tr
                     key={bill.id}
