@@ -43,6 +43,8 @@ function ReportForTime() {
     time === "Ngày" && exports(excelDataDate, time);
     time === "Tháng" && exports(excelDataMonth, time)
     time === "Năm" && exports(excelDataYear, time)
+    setOpenExportExcelModal(false);
+
   };
   const handleClick = () => {
     // exports(excelDataMonth)
