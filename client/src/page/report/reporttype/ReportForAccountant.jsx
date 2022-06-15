@@ -33,6 +33,7 @@ function ReportForAccountant() {
     const exportBillListExcel = () => {
 
         exports(newData, type)
+        setOpenExportExcelModal(false);
 
     };
     const handleClick = () => {

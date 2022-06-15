@@ -14,7 +14,7 @@ function ReportForCustomer() {
 
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForCustomerId(data.bills)
-    const billsCharts = bills === undefined ? {} : { 0: [{ totalValue: 0,customer:{name:''} }], ...bills };
+    const billsCharts = bills === undefined ? {} : { 0: [{ totalValue: 0, customer: { name: '' } }], ...bills };
     console.log(billsCharts)
     const newData = Object.keys(bills).map((key) => {
         const result = bills[key] !== undefined && bills[key].reduce((d, v) => {
@@ -33,6 +33,7 @@ function ReportForCustomer() {
     const exportBillListExcel = () => {
 
         exports(newData, type)
+        setOpenExportExcelModal(false);
 
     };
     const handleClick = () => {
@@ -65,8 +66,8 @@ function ReportForCustomer() {
             </div>
             <div className="report-content_data-chart">
 
-                 <BarChart chartData={chartCustomer} />
-                   
+                <BarChart chartData={chartCustomer} />
+
 
             </div>
             <div className="horizontal"></div>
