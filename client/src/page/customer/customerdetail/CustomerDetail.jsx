@@ -96,6 +96,7 @@ export default function CustomerDetail() {
         <div className="customer-info">
           <h3>Thông tin chung</h3>
           <div>
+            <div>
                 <p>Tên *</p>
                 <input
                   type="text"
@@ -104,7 +105,7 @@ export default function CustomerDetail() {
                   onChange={handleInputChange}
                 />
                
-              </div>
+            </div>
               <div>
                 <p>Nhóm khách hàng *</p>
                 <select
@@ -112,7 +113,8 @@ export default function CustomerDetail() {
                   value={customer.groupCustomer}
                   onChange={handleInputChange}
                 >
-                  <option value="">Chọn nhóm khách hàng</option>
+                  <option value={customer.groupCustomer}>{customer.groupCustomer}</option>
+                  <option value="Enterprise">Enterprise</option>
                   <option value="Bán lẻ">Bán lẻ</option>
                   <option value="Bán buôn">Bán buôn</option>
                 </select>
@@ -148,6 +150,7 @@ export default function CustomerDetail() {
                 />
                 
               </div>
+            </div>
         </div>
       </div>
       <div className="customer-add-submit">
