@@ -38,7 +38,7 @@
     background-color: #fff;
 }
 .report-content_data-option {
-   padding: 20px 20px 20px 700px;
+   padding: 20px ;
 }
 .shape {
     width: 250px;
@@ -75,10 +75,16 @@
 .report-column>h5 {
     font-weight: 600;
     width: 33.333%;
-    text-align: center;
+    text-align: left;
+}
+.report-content_data-table {
+   padding-left: 20px;
 }
  .export-btn{
     position:absolute;
     top:4px;
     right:50px;
+ }
+ .report-column.report-column_billCategory>h5 {
+    width: 25%;
  }

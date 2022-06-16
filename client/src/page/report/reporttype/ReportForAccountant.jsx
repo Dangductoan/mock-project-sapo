@@ -17,14 +17,12 @@ function ReportForAccountant() {
     const newData = Object.keys(bills).map((key) => {
         const result = bills[key] !== undefined && bills[key].reduce((d, v) => {
             d.total = d.total + v.totalValue;
-            d.profit = d.total - d.cost;
             return d;
         }, {
             name: bills[key][0].createdBy,
             count: bills[key].length,
             total: 0,
-            cost: 0,
-            profit: 0
+
         })
         return result
 
@@ -61,12 +59,12 @@ function ReportForAccountant() {
     return (
         <>
             <div className="report-content_data-option">
-                
+
             </div>
             <div className="report-content_data-chart">
 
-              <BarChart chartData={chartAccountant} />
-                  
+                <BarChart chartData={chartAccountant} />
+
 
             </div>
             <div className="horizontal"></div>
@@ -75,8 +73,7 @@ function ReportForAccountant() {
                     <h5>Tên  </h5>
                     <h5>Số phiếu thu đã tạo</h5>
                     <h5>Doanh thu </h5>
-                    <h5>Chi phí</h5>
-                    <h5>Lợi nhuận</h5>
+
 
 
                 </div>

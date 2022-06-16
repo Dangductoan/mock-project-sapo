@@ -13,13 +13,13 @@ function Navbar() {
          </div>
          <ul className="navbar_list">
              <li className='navbar_list-item'>
-                 <Link className='navbar_list-item_link'to='/about'>About</Link></li>
+                 <Link className='navbar_list-item_link'to='/about'>Về chúng tôi?</Link></li>
              <li className='navbar_list-item'>
-                 <Link className='navbar_list-item_link'to='/product'>Product</Link></li>
+                 <Link className='navbar_list-item_link'to='/product'>Sản phẩm</Link></li>
              <li className='navbar_list-item'>
-                 <Link className='navbar_list-item_link'to='/support'>Support</Link></li>
+                 <Link className='navbar_list-item_link'to='/support'>Hỗ trợ</Link></li>
              <li className='navbar_list-item'>
-                 <Link className='navbar_list-item_link'to='/login'>Login</Link></li>
+                 <Link className='navbar_list-item_link'to='/login'>Đăng nhập</Link></li>
          </ul>
     </div>
     </div>

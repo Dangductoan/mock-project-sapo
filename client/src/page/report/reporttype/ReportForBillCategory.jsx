@@ -56,11 +56,11 @@ function ReportForBillCategory() {
 
             </div>
             <div className="horizontal"></div>
-            <div className="report-content_data-table" style={{ textAlign: 'center' }}>
-                <div className="report-column ">
+            <div className="report-content_data-table" >
+                <div className="report-column report-column_billCategory">
                     <h5>Loại phiếu thu  </h5>
                     <h5>Mã phiếu thu </h5>
-                    <h5>Số lượng phiếu thu sử dụng loại phiếu thu </h5>
+                    <h5 style={{paddingRight:"60px"}}>Số lượng phiếu thu sử dụng loại phiếu thu </h5>
                     <h5>Mô tả</h5>
 
                 </div>
