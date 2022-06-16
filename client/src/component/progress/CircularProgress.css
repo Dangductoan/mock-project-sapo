@@ -1,0 +1,21 @@
+.circular-progress {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.circular-progress--overlay {
+  animation: modalBgOpen 0.2s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.circular-progress-show {
+  display: block;
+}
