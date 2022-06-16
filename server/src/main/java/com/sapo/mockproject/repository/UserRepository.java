@@ -20,12 +20,15 @@ public interface UserRepository extends GenericRepository<User, Integer> {
 
     Boolean existsByUsername(String username);
 
+    String SEARCH_CONDITION = " FROM User u " +
+            " WHERE name LIKE %?1% OR phone_number LIKE %?1% OR address LIKE %?1% OR username LIKE %?1%";
+
     @Override
-    @Query("SELECT u FROM User u where name = ?1")
+    @Query("SELECT u " + SEARCH_CONDITION)
     Page<User> fetchByQuery(String query, Pageable pageable);
 
     @Override
-    @Query("SELECT u FROM User u where name = ?1")
+    @Query("SELECT u " + SEARCH_CONDITION)
     List<User> fetchByQuery(String query);
 
     @Override

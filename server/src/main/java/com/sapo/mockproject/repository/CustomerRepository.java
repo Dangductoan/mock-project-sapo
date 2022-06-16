@@ -16,12 +16,15 @@ public interface CustomerRepository extends GenericRepository<Customer, Integer>
     Optional<Customer> findByCode(String code);
 
     Optional<Customer> findByEmail(String email);
+    String SEARCH_CONDITION = " FROM Customer c " +
+            " WHERE name LIKE %?1% OR phone_number LIKE %?1% OR address LIKE %?1% OR email LIKE %?1% OR group_customer LIKE %?1%";
+
     @Override
-    @Query("SELECT c FROM Customer c WHERE name LIKE %?1%")
+    @Query("SELECT c " + SEARCH_CONDITION)
     Page<Customer> fetchByQuery(String query, Pageable pageable);
 
     @Override
-    @Query("SELECT c FROM Customer c WHERE name LIKE %?1%")
+    @Query("SELECT c " + SEARCH_CONDITION)
     List<Customer> fetchByQuery(String query);
 
     @Override
