@@ -16,14 +16,15 @@ function SideBarChief() {
     document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
   }
   const handleClickTwo = (e) => {
-    if(e.target.className === "sidebar-list_link") {
+    if(e.target.classList.contains("sidebar-list_link")) {
+      document.querySelector('.sidebar-subList').classList.toggle('block')
 
       document.querySelector('.active-item').classList.remove('active-item')
       e.target.classList.add("active-item")
       setIsACtive(!isActive)
-      document.querySelector('.sidebar-subList').classList.toggle('block')
     }
   }
+  
   const handleClick3 = (e) => {
     document.querySelector('.active-sub_item') && document.querySelector('.active-sub_item').classList.remove('active-sub_item')
     e.target.classList.add('active-sub_item');

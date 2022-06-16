@@ -42,4 +42,6 @@ public class User extends BaseDomain<Integer> {
     @LastModifiedDate
     private Instant modifiedAt;
 
+
+
 }
