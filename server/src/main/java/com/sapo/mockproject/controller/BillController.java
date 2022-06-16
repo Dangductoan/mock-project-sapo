@@ -4,11 +4,9 @@ import com.sapo.mockproject.dto.BillDTO;
 import com.sapo.mockproject.service.BillService;
 import com.sapo.mockproject.service.GenericService;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +20,25 @@ public class BillController extends BaseController<Long, BillDTO> {
     public BillController(GenericService<Long, BillDTO> genericService, BillService billService) {
         super(genericService);
         this.billService = (BillService) genericService;
+    }
+
+    @GetMapping("filter")
+    public Map<String, List<BillDTO>> filter(@RequestParam Map<String, String> requestParams,
+                                             @Positive @RequestParam(required = false) Integer page,
+                                             @Positive @RequestParam(required = false) Integer size) {
+        Map<String, List<BillDTO>> data = new HashMap<>();
+        if (page == null || size == null)
+            data.put("bills", billService.filter(requestParams));
+        else
+            data.put("bills", billService.filter(requestParams, page, size));
+        return data;
+    }
+
+    @GetMapping("count-filter")
+    public Map<String, Long> countFilter(@RequestParam Map<String, String> requestParams) {
+        Map<String, Long> data = new HashMap<>();
+        data.put("count", billService.countFilter(requestParams));
+        return data;
     }
 
     @GetMapping("/{start}/{end}")
