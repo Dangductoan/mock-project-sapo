@@ -68,8 +68,8 @@ function BillListPage() {
       ...bill,
       customerName: bill.customer.name,
       billCategoryName: bill.billCategory.name,
-      createdAt: moment(bill.createdAt).format("DD/MM/YYYY hh:mm"),
-      modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY hh:mm"),
+      createdAt: moment(bill.createdAt).format("DD/MM/YYYY HH:mm"),
+      modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY HH:mm"),
     }));
     exportBillList(data);
     setOpenExportExcelModal(false);
