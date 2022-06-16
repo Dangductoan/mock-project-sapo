@@ -14,10 +14,10 @@ function RowCustomerReport({value,k}) {
     return (
         <div className="row-report" >
             <h3 className='row-report_item'>{value[0].customer.name}</h3>
-            <h3 className='row-report_item'>{value.length}</h3>
-            <h3 className='row-report_item'><ReactNumberTextFormat value={total.b}/></h3>
             <h3 className='row-report_item'>{value[0].customer.email}</h3>
             <h3 className='row-report_item'>{value[0].customer.phoneNumber}</h3>
+            <h3 className='row-report_item'>{value.length}</h3>
+            <h3 className='row-report_item'><ReactNumberTextFormat value={total.b}/></h3>
 
     
         </div>
