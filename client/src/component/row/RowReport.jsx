@@ -7,8 +7,7 @@ function RowReport(props) {
             <h3 className='row-report_item'>{props.date}</h3>
             <h3 className='row-report_item'>{props.amount}</h3>
             <h3 className='row-report_item'><ReactNumberTextFormat value={props.turnover}/></h3>
-            <h3 className='row-report_item'>{props.cost}</h3>
-            <h3 className='row-report_item'><ReactNumberTextFormat value={props.profit}/></h3>
+           
     
         </div>
       )

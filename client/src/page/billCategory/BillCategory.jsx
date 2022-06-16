@@ -15,6 +15,7 @@ function BillCategory() {
   const [update, setUpdate] = useState(false)
   const [create, setCreate] = useState(false)
   const [index, setIndex] = useState()
+  // const [page, setPage] = useState(1);
   useEffect(() => {
     BillCategoryService.getBillCategory()
       .then(res => {
@@ -48,32 +49,36 @@ function BillCategory() {
           </h2>
           <p>Xin chào "{user.name}"</p>
         </div>
-          <div className="billCategory-btn ">
-            <button onClick={handleClick} className='btn'>
-              
-              Thêm Loại phiếu thu</button>
-          </div>
-        <div className="billCategory-content">
-          <div className="billCategory-table">
-            <div className="columns">
-              <h5>Tên</h5>
-              <h5>Mã</h5>
-              <h5>Mô tả</h5>
+        <div className="billCategory-btn ">
+          <button onClick={handleClick} className='btn'>
 
-            </div>
-            {billCategories.map(BillCategory => {
-
-              const { name, code, description, id } = BillCategory;
-              return <Row key={id} index={id} name={name} code={code} desc={description} show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex} handleBillCategory={handleBillCategory} />
-
-            })}
-            <div className="row-end">
-              <h3>Hiển thị kết quả từ 1 đến {billCategories.length}  trên tổng {billCategories.length}  </h3>
-            </div>
-
-          </div>
+            Thêm Loại phiếu thu</button>
         </div>
-       
+        <div className="billCategory-content">
+          <table className="billCategory-table">
+            <thead>
+              <tr>
+                <th>Tên</th>
+                <th>Mã</th>
+                <th>Mô tả</th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+              {billCategories.map(BillCategory => {
+
+                const { name, code, description, id } = BillCategory;
+                return <Row key={id} index={id} name={name} code={code} desc={description} show={showFormUpdate} setShow={setShowFormUpdate} setIndex={setIndex} handleBillCategory={handleBillCategory} />
+
+              })}
+            </tbody>
+
+
+
+          </table>
+        </div>
+
         <ToastifyToast />
       </div>
 

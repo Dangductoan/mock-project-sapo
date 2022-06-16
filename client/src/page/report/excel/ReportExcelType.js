@@ -22,8 +22,7 @@ const reportForCustomerColumn = [
     { header: "Tên ", key: "name" },
     { header: "Số phiếu thu đã tạo", key: "count" },
     { header: "Doanh thu ", key: "total" },
-    { header: "Chi phí", key: "cost" },
-    { header: "Lợi nhuận", key: "profit" }
+   
    
   ]
   
