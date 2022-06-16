@@ -148,7 +148,7 @@ function BillListPage() {
                       <ReactNumberTextFormat value={bill.totalValue} />
                     </td>
                     <td className="table__price">
-                      {moment(bill.createdAt).format("DD/MM/YYYY hh:mm")}
+                      {moment(bill.createdAt).format("DD/MM/YYYY HH:mm")}
                     </td>
                   </tr>
                 );
