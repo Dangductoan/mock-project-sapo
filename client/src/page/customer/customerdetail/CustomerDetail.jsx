@@ -114,11 +114,11 @@ export default function CustomerDetail() {
                   onChange={handleInputChange}
                 >
                   <option value={customer.groupCustomer}>{customer.groupCustomer}</option>
-              {customer.groupCustomer != "Enterprise" &&  
+              {customer.groupCustomer !== "Enterprise" &&  
                   <option value="Enterprise">Enterprise</option> }
-              {customer.groupCustomer != "Bán lẻ" &&       
+              {customer.groupCustomer !== "Bán lẻ" &&       
                   <option value="Bán lẻ">Bán lẻ</option>   }
-              {customer.groupCustomer != "Bán buôn" &&  
+              {customer.groupCustomer !== "Bán buôn" &&  
                   <option value="Bán buôn">Bán buôn</option> }
                 </select>
             

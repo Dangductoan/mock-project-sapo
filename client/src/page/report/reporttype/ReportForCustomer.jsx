@@ -74,10 +74,10 @@ function ReportForCustomer() {
             <div className="report-content_data-table" style={{ textAlign: 'center' }}>
                 <div className="report-column ">
                     <h5>Tên khách hàng </h5>
-                    <h5>Sô lượng đơn hàng</h5>
-                    <h5>Doanh thu</h5>
                     <h5>Email</h5>
                     <h5>Số điện thoại</h5>
+                    <h5>Sô lượng đơn hàng</h5>
+                    <h5>Doanh thu</h5>
 
                 </div>
                 {Object.keys(bills).map((key, i) => {
