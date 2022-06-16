@@ -1,20 +1,14 @@
 import { faArrowsRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as Yup from "yup";
 import CustomerService from "../../../../api/CustomerService";
 import Modal from "../../../../component/modal/Modal";
 import ToastifyToast from "../../../../component/toast/template/ToastifyToast";
-import {
-  CODE_REGEX,
-  VIETNAMESE_ADDRESS_REGEX,
-  VIETNAMESE_NAME_REGEX,
-  VIETNAM_PHONE_REGEX,
-} from "../../../../utils/regex";
 import { randomCode } from "../../../../utils/StringRandom";
+import { validateCustomerCreate } from "../../../../validation/customer";
 import "./CustomerAddModal.css";
 
 export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
@@ -29,7 +23,7 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
       groupCustomer: "",
       phoneNumber: "",
     },
-    validationSchema: validateCustomer,
+    validationSchema: validateCustomerCreate,
     onSubmit: (customer) => {
       // them truong createdBy tu user localStorage vao customer
       CustomerService.createCustomer({ ...customer, createdBy: user.name })
@@ -217,21 +211,3 @@ export default function CustomerAddModal({ open, setOpen, onCustomerChange }) {
     </>
   );
 }
-
-const validateCustomer = Yup.object().shape({
-  name: Yup.string()
-    .required("Tên không được để trống")
-    .matches(VIETNAMESE_NAME_REGEX, "Tên không chứa số, ký tự đặc biệt"),
-  code: Yup.string()
-    .required("Code không được để trống")
-    .matches(CODE_REGEX, "Code chỉ chứa chữ hoa và số, không có khoảng trắng"),
-  phoneNumber: Yup.string()
-    .required("Số điện thoại không được để trống")
-    .matches(VIETNAM_PHONE_REGEX, "Số điện thoại không hợp lệ"),
-  address: Yup.string().matches(
-    VIETNAMESE_ADDRESS_REGEX,
-    "Địa chỉ không chứa ký tự đặc biệt"
-  ),
-  email: Yup.string().email("Email không hợp lệ"),
-  groupCustomer: Yup.string().required("Vui lòng chọn nhóm khách hàng"),
-});

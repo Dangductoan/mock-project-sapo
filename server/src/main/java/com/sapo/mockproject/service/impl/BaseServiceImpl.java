@@ -51,7 +51,7 @@ public abstract class BaseServiceImpl<ID extends Number, D extends BaseDTO<ID>, 
     }
 
     @Override
-    public List<D> fetchByQuery(String query, Pageable pageable) {
+    public List<D> search(String query, Pageable pageable) {
         if (query == null || query.equals("")) {
             return genericMapper.toDto(genericRepository.findAll(pageable).getContent());
         }
@@ -59,7 +59,7 @@ public abstract class BaseServiceImpl<ID extends Number, D extends BaseDTO<ID>, 
     }
 
     @Override
-    public List<D> fetchByQuery(String query) {
+    public List<D> search(String query) {
         if (query == null || query.equals("")) {
             return genericMapper.toDto(genericRepository.findAll());
         }

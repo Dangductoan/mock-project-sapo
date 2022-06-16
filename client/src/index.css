@@ -140,6 +140,10 @@ svg, select {
   background-color: inherit;
 }
 
+.searchbar:focus-within {
+  border: 1px solid #0088ff;
+}
+
 .searchbar input {
   display: inline-block;
   height: 35px;

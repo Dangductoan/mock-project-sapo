@@ -15,9 +15,9 @@ public interface GenericService<ID extends Number, D extends BaseDTO<ID>> {
 
     D getById(ID id);
 
-    List<D> fetchByQuery(String query, Pageable pageable);
+    List<D> search(String query, Pageable pageable);
 
-    List<D> fetchByQuery(String query);
+    List<D> search(String query);
 
     Long count(String query);
 

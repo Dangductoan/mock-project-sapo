@@ -1,7 +1,7 @@
 import {
   faDownload,
   faMagnifyingGlass,
-  faPlus,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
@@ -11,6 +11,7 @@ import BillService from "../../../api/BillService";
 import SingleModal from "../../../component/modal/singlemodal/SingleModal";
 import ReactNumberTextFormat from "../../../component/numberformat/template/ReactNumberTextFormat";
 import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
+import CircularIndeterminate from "../../../component/progress/CircularProgress";
 import "./BillListPage.css";
 import { exportBillList } from "./excel";
 
@@ -41,13 +42,10 @@ function BillListPage() {
     })
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
-  }, [query]);
-
-  useEffect(() => {
     BillService.count(query)
       .then((res) => setTotalItem(res.data?.count))
       .catch((err) => console.log(err));
-  }, [query, totalItem]);
+  }, [query]);
 
   const handlePaginationChange = (event, page) => {
     setPage(page);
@@ -63,6 +61,9 @@ function BillListPage() {
   };
 
   const exportBillListExcel = () => {
+    document
+      .getElementById("circular-progress")
+      .classList.toggle("circular-progress-show");
     let data = bills.map((bill) => ({
       ...bill,
       customerName: bill.customer.name,
@@ -72,6 +73,11 @@ function BillListPage() {
     }));
     exportBillList(data);
     setOpenExportExcelModal(false);
+    setTimeout(() => {
+      document
+        .getElementById("circular-progress")
+        .classList.toggle("circular-progress-show");
+    }, 500);
   };
 
   return (
@@ -128,7 +134,6 @@ function BillListPage() {
             </thead>
             <tbody>
               {bills.map((bill) => {
-                console.log(bill.createdAt);
                 return (
                   <tr
                     key={bill.id}
@@ -165,6 +170,7 @@ function BillListPage() {
         title="Xác nhận xuất file Excel"
         onConfirm={exportBillListExcel}
       ></SingleModal>
+      <CircularIndeterminate />
     </div>
   );
 }

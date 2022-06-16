@@ -53,7 +53,7 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
     }
 
     @GetMapping
-    public Map<String, List<D>> searchByQuery(@RequestParam(required = false) String query,
+    public Map<String, List<D>> search(@RequestParam(required = false) String query,
                                               @RequestParam(required = false) Integer page,
                                               @RequestParam(required = false) Integer size,
                                               @RequestParam(defaultValue = "id,desc", required = false) String sort) {
@@ -68,13 +68,13 @@ public abstract class BaseController<ID extends Number, D extends BaseDTO<ID>> {
 
         if (direction.equals("asc")) directionEnum = Sort.Direction.ASC;
         else if (direction.equals("desc")) directionEnum = Sort.Direction.DESC;
-        else throw new InvalidResourceException("Viết đúng trường sort theo mẫu: tên_trường,[acs hoặc desc]");
+        else throw new InvalidResourceException("Viết đúng trường sort theo mẫu: tên_trường,[asc hoặc desc]");
 
         if (page != null && size != null) {
-            data.put(responseDataName, genericService.fetchByQuery(query,
+            data.put(responseDataName, genericService.search(query,
                     PageRequest.of(page, size, Sort.by(directionEnum, property))));
         } else {
-            data.put(responseDataName, genericService.fetchByQuery(query));
+            data.put(responseDataName, genericService.search(query));
         }
 
         return data;
