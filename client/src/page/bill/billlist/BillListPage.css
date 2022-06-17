@@ -102,3 +102,19 @@
 .bill-bread-crumb:hover {
   color: #212f8f;
 }
+
+.bill-export {
+  width: 500px;
+}
+
+.bill-export--chosen > legend {
+  margin-bottom: 10px;
+}
+
+.bill-export--chosen > div {
+  padding: 5px 0;
+}
+
+.bill-export--chosen > div > input {
+  margin-right: 5px;
+}
