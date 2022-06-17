@@ -8,10 +8,16 @@ import SelectAccountId from './option/SelectAccountId';
 import SelectIssuedOn from './option/SelectIssuedOn';
 function FilterItem({name,type,option,setOption,filterOption,setFilterOption}) {
   const handleClick = () => {
-    const id = option.indexOf(type)
+    const id = option.indexOf(type);
     const newOption = [...option];
     newOption.splice(id,1)
-   setOption(newOption);
+    setOption(newOption);
+    type === "customer" && setFilterOption({...filterOption,customerId:null})
+    type === "groupId" && setFilterOption({...filterOption,billCategoryId:null})
+    type === "paymentMethodId" && setFilterOption({...filterOption,payment:''})
+    type === "accountId" && setFilterOption({...filterOption,createdBy:''})
+    type === "issuedOn" && setFilterOption({...filterOption,start:'',end:''})
+
   }
   return (
     <div className="filter-item">

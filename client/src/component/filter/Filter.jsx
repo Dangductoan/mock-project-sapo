@@ -14,7 +14,7 @@ function Filter({ searchParams, setSearchParams }) {
     end: "",
     createdBy: "",
   })
- 
+  // console.log(filterOption)
   const handleClick = () => {
     setShow(!show)
   }
@@ -24,16 +24,20 @@ function Filter({ searchParams, setSearchParams }) {
   const handleChange = (e) => {
     setOption([...option, e.target.value]);
   }
-  const start = new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000 ))
-  .toISOString()
-  .split("T")[0];;
-  const end =   new Date(cd.end.getTime() - (cd.end.getTimezoneOffset() * 60000 ))
-  .toISOString()
-  .split("T")[0];
-  console.log(start,end)
+  const start = new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000))
+    .toISOString()
+    .split("T")[0];;
+  const end = new Date(cd.end.getTime() - (cd.end.getTimezoneOffset() * 60000))
+    .toISOString()
+    .split("T")[0];
+  // console.log(start, end)
   const handleFilter = () => {
-    setSearchParams({ ...searchParams, ...filterOption ,start:start,end:end})
-    
+    isOption('issuedOn') !== -1
+      ?
+      setSearchParams({ ...searchParams, ...filterOption, start: start, end: end })
+      :
+      setSearchParams({ ...searchParams, ...filterOption })
+
   }
 
   return (
@@ -41,7 +45,7 @@ function Filter({ searchParams, setSearchParams }) {
       <div className="filter-controller">
         <button className='btn-filter' type="button" onClick={handleClick}>
           <span>Lọc phiếu thu</span>
-          <svg style={{ fill: 'black' }} class="MuiSvgIcon-root filter-btn_icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
+          <svg style={{ fill: 'black' }} className="MuiSvgIcon-root filter-btn_icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
         </button>
       </div>
       <div className={`filter-body  ${show ? 'block' : ''}`}>
