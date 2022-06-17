@@ -139,7 +139,10 @@ function BillListPage() {
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
-          <Filter  searchParams={searchParams} setSearchParams={setSearchParams}  />
+          <Filter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
           <div className="bill-searchbar searchbar">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
@@ -194,11 +197,15 @@ function BillListPage() {
           </table>
         </div>
         <div className="pagination">
-          <MaterialPagination
-            count={totalPage}
-            page={searchParams.page + 1}
-            onChange={handlePaginationChange}
-          />
+          {totalItem > 0 ? (
+            <MaterialPagination
+              count={totalPage}
+              page={searchParams.page + 1}
+              onChange={handlePaginationChange}
+            />
+          ) : (
+            <p>Không tìm thấy kết quả nào</p>
+          )}
         </div>
       </div>
       <SingleModal
