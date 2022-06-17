@@ -6,3 +6,16 @@
     flex-direction: row;
     align-items: center;
 }
+.filter-item_title {
+    width:150px;
+}
+.bill-input_select {
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 4px;
+    width: 220px;
+    line-height: 30px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 0px 10px;
+    margin-left: 5px;
+}
