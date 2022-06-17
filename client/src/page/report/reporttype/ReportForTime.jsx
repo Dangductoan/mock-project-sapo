@@ -15,8 +15,12 @@ import ConvertDataToExport from '../convert/ConvertDataToExports'
 import SingleModal from '../../../component/modal/singlemodal/SingleModal'
 function ReportForTime() {
   const cd = useSelect()
-  const start = cd.start.toISOString().slice(0, 10);
-  const end = cd.end.toISOString().slice(0, 10);
+  const start = new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000 ))
+  .toISOString()
+  .split("T")[0];
+  const end = new Date(cd.end.getTime() - (cd.end.getTimezoneOffset() * 60000 ))
+  .toISOString()
+  .split("T")[0];
   const time = cd.data.time
   const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
   const shape = cd.data.shape
