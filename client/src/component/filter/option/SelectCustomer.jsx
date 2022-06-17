@@ -12,7 +12,7 @@ function SelectCustomer({filterOption,setFilterOption}) {
   }, []);
   return (
     <select
-    className="bill-input"
+    className="bill-input bill-input_select "
     name="billCategoryName"
     onChange={handleChange}
   >

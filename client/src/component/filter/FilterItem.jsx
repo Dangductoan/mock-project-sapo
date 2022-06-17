@@ -22,14 +22,14 @@ function FilterItem({name,type,option,setOption,filterOption,setFilterOption}) {
   return (
     <div className="filter-item">
         <div className="filter-item_title">
-             <span>{name}</span>
+             {name}
         </div>
         <div className="filter-item_option">
+         {type==="issuedOn" && <SelectIssuedOn filterOption={filterOption} setFilterOption={setFilterOption}/>}
          {type==="customer" && <SelectCustomer filterOption={filterOption} setFilterOption={setFilterOption}/>}
          {type==="groupId" && <SelectGroupId filterOption={filterOption} setFilterOption={setFilterOption}/>}
          {type==="paymentMethodId" && <SelectPaymentMethodId filterOption={filterOption} setFilterOption={setFilterOption}/>}
          {type==="accountId" && <SelectAccountId filterOption={filterOption} setFilterOption={setFilterOption}/>}
-         {type==="issuedOn" && <SelectIssuedOn filterOption={filterOption} setFilterOption={setFilterOption}/>}
 
         </div>
         <div className="filter-item_remove" onClick={handleClick}>
