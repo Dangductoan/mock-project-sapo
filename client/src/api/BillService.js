@@ -8,16 +8,11 @@ export const createBill = (bill) => {
   });
 }
 
-export const searchBill = ({ query, page, size, sort }) => {
+export const searchBill = (params) => {
   return call_api({
-    url: "accountant/bills",
+    url: "accountant/bills/filter",
     method: "GET",
-    params: {
-      query,
-      page,
-      size,
-      sort
-    }
+    params
   })
 }
 
@@ -27,12 +22,14 @@ const getBill = (id) => {
     url: `accountant/bills/${id}`
   })
 }
+
 const getDataBetween = (start, end) => {
   return call_api({
     method: "GET",
     url: `accountant/bills/${start}/${end}`,
   })
 }
+
 const updateBill = (id, bill) => {
   if (bill.modifiedAt) delete bill.modifiedAt;
   return call_api({
@@ -42,13 +39,11 @@ const updateBill = (id, bill) => {
   })
 }
 
-const count = (query) => {
+const count = (params) => {
   return call_api({
     method: "GET",
-    url: "accountant/bills/count",
-    params: {
-      query
-    }
+    url: "accountant/bills/count-filter",
+    params
   })
 }
 
