@@ -24,10 +24,10 @@ function Filter({ searchParams, setSearchParams }) {
   const handleChange = (e) => {
     setOption([...option, e.target.value]);
   }
-  const start = isOption('issuedOn') !== -1 &&  new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000 ))
+  const start = new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000 ))
   .toISOString()
   .split("T")[0];;
-  const end = isOption('issuedOn') !== -1 &&  new Date(cd.end.getTime() - (cd.end.getTimezoneOffset() * 60000 ))
+  const end =   new Date(cd.end.getTime() - (cd.end.getTimezoneOffset() * 60000 ))
   .toISOString()
   .split("T")[0];
   console.log(start,end)

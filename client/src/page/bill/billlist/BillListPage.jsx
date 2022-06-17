@@ -36,6 +36,8 @@ function BillListPage() {
     end: "",
     createdBy: "",
   });
+  const [fileExcelExportType, setFileExcelExportType] =
+    useState("current-page");
 
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
@@ -68,11 +70,37 @@ function BillListPage() {
       .catch((err) => console.log(err));
   };
 
-  const exportBillListExcel = () => {
+  const handleExportBillListExcel = () => {
     document
       .getElementById("circular-progress")
       .classList.toggle("circular-progress-show");
-    let data = bills.map((bill) => ({
+
+    if (fileExcelExportType === "current-page") {
+      mapDataAndExport(bills);
+    } else if (fileExcelExportType === "all") {
+      BillService.searchBill({
+        query: searchParams.query,
+        customerId: searchParams.customerId,
+        billCategoryId: searchParams.billCategoryId,
+        payment: searchParams.payment,
+        start: searchParams.start,
+        end: searchParams.end,
+        createdBy: searchParams.createdBy,
+      })
+        .then((res) => {
+          mapDataAndExport(res.data?.bills);
+        })
+        .catch((err) => console.log(err));
+    }
+    setTimeout(() => {
+      document
+        .getElementById("circular-progress")
+        .classList.toggle("circular-progress-show");
+    }, 500);
+  };
+
+  const mapDataAndExport = (data) => {
+    data = data.map((bill) => ({
       ...bill,
       customerName: bill.customer.name,
       billCategoryName: bill.billCategory.name,
@@ -81,11 +109,6 @@ function BillListPage() {
     }));
     exportBillList(data);
     setOpenExportExcelModal(false);
-    setTimeout(() => {
-      document
-        .getElementById("circular-progress")
-        .classList.toggle("circular-progress-show");
-    }, 500);
   };
 
   return (
@@ -126,6 +149,7 @@ function BillListPage() {
                 if (e.key === "Enter")
                   setSearchParams({
                     ...searchParams,
+                    page: 0,
                     query: e.target.value,
                   });
               }}
@@ -181,8 +205,36 @@ function BillListPage() {
         open={openExportExcelModal}
         setOpen={setOpenExportExcelModal}
         title="Xác nhận xuất file Excel"
-        onConfirm={exportBillListExcel}
-      ></SingleModal>
+        onConfirm={handleExportBillListExcel}
+        className="bill-export"
+      >
+        <div className="bill-export--chosen">
+          <legend>Chọn loại file:</legend>
+          <div>
+            <input
+              type="radio"
+              id="current-page"
+              name="drone"
+              value="current-page"
+              defaultChecked
+              onChange={(e) => setFileExcelExportType(e.target.value)}
+            />
+            <label for="current-page">Xuất phiếu thu ở trạng hiện tại</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="all"
+              name="drone"
+              value="all"
+              onChange={(e) => setFileExcelExportType(e.target.value)}
+            />
+            <label for="all">
+              Xuất toàn bộ phiếu thu đã lọc(tìm kiếm) được
+            </label>
+          </div>
+        </div>
+      </SingleModal>
       <CircularIndeterminate />
     </div>
   );
