@@ -14,7 +14,7 @@ import MaterialPagination from "../../../component/pagination/template/MaterialP
 import CircularIndeterminate from "../../../component/progress/CircularProgress";
 import "./BillListPage.css";
 import { exportBillList } from "./excel";
-
+import Filter from "../../../component/filter/Filter";
 const ITEM_PER_PAGE = 20;
 
 function BillListPage() {
@@ -27,7 +27,7 @@ function BillListPage() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
-
+  console.log(bills)
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
       ? totalItem / ITEM_PER_PAGE
@@ -108,6 +108,7 @@ function BillListPage() {
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
+          <Filter bills={bills}/>
           <div className="bill-searchbar searchbar">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input

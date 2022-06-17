@@ -1,0 +1,88 @@
+.filter {
+    position: relative;
+}
+
+.filter-controller {
+    /* flex: 1; */
+}
+
+.btn-filter {
+    height: 35px;
+    outline: none;
+    font-weight: 400;
+    white-space: nowrap;
+    border-radius: 3px 0 0 3px;
+    line-height: 35px;
+    padding: 0 20px 0 15px;
+    background: linear-gradient(180deg, #fff, #f9fafb);
+    border: 1px solid #c4cdd5;
+    box-shadow: 0 1px 0 0rgba(22, 29, 37, .05);
+    display: flex;
+    align-items: center;
+    border-right: none;
+    font-size: 14px;
+}
+
+.filter-btn_icon {
+    transform: translateX(10px);
+    color: #000;
+}
+
+.filter-body {
+    position: absolute;
+    z-index: 1;
+    min-width: 150px;
+    padding: 20px;
+    color: #212529;
+    font-size: 1.4rem;
+    min-width: 160px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background-color: hsla(0, 0%, 100%, .98);
+    box-shadow: 0 0 0 1px rgb(39 44 48 / 5%), 0 2px 7px 1px rgb(39 44 48 / 16%);
+    border-radius: 3px;
+    transform: none !important;
+    max-width: unset;
+    display: none;
+    margin-top: 10px;
+    
+}
+.filter-body::after {
+    position: absolute;
+    content: "";
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    transform: rotate( -45deg) translateY(-70%);
+    border-top: 1px solid #c4cdd5;
+    border-right: 1px solid #c4cdd5;
+    top: -1px;
+    left: 50px;
+    background-color: #fff;
+
+}
+.filter-title {
+    font-size: 13px;
+}
+
+.filter-select {
+    padding: 10px 0;
+    
+}
+
+.filter-select-all {
+    height: 35px;
+    outline: none;
+    font-weight: 400;
+    white-space: nowrap;
+    border-radius: 3px 0 0 3px;
+    line-height: 35px;
+    padding: 0 20px 0 15px;
+    background: linear-gradient(180deg, #fff, #f9fafb);
+    border: 1px solid #c4cdd5;
+    box-shadow: 0 1px 0 0rgba(22, 29, 37, .05);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.filter-btn {}
