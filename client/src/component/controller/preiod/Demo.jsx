@@ -4,7 +4,7 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import moment from "moment";
 import RevenueService from "../../../api/RevenueService";
-export default function Demo() {
+export default function Demo({handleDateRanger}) {
   const cd = useSelect()
   const [fromDate, setFromDate] = useState(cd.start);
   const [toDate, setToDate] = useState(cd.end);
@@ -46,13 +46,13 @@ export default function Demo() {
     marginLeft:'5px'
   };
 
-  
+  console.log(fromDate,toDate)
   
   const onApply = (event, picker) => {
     setFromDate(picker.startDate._d);
     setToDate(picker.endDate._d);
     document.querySelector('.border-blue').classList.remove('border-blue')
-    
+    // handleDateRanger();
   };
   const handleClick = (e) => {
     e.target.classList.toggle('border-blue')

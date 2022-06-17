@@ -26,18 +26,32 @@ public class BillController extends BaseController<Long, BillDTO> {
     public Map<String, List<BillDTO>> filter(@RequestParam Map<String, String> requestParams,
                                              @Positive @RequestParam(required = false) Integer page,
                                              @Positive @RequestParam(required = false) Integer size) {
+        Map<String, String> reduceRequestParams = new HashMap<>();
+        for (String key : requestParams.keySet()) {
+            if (!requestParams.get(key).equals(""))
+                reduceRequestParams.put(key, requestParams.get(key));
+        }
+        reduceRequestParams.remove("page");
+        reduceRequestParams.remove("size");
         Map<String, List<BillDTO>> data = new HashMap<>();
         if (page == null || size == null)
-            data.put("bills", billService.filter(requestParams));
+            data.put("bills", billService.filter(reduceRequestParams));
         else
-            data.put("bills", billService.filter(requestParams, page, size));
+            data.put("bills", billService.filter(reduceRequestParams, page, size));
         return data;
     }
 
     @GetMapping("count-filter")
     public Map<String, Long> countFilter(@RequestParam Map<String, String> requestParams) {
+        Map<String, String> reduceRequestParams = new HashMap<>();
+        for (String key : requestParams.keySet()) {
+            if (!requestParams.get(key).equals(""))
+                reduceRequestParams.put(key, requestParams.get(key));
+        }
+        reduceRequestParams.remove("page");
+        reduceRequestParams.remove("size");
         Map<String, Long> data = new HashMap<>();
-        data.put("count", billService.countFilter(requestParams));
+        data.put("count", billService.countFilter(reduceRequestParams));
         return data;
     }
 

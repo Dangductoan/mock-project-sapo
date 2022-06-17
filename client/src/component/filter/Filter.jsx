@@ -1,9 +1,20 @@
 import React, { useState } from 'react'
 import "./Filter.css"
 import FilterItem from './FilterItem'
-function Filter() {
+import { useSelect } from '../../context/Provider'
+function Filter({ searchParams, setSearchParams }) {
+  const cd = useSelect()
   const [show, setShow] = useState(false)
   const [option, setOption] = useState([])
+  const [filterOption, setFilterOption] = useState({
+    customerId: null,
+    billCategoryId: null,
+    payment: "",
+    start: "",
+    end: "",
+    createdBy: "",
+  })
+ 
   const handleClick = () => {
     setShow(!show)
   }
@@ -13,7 +24,18 @@ function Filter() {
   const handleChange = (e) => {
     setOption([...option, e.target.value]);
   }
- 
+  const start = isOption('issuedOn') !== -1 &&  new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000 ))
+  .toISOString()
+  .split("T")[0];;
+  const end = isOption('issuedOn') !== -1 &&  new Date(cd.end.getTime() - (cd.end.getTimezoneOffset() * 60000 ))
+  .toISOString()
+  .split("T")[0];
+  console.log(start,end)
+  const handleFilter = () => {
+    setSearchParams({ ...searchParams, ...filterOption ,start:start,end:end})
+    
+  }
+
   return (
     <div className='filter'>
       <div className="filter-controller">
@@ -24,11 +46,11 @@ function Filter() {
       </div>
       <div className={`filter-body  ${show ? 'block' : ''}`}>
         <p className='filter-title'>Hiển thị khách hầng theo:</p>
-        {isOption('customer') !==-1 && <FilterItem name="Khách hàng" type="customer" option={option} setOption={setOption}/>}
-        {isOption('paymentMethodId') !==-1 && <FilterItem name="Hình thức thanh toán" type="paymentMethodId"option={option} setOption={setOption}/>}
-        {isOption('groupId') !==-1 && <FilterItem name="Loai phiếu" type="groupId"option={option} setOption={setOption}/>}
-        {isOption('accountId') !==-1 && <FilterItem name="Người tạo" type="accountId"option={option} setOption={setOption}/>}
-        {isOption('issuedOn') !==-1 && <FilterItem name="Người tạo" type="issuedOn"option={option} setOption={setOption}/>}
+        {isOption('customer') !== -1 && <FilterItem name="Khách hàng" type="customer" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
+        {isOption('paymentMethodId') !== -1 && <FilterItem name="Hình thức thanh toán" type="paymentMethodId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
+        {isOption('groupId') !== -1 && <FilterItem name="Loai phiếu" type="groupId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
+        {isOption('accountId') !== -1 && <FilterItem name="Người tạo" type="accountId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
+        {isOption('issuedOn') !== -1 && <FilterItem name="Người tạo" type="issuedOn" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
 
 
         <div className="filter-select">
@@ -42,7 +64,7 @@ function Filter() {
           </select>
         </div>
         <div className="filter-btn">
-          <button className='btn'>Lọc</button>
+          <button className='btn' onClick={handleFilter}>Lọc</button>
         </div>
       </div>
     </div>

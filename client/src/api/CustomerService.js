@@ -11,6 +11,12 @@ const searchCustomer = ({ query, page, size }) => {
     }
   })
 }
+const getAllCustomer = () => {
+  return call_api ({
+    method:"GET",
+    url:"/accountant/customers"
+  })
+}
 
 const getCustomer = (id) => {
   return call_api({
@@ -56,7 +62,8 @@ const CustomerService = {
   updateCustomer,
   searchCustomer,
   deleteCustomer,
-  count
+  count,
+  getAllCustomer
 }
 
 export default CustomerService;
