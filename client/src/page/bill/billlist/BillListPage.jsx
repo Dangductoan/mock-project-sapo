@@ -1,7 +1,7 @@
 import {
   faDownload,
   faMagnifyingGlass,
-  faPlus
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
@@ -24,9 +24,18 @@ function BillListPage() {
 
   const [bills, setBills] = useState([]);
   const [totalItem, setTotalItem] = useState(0);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
   const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
+  const [searchParams, setSearchParams] = useState({
+    query: "",
+    customerId: null,
+    billCategoryId: null,
+    page: 0,
+    size: ITEM_PER_PAGE,
+    payment: "",
+    start: "",
+    end: "",
+    createdBy: "",
+  });
 
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
@@ -34,28 +43,27 @@ function BillListPage() {
       : Math.floor(totalItem / ITEM_PER_PAGE) + 1;
 
   useEffect(() => {
-    BillService.searchBill({
-      query: query,
-      page: 0,
-      size: ITEM_PER_PAGE,
-      sort: "createdAt,desc",
-    })
+    BillService.searchBill(searchParams)
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
-    BillService.count(query)
+    BillService.count(searchParams)
       .then((res) => setTotalItem(res.data?.count))
       .catch((err) => console.log(err));
-  }, [query]);
+  }, [
+    searchParams.billCategoryId,
+    searchParams.createdBy,
+    searchParams.customerId,
+    searchParams.end,
+    searchParams.page,
+    searchParams.payment,
+    searchParams.query,
+    searchParams.start,
+  ]);
 
   const handlePaginationChange = (event, page) => {
-    setPage(page);
+    setSearchParams({ ...searchParams, page: page - 1 });
 
-    BillService.searchBill({
-      query: query,
-      page: page - 1,
-      size: ITEM_PER_PAGE,
-      sort: "createdAt,desc",
-    })
+    BillService.searchBill(searchParams)
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
   };
@@ -68,8 +76,8 @@ function BillListPage() {
       ...bill,
       customerName: bill.customer.name,
       billCategoryName: bill.billCategory.name,
-      createdAt: moment(bill.createdAt).format("DD/MM/YYYY hh:mm"),
-      modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY hh:mm"),
+      createdAt: moment(bill.createdAt).format("DD/MM/YYYY HH:mm"),
+      modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY HH:mm"),
     }));
     exportBillList(data);
     setOpenExportExcelModal(false);
@@ -114,7 +122,11 @@ function BillListPage() {
               type="text"
               placeholder="Tìm theo mã phiếu, tên khách hàng, loại phiếu, hình thức thanh toán và người tạo"
               onKeyPress={(e) => {
-                if (e.key === "Enter") setQuery(e.target.value);
+                if (e.key === "Enter")
+                  setSearchParams({
+                    ...searchParams,
+                    query: e.target.value,
+                  });
               }}
             />
           </div>
@@ -148,7 +160,7 @@ function BillListPage() {
                       <ReactNumberTextFormat value={bill.totalValue} />
                     </td>
                     <td className="table__price">
-                      {moment(bill.createdAt).format("DD/MM/YYYY hh:mm")}
+                      {moment(bill.createdAt).format("DD/MM/YYYY HH:mm")}
                     </td>
                   </tr>
                 );
@@ -159,7 +171,7 @@ function BillListPage() {
         <div className="pagination">
           <MaterialPagination
             count={totalPage}
-            page={page}
+            page={searchParams.page + 1}
             onChange={handlePaginationChange}
           />
         </div>
