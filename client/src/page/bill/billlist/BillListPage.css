@@ -48,6 +48,7 @@
 
 .bill-searchbar {
   margin: 15px 0;
+  flex: 1;
 }
 
 .bill-table {
@@ -117,4 +118,8 @@
 
 .bill-export--chosen > div > input {
   margin-right: 5px;
+}
+.bill-list-filter {
+  display: flex;
+  align-items: center;
 }

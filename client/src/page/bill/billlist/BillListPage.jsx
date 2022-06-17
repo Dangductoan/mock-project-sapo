@@ -14,7 +14,7 @@ import MaterialPagination from "../../../component/pagination/template/MaterialP
 import CircularIndeterminate from "../../../component/progress/CircularProgress";
 import "./BillListPage.css";
 import { exportBillList } from "./excel";
-
+import Filter from "../../../component/filter/Filter";
 const ITEM_PER_PAGE = 20;
 
 function BillListPage() {
@@ -139,6 +139,7 @@ function BillListPage() {
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
+          <Filter  searchParams={searchParams} setSearchParams={setSearchParams}  />
           <div className="bill-searchbar searchbar">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
