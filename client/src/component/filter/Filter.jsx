@@ -54,7 +54,7 @@ function Filter({ searchParams, setSearchParams }) {
         {isOption('paymentMethodId') !== -1 && <FilterItem name="Hình thức thanh toán" type="paymentMethodId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
         {isOption('groupId') !== -1 && <FilterItem name="Loai phiếu" type="groupId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
         {isOption('accountId') !== -1 && <FilterItem name="Người tạo" type="accountId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
-        {isOption('issuedOn') !== -1 && <FilterItem name="Người tạo" type="issuedOn" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
+        {isOption('issuedOn') !== -1 && <FilterItem name="Ngày ghi nhận" type="issuedOn" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
 
 
         <div className="filter-select">
