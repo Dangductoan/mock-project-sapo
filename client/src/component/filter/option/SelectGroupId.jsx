@@ -21,7 +21,7 @@ function SelectGroupId({filterOption,setFilterOption}) {
   >
     <option value="">Chọn loại phiếu thu</option>
     {billCategories.map((billCategory) => (
-      <option value={billCategory.id}>
+      <option key={billCategory.id}value={billCategory.id}>
         {billCategory.name}
       </option>
     ))}

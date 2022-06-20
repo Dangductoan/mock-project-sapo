@@ -13,7 +13,6 @@ function ReportForAccountant() {
 
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForCreatedBy(data.bills)
-    console.log(bills)
     const newData = Object.keys(bills).map((key) => {
         const result = bills[key] !== undefined && bills[key].reduce((d, v) => {
             d.total = d.total + v.totalValue;
@@ -27,7 +26,6 @@ function ReportForAccountant() {
         return result
 
     })
-    console.log(newData)
     const exportBillListExcel = () => {
 
         exports(newData, type)

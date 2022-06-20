@@ -18,7 +18,7 @@ function SelectCustomer({filterOption,setFilterOption}) {
   >
     <option value="">Chọn khách hàng</option>
     {customers.map((customer) => (
-      <option value={customer.id}>
+      <option key={customer.id} value={customer.id}>
         {customer.name}
       </option>
     ))}

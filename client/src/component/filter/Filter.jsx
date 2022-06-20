@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "./Filter.css"
 import FilterItem from './FilterItem'
 import { useSelect } from '../../context/Provider'
+import { useEffect } from 'react'
 function Filter({ searchParams, setSearchParams }) {
   const cd = useSelect()
   const [show, setShow] = useState(false)
@@ -14,15 +15,28 @@ function Filter({ searchParams, setSearchParams }) {
     end: "",
     createdBy: "",
   })
+  
   // console.log(filterOption)
   const handleClick = () => {
+    document.querySelector('.model-overlay').classList.toggle('block')
     setShow(!show)
   }
+  useEffect(() => {
+    document.querySelector('.model-overlay').addEventListener('click',function() {
+      document.querySelector('.model-overlay').classList.remove('block')
+      setShow(false)
+    
+    })
+
+  },[show])
+  
+  
   const isOption = (par) => {
     return option.indexOf(par)
   }
   const handleChange = (e) => {
     setOption([...option, e.target.value]);
+    document.querySelector('.filter-select-all').value = document.querySelector('.option-default').value
   }
   const start = new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000))
     .toISOString()
@@ -59,7 +73,7 @@ function Filter({ searchParams, setSearchParams }) {
 
         <div className="filter-select">
           <select className="filter-select-all" onChange={handleChange}>
-            <option value="">Chọn điều kiện lọc</option>
+            <option  className='option-default' value="Chọn điều kiện lọc">Chọn điều kiện lọc</option>
             <option value="customer">Khách hàng</option>
             <option value="paymentMethodId">Hình thức thanh toán</option>
             <option value="groupId">Loại phiếu</option>

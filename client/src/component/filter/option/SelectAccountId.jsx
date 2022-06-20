@@ -22,7 +22,7 @@ function SelectAccountId({filterOption,setFilterOption}) {
   >
     <option value="">Chọn người tạo</option>
     {accountants.map((accountant) => (
-      <option value={accountant.name}>
+      <option key={accountant.id}value={accountant.name}>
         {accountant.name}
       </option>
     ))}
