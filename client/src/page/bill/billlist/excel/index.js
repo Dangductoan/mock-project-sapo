@@ -1,7 +1,8 @@
 import Excel from "exceljs";
 import { saveAs } from "file-saver";
+import moment from "moment";
 
-const EXCEL_FILE_NAME = "test"
+const EXCEL_FILE_NAME = "DSPH_" + moment(new Date()).format("DD-MM-YYYY");
 
 const billListColumns = [
   { key: "code" },
