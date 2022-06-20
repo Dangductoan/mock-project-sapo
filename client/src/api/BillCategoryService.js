@@ -25,11 +25,18 @@ const updateBillCategory = (id, billCategory) => {
   })
 }
 
+const getById = (id) => {
+  return call_api({
+    method: "GET",
+    url: `chief-accountant/bill-categories/${id}`
+  })
+}
 
 const BillCategoryService = {
    getBillCategory,
   createBillCategory,
   updateBillCategory,
+  getById
 }
 
 export default BillCategoryService;

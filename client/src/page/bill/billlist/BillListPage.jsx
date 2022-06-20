@@ -15,6 +15,8 @@ import CircularIndeterminate from "../../../component/progress/CircularProgress"
 import "./BillListPage.css";
 import { exportBillList } from "./excel";
 import Filter from "../../../component/filter/Filter";
+import CustomerService from "../../../api/CustomerService";
+import BillCategoryService from "../../../api/BillCategoryService";
 const ITEM_PER_PAGE = 20;
 
 function BillListPage() {
@@ -62,6 +64,10 @@ function BillListPage() {
     searchParams.start,
   ]);
 
+  useEffect(() => {
+    setFileExcelExportType("current-page");
+  }, [openExportExcelModal]);
+
   const handlePaginationChange = (event, page) => {
     setSearchParams({ ...searchParams, page: page - 1 });
 
@@ -99,7 +105,7 @@ function BillListPage() {
     }, 500);
   };
 
-  const mapDataAndExport = (data) => {
+  const mapDataAndExport = async (data) => {
     data = data.map((bill) => ({
       ...bill,
       customerName: bill.customer.name,
@@ -107,7 +113,27 @@ function BillListPage() {
       createdAt: moment(bill.createdAt).format("DD/MM/YYYY HH:mm"),
       modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY HH:mm"),
     }));
-    exportBillList(data);
+    let title = "LỌC THEO:";
+    if (searchParams.customerId) {
+      let res = await CustomerService.getCustomer(searchParams.customerId);
+      title += " Khách hàng: " +  res.data?.customer?.name + ",";
+    }
+    if (searchParams.billCategoryId) {
+      let res = await BillCategoryService.getById(searchParams.billCategoryId);
+      title += " Loại phiếu thu: " + res.data?.data?.name + ",";
+    }
+    if (searchParams.payment !== "") {
+      title += " Hình thức thanh toán: " + searchParams.payment + ",";
+    }
+    if (searchParams.createdBy !== "") {
+      title += " Người tạo: " + searchParams.createdBy + ",";
+    }
+    if (searchParams.start !== "" && searchParams.end !== "") {
+      title += " Thời gian: Từ " + searchParams.start + " đến " + searchParams.end + ",";
+    }
+    title = title.substring(0, title.length - 1);
+
+    exportBillList(title, data);
     setOpenExportExcelModal(false);
   };
 
@@ -139,7 +165,10 @@ function BillListPage() {
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
-          <Filter  searchParams={searchParams} setSearchParams={setSearchParams}  />
+          <Filter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
           <div className="bill-searchbar searchbar">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
@@ -194,11 +223,15 @@ function BillListPage() {
           </table>
         </div>
         <div className="pagination">
-          <MaterialPagination
-            count={totalPage}
-            page={searchParams.page + 1}
-            onChange={handlePaginationChange}
-          />
+          {totalItem > 0 ? (
+            <MaterialPagination
+              count={totalPage}
+              page={searchParams.page + 1}
+              onChange={handlePaginationChange}
+            />
+          ) : (
+            <p>Không tìm thấy kết quả nào</p>
+          )}
         </div>
       </div>
       <div className="model-overlay" >
@@ -222,7 +255,7 @@ function BillListPage() {
               defaultChecked
               onChange={(e) => setFileExcelExportType(e.target.value)}
             />
-            <label for="current-page">Xuất phiếu thu ở trạng hiện tại</label>
+            <label for="current-page">Xuất phiếu thu ở trang hiện tại</label>
           </div>
           <div>
             <input
