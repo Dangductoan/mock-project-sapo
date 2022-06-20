@@ -226,7 +226,7 @@ function BillListPage() {
               defaultChecked
               onChange={(e) => setFileExcelExportType(e.target.value)}
             />
-            <label for="current-page">Xuất phiếu thu ở trạng hiện tại</label>
+            <label for="current-page">Xuất phiếu thu ở trang hiện tại</label>
           </div>
           <div>
             <input

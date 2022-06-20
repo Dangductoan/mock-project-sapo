@@ -49,7 +49,7 @@ function Filter({ searchParams, setSearchParams }) {
         </button>
       </div>
       <div className={`filter-body  ${show ? 'block' : ''}`}>
-        <p className='filter-title'>Hiển thị khách hầng theo:</p>
+        <p className='filter-title'>Lọc phiếu thu theo:</p>
         {isOption('customer') !== -1 && <FilterItem name="Khách hàng" type="customer" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
         {isOption('paymentMethodId') !== -1 && <FilterItem name="Hình thức thanh toán" type="paymentMethodId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
         {isOption('groupId') !== -1 && <FilterItem name="Loai phiếu" type="groupId" option={option} setOption={setOption} filterOption={filterOption} setFilterOption={setFilterOption} />}
