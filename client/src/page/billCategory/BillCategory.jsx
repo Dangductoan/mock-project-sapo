@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import MaterialPagination from '../../component/pagination/template/MaterialPagination'
 import Row from '../../component/row/Row'
 import Form from '../../component/form/Form'
 import BillCategoryService from '../../api/BillCategoryService'
@@ -76,9 +76,15 @@ function BillCategory() {
 
 
 
+        <div className="pagination">
+          <MaterialPagination
+            // count={totalPage}
+            page={ 1}
+            // onChange={handlePaginationChange}
+          />
+        </div>
           </table>
         </div>
-
         <ToastifyToast />
       </div>
 
