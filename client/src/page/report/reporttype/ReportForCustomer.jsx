@@ -15,7 +15,6 @@ function ReportForCustomer() {
     const data = ReportController.GetBillBetween()
     const bills = data !== undefined && GroupData.GroupDataForCustomerId(data.bills)
     const billsCharts = bills === undefined ? {} : { 0: [{ totalValue: 0, customer: { name: '' } }], ...bills };
-    console.log(billsCharts)
     const newData = Object.keys(bills).map((key) => {
         const result = bills[key] !== undefined && bills[key].reduce((d, v) => {
             d.total = d.total + v.totalValue;
