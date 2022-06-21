@@ -61,7 +61,7 @@ function ReportForBillCategory() {
                     <h5>Loại phiếu thu  </h5>
                     <h5>Mã phiếu thu </h5>
                     <h5 style={{paddingRight:"60px"}}>Số lượng phiếu thu sử dụng loại phiếu thu </h5>
-                    <h5>Doanh thu</h5>
+                    <h5 style={{paddingRight:'150px',textAlign:'right'}}>Doanh thu</h5>
 
                 </div>
                 {Object.keys(bills).map((key, i) => {

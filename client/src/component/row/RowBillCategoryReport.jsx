@@ -1,5 +1,6 @@
 import React from 'react'
 import './RowReport.css'
+import ReactNumberTextFormat from '../numberformat/template/ReactNumberTextFormat';
 function RowBillCategoryReport({value}) {
     const total = value!== undefined && value.reduce((d,v) => {
        
@@ -15,7 +16,7 @@ function RowBillCategoryReport({value}) {
             <h3 className='row-report_item row-4'>{value[0].billCategory.name}</h3>
             <h3 className='row-report_item row-4'>{value[0].billCategory.code}</h3>
             <h3 className='row-report_item row-4'>{value.length}</h3>
-            <h3 className='row-report_item row-4'>{total.b}</h3>
+            <h3 className='row-report_item row-4 format-right2 '><ReactNumberTextFormat value={total.b}/></h3>
            
 
     
