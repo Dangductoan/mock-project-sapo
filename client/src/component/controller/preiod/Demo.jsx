@@ -72,7 +72,7 @@ export default function Demo({handleDateRanger}) {
         onApply={onApply}
       >
         <div style={style} >
-          {moment(fromDate).format("YYYY/MM/DD")} - {moment(toDate).format("YYYY/MM/DD")}
+          {moment(fromDate).format("DD/MM/YYYY")} - {moment(toDate).format("DD/MM/YYYY")}
         </div>
         
       </DateRangePicker>

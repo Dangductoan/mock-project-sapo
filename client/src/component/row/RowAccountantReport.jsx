@@ -14,9 +14,9 @@ function RowAccountantReport({value}) {
     
     return (
         <div className="row-report" >
-            <h3 className='row-report_item row-4'>{value[0].createdBy}</h3>
-            <h3 className='row-report_item row-4'>{value.length}</h3>
-            <h3 className='row-report_item row-4'><ReactNumberTextFormat value={total.b}/></h3>
+            <h3 className='row-report_item '>{value[0].createdBy}</h3>
+            <h3 className='row-report_item'>{value.length}</h3>
+            <h3 className='row-report_item '><ReactNumberTextFormat value={total.b}/></h3>
           
 
     

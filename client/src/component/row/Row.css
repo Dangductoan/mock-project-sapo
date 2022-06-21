@@ -7,3 +7,14 @@
 .row:hover {
     background-color: #f4f6f8;
 }
+.row-report_item.format-right {
+    padding-right: 200px;
+    text-align: right;
+}
+.row-report_item.row-4 {
+    width: 25%;
+}
+.row-report_item.format-right2 {
+    padding-right: 150px;
+    text-align: right;
+}

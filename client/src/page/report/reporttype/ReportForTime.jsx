@@ -13,6 +13,7 @@ import LineChart from '../../../component/chart/LineChart'
 import { exports } from '../excel/ReportExcelTime'
 import ConvertDataToExport from '../convert/ConvertDataToExports'
 import SingleModal from '../../../component/modal/singlemodal/SingleModal'
+import ReverseString from '../../../component/reversestring/ReverseString'
 function ReportForTime() {
   const cd = useSelect()
   const start = new Date(cd.start.getTime() - (cd.start.getTimezoneOffset() * 60000 ))
@@ -56,7 +57,7 @@ function ReportForTime() {
 
   }
   const chartData = {
-    labels: revenuesCharts !== undefined && revenuesCharts.map((data) => data.date.toString().slice(0, 10)),
+    labels: revenuesCharts !== undefined && revenuesCharts.map((data) => ReverseString(data.date.toString().slice(0, 10))),
     datasets: [
       {
         label: "Doanh thu theo ngày",
@@ -66,7 +67,7 @@ function ReportForTime() {
     ],
   }
   const chartDataMonth = {
-    labels: Object.keys(revenuesMonthCharts).map((key) => key),
+    labels: Object.keys(revenuesMonthCharts).map((key) => ReverseString(key)),
     datasets: [
       {
         label: "Doanh thu theo tháng",
@@ -127,7 +128,7 @@ function ReportForTime() {
         <div className="report-column ">
           <h5>{time}</h5>
           <h5>Sô lượng đơn hàng</h5>
-          <h5>Doanh thu</h5>
+          <h5 style={{paddingRight:'200px',textAlign:'right'}}>Doanh thu</h5>
          
 
         </div>

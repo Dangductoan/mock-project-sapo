@@ -183,3 +183,6 @@ svg, select {
   border-radius: 3px;
   margin-right: 10px;
 }
+.daterangepicker .drp-selected {
+  display: none;
+}

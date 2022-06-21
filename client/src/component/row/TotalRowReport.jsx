@@ -15,7 +15,7 @@ function TotalRowReport({value}) {
         <div className="row-report" >
             <h3 className='row-report_item'>Tổng</h3>
             <h3 className='row-report_item'>{total.a}</h3>
-            <h3 className='row-report_item'><ReactNumberTextFormat value={total.b}/></h3>
+            <h3 className='row-report_item format-right'><ReactNumberTextFormat value={total.b}/></h3>
          
         </div>
       )
