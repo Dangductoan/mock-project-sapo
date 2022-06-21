@@ -54,4 +54,14 @@ public class BillCategoryController {
                 new ResponseObject("ok","update successfully",repository.save(newBillCategory))
         );
     }
+
+    @GetMapping("/{id}")
+    ResponseEntity<ResponseObject> getById(@PathVariable Short id) {
+        Optional<BillCategory> foundBillCategory = repository.findById(id);
+        if (foundBillCategory.isEmpty())
+            throw new ResourceNotFoundException("Bill Category doesn't exist in db!");
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("ok","update successfully", foundBillCategory.get())
+        );
+    }
 }

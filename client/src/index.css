@@ -183,6 +183,10 @@ svg, select {
   border-radius: 3px;
   margin-right: 10px;
 }
+
+.btn-cancle:hover {
+  background-color: #f6f6ed;
+}
 .daterangepicker .drp-selected {
   display: none;
 }

@@ -49,6 +49,7 @@
 .bill-searchbar {
   margin: 15px 0;
   flex: 1;
+  border-radius: 0 3px 3px 0 !important;
 }
 
 .bill-table {
@@ -83,6 +84,7 @@
 
 .pagination {
   margin-top: 20px;
+  text-align: center;
 }
 
 .svg-khutx {
@@ -114,6 +116,11 @@
 
 .bill-export--chosen > div {
   padding: 5px 0;
+  cursor: pointer;
+}
+
+.bill-export--chosen > div > * {
+  cursor: pointer;
 }
 
 .bill-export--chosen > div > input {

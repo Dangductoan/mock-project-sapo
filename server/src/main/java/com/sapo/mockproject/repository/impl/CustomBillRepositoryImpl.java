@@ -92,7 +92,6 @@ public class CustomBillRepositoryImpl implements CustomBillRepository {
     private void appendSearchQuery(String query, StringBuilder sql) {
         sql.append(" OR b.payment LIKE ").append("'%").append(query).append("%'")
                 .append(" OR b.code LIKE ").append("'%").append(query).append("%'")
-                .append(" OR b.description LIKE ").append("'%").append(query).append("%'")
                 .append(" OR b.createdBy LIKE ").append("'%").append(query).append("%'")
                 .append(" OR bc.name LIKE ").append("'%").append(query).append("%'")
                 .append(" OR c.name LIKE ").append("'%").append(query).append("%'");
