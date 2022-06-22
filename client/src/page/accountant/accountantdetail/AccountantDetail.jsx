@@ -181,7 +181,7 @@ export default function AccountantDetail() {
         <button className="btn-create" type="submit">
           Lưu
         </button>
-     {user.id != id &&   
+     {user.id !== id &&   
           <button className="btn-delete" type="button" onClick={deleteAccountant}>
           Xóa
         </button>
