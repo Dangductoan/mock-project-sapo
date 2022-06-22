@@ -99,3 +99,13 @@
   color: rgb(163, 168, 175);
   margin-right: 10px;
 }
+
+.customer-bread-crumb {
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.customer-bread-crumb:hover {
+  color: #212f8f;
+}

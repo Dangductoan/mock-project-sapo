@@ -1,18 +1,17 @@
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { useHistory, useRouteMatch,Link } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import AccountantService from "../../../api/AccountantService";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
-import "./AccountantAdd.css";
 import {
-  CODE_REGEX,
   VIETNAMESE_ADDRESS_REGEX,
   VIETNAMESE_NAME_REGEX,
-  VIETNAM_PHONE_REGEX,
-} from "../../../utils/regex";
+  VIETNAM_PHONE_REGEX
+} from "../../../constant/regex";
+import "./AccountantAdd.css";
 
 export default function AccountantAdd() {
   const history = useHistory();
@@ -52,7 +51,7 @@ export default function AccountantAdd() {
 
   return (
     <div className="accountant-add">
-      <span
+      <div
         className="accountant-bread-crumb"
         onClick={() =>
           history.push(
@@ -60,9 +59,9 @@ export default function AccountantAdd() {
           )
         }
       >
-        <ArrowBackIosNewIcon style={{ width: "15px" }} />
-        <Link>Danh sách nhân viên</Link>
-      </span>
+        <FontAwesomeIcon icon={faAngleLeft} style={{ marginRight: "10px" }} />
+        <span>Danh sách nhân viên</span>
+      </div>
       <div className="accountant-heading">
         <h2>Thêm mới nhân viên</h2>
       </div>

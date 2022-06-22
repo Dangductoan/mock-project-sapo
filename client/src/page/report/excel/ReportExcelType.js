@@ -39,6 +39,22 @@ export const exports = (data,type) => {
                       
   worksheet.addRows(data);
 
+  // tạo độ rộng cột tự động
+  worksheet.columns.forEach(function (column, i) {
+    var maxLength = 0;
+    if (i === 0) {
+      column.width = 15;
+    } else {
+      column["eachCell"]({ includeEmpty: true }, function (cell) {
+        var columnLength = cell.value ? cell.value.toString().length : 10;
+        if (columnLength > maxLength) {
+          maxLength = columnLength;
+        }
+      });
+      column.width = maxLength < 10 ? 10 : maxLength;
+    }
+  });
+
   workbook.xlsx.writeBuffer()
     .then((buffer) => {
       const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });

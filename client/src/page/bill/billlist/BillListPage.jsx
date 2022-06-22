@@ -1,22 +1,23 @@
 import {
   faDownload,
   faMagnifyingGlass,
-  faPlus,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import BillCategoryService from "../../../api/BillCategoryService";
 import BillService from "../../../api/BillService";
+import CustomerService from "../../../api/CustomerService";
+import Filter from "../../../component/filter/Filter";
 import SingleModal from "../../../component/modal/singlemodal/SingleModal";
 import ReactNumberTextFormat from "../../../component/numberformat/template/ReactNumberTextFormat";
 import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
 import CircularIndeterminate from "../../../component/progress/CircularProgress";
+import { VIETNAME_DATE_FORMAT } from "../../../constant/DateFormat";
 import "./BillListPage.css";
 import { exportBillList } from "./excel";
-import Filter from "../../../component/filter/Filter";
-import CustomerService from "../../../api/CustomerService";
-import BillCategoryService from "../../../api/BillCategoryService";
 const ITEM_PER_PAGE = 20;
 
 function BillListPage() {
@@ -116,7 +117,7 @@ function BillListPage() {
     let title = "LỌC THEO:";
     if (searchParams.customerId) {
       let res = await CustomerService.getCustomer(searchParams.customerId);
-      title += " Khách hàng: " +  res.data?.customer?.name + ",";
+      title += " Khách hàng: " + res.data?.customer?.name + ",";
     }
     if (searchParams.billCategoryId) {
       let res = await BillCategoryService.getById(searchParams.billCategoryId);
@@ -129,9 +130,15 @@ function BillListPage() {
       title += " Người tạo: " + searchParams.createdBy + ",";
     }
     if (searchParams.start !== "" && searchParams.end !== "") {
-      title += " Thời gian: Từ " + searchParams.start + " đến " + searchParams.end + ",";
+      title +=
+        " Thời gian: Từ " +
+        moment(searchParams.start).format(VIETNAME_DATE_FORMAT) +
+        " đến " +
+        moment(searchParams.end).format(VIETNAME_DATE_FORMAT) +
+        ",";
     }
     title = title.substring(0, title.length - 1);
+    if (title === "LỌC THEO") title = "";
 
     exportBillList(title, data);
     setOpenExportExcelModal(false);
@@ -234,9 +241,7 @@ function BillListPage() {
           )}
         </div>
       </div>
-      <div className="model-overlay" >
-
-      </div>
+      <div className="model-overlay"></div>
       <SingleModal
         open={openExportExcelModal}
         setOpen={setOpenExportExcelModal}
