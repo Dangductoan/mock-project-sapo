@@ -4,7 +4,7 @@ import {
   VIETNAMESE_NAME_REGEX,
   VIETNAM_PHONE_REGEX,
   VIETNAMESE_ADDRESS_REGEX
-} from "../../utils/regex";
+} from "../../constant/regex";
 
 export const validateCustomerCreate = Yup.object().shape({
   name: Yup.string()

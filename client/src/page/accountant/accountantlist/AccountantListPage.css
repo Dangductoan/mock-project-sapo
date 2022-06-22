@@ -95,3 +95,13 @@
 .pagination {
   margin-top: 20px;
 }
+
+.accountant-bread-crumb {
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.accountant-bread-crumb:hover {
+  color: #212f8f;
+}

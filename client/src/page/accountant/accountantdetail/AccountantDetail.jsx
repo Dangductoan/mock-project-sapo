@@ -1,23 +1,20 @@
-import React, { useEffect,  } from "react";
-import { toast } from "react-toastify";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useFormik } from "formik";
+import { useEffect } from "react";
 import {
-  useLocation,
-  useParams,
-  Link,
-  useHistory,
-  useRouteMatch,
+  useHistory, useLocation,
+  useParams, useRouteMatch
 } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as Yup from "yup";
 import AccountantService from "../../../api/AccountantService";
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
-  CODE_REGEX,
   VIETNAMESE_ADDRESS_REGEX,
   VIETNAMESE_NAME_REGEX,
-  VIETNAM_PHONE_REGEX,
-} from "../../../utils/regex";
-import * as Yup from "yup";
-import { useFormik } from "formik";
+  VIETNAM_PHONE_REGEX
+} from "../../../constant/regex";
 import "./AccountantDetail.css";
 
 export default function AccountantDetail() {
@@ -99,8 +96,8 @@ export default function AccountantDetail() {
           )
         }
       >
-        <ArrowBackIosNewIcon style={{ width: "15px" }} />
-        <Link>Danh sách nhân viên</Link>
+        <FontAwesomeIcon icon={faAngleLeft} style={{ marginRight: "10px" }} />
+        <span>Danh sách nhân viên</span>
       </div>
       <div className="accountant-heading">
         <h2>Thông tin chi tiết nhân viên</h2>
