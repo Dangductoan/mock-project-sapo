@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { CODE_REGEX } from "../../utils/regex";
+import { CODE_REGEX } from "../../constant/regex";
 
 export const validateBillCreate = Yup.object().shape({
   billCategoryName: Yup.string().required("Chưa chọn Loại phiếu thu"),

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
 import {
-  useLocation,
-  useParams,
-  Link,
-  useHistory,
-  useRouteMatch,
+  useHistory, useLocation,
+  useParams, useRouteMatch
 } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import CustomerService from "../../../api/CustomerService";
 
 import ToastifyToast from "../../../component/toast/template/ToastifyToast";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import "./CustomerDetail.css";
 
 export default function CustomerDetail() {
@@ -86,8 +84,8 @@ export default function CustomerDetail() {
           )
         }
       >
-        <ArrowBackIosNewIcon style={{ width: "15px" }} />
-        <Link>Danh sách khách hàng</Link>
+        <FontAwesomeIcon icon={faAngleLeft} style={{ marginRight: "10px" }} />
+        <span>Danh sách khách hàng</span>
       </div>
       <div className="customer-heading">
         <h2>Thông tin chi tiết khách hàng</h2>

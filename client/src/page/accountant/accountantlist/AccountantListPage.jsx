@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useHistory, useRouteMatch, Link } from "react-router-dom";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import SearchIcon from "@mui/icons-material/Search";
-import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
+import { useEffect, useState } from "react";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import AccountantService from "../../../api/AccountantService";
-import AuthService from "../../../api/AuthService";
+import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
 import "./AccountantListPage.css";
 
 const ITEM_PER_PAGE = 10;
@@ -18,7 +18,6 @@ function AccountantListPage() {
   const [totalItem, setTotalItem] = useState(0);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
 
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
@@ -26,7 +25,11 @@ function AccountantListPage() {
       : Math.floor(totalItem / ITEM_PER_PAGE) + 1;
 
   useEffect(() => {
-    AccountantService.searchAccountant({ query: query, page: 0, size: ITEM_PER_PAGE })
+    AccountantService.searchAccountant({
+      query: query,
+      page: 0,
+      size: ITEM_PER_PAGE,
+    })
       .then((res) => setAccountants(res.data?.users))
       .catch((err) => console.log(err));
   }, [query]);
@@ -49,14 +52,12 @@ function AccountantListPage() {
       .catch((err) => console.log(err));
   };
 
-
   return (
     <div className="accountant-list">
       <div className="accountant-header">
         <h2>Danh sách nhân viên</h2>
         <div className="accountant-header__right">
           <p>Xin chào "{user.name}"</p>
-          
         </div>
       </div>
       <div className="accountant-option">
@@ -69,8 +70,8 @@ function AccountantListPage() {
       </div>
       <div className="accountant-list-content">
         <div className="accountant-list-filter">
-          <div className="accountant-searchbar">
-            <SearchIcon />
+          <div className="searchbar">
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
             <input
               type="text"
               placeholder="Tìm theo tên,số điện thoại,địa chỉ,...  "
@@ -84,10 +85,10 @@ function AccountantListPage() {
           <table className="accountant-table">
             <thead>
               <tr>
-              <th>Tên nhân viên</th>
-              <th>Số điện thoại</th>
-              <th>Địa chỉ</th>
-              <th>Ngày tạo</th>
+                <th>Tên nhân viên</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Ngày tạo</th>
               </tr>
             </thead>
             <tbody>
@@ -95,12 +96,16 @@ function AccountantListPage() {
                 return (
                   <tr
                     key={accountant.id}
-                    onClick={() => history.push(`${match.path}/${accountant.id}`)}
+                    onClick={() =>
+                      history.push(`${match.path}/${accountant.id}`)
+                    }
                   >
                     <td>{accountant.name}</td>
                     <td>{accountant.phoneNumber}</td>
                     <td>{accountant.address}</td>
-                    <td>{moment(accountant.createdAt).format("DD/MM/YYYY hh:mm")}</td>
+                    <td>
+                      {moment(accountant.createdAt).format("DD/MM/YYYY hh:mm")}
+                    </td>
                   </tr>
                 );
               })}
