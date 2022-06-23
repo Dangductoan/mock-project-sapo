@@ -11,22 +11,24 @@ import { ChiefLayout } from "../layout/ChiefLayout";
 import { DefaultLayout } from "../layout/DefaultLayout";
 
 import About from "../page/about/About";
-import Accountant from "../page/accountant/Accountant";
 import BillAdd from "../page/bill/billadd/BillAdd";
 import BillListPage from "../page/bill/billlist/BillListPage";
 import BillCategory from "../page/billCategory/BillCategory";
 import ChiefAccountant from "../page/chiefAccountant/ChiefAccountant";
-import Customer from "../page/customer/Customer";
 import Home from "../page/home/Home";
 import Login from "../page/login/Login";
-import ManageAccountant from "../page/manageaccountant/ManageAccountant";
-import ManageCustomer from "../page/managecustomer/ManageCustomer";
 import NotFound from "../page/notfound/NotFound";
 import Support from "../page/support/Support";
 import Report from "../page/report/Report";
+import Product from "../page/product/Product";
 import BillDetail from "../page/bill/billdetail/BillDetail";
-
+import AccountantDetail from "../page/accountant/accountantdetail/AccountantDetail";
+import AccountantAdd from "../page/accountant/accountantadd/AccountantAdd";
+import AccountantListPage from "../page/accountant/accountantlist/AccountantListPage";
 import AuthService from "../api/AuthService";
+import CustomerDetail from "../page/customer/customerdetail/CustomerDetail";
+import CustomerListPage from "../page/customer/customerlist/CustomerListPage";
+import AccountantDashBoard from "../page/accountant/AccountantDashBoard";
 
 function RouterDefined() {
   const user = AuthService.getUserFormLocalStorage();
@@ -38,7 +40,13 @@ function RouterDefined() {
           <Route path="/accountant/:path?/:path?" exact>
             <AccountantLayout>
               <Switch>
-                <Route path="/accountant" exact component={Accountant} />
+                <Route
+                  path="/accountant/"
+                  exact
+                  component={AccountantDashBoard}
+                >
+                  <Redirect to="/accountant/bills" />
+                </Route>
                 <Route
                   path="/accountant/bills"
                   exact
@@ -54,11 +62,11 @@ function RouterDefined() {
                   exact
                   component={BillDetail}
                 />
-                <Route path="/*"  component={NotFound} />
+                <Route path="/*" exact component={NotFound} />
               </Switch>
             </AccountantLayout>
           </Route>
-         )}
+        )}
         {user && user.role.name === "ROLE_CHIEF_ACCOUNTANT" && (
           <Route path="/chief-accountant/:path?/:path?" exact>
             <ChiefLayout>
@@ -67,51 +75,83 @@ function RouterDefined() {
                   path="/chief-accountant"
                   exact
                   component={ChiefAccountant}
-                />
+                >
+                  <Redirect to="/chief-accountant/bills" />
+                </Route>
                 <Route
                   path="/chief-accountant/bill-category"
-                  exact
                   component={BillCategory}
+                  exact
                 />
-                 <Route
+                <Route
                   path="/chief-accountant/bills"
-                  exact
                   component={BillListPage}
+                  exact
                 />
-                 <Route
+                <Route
                   path="/chief-accountant/bills/create"
-                  exact
                   component={BillAdd}
+                  exact
                 />
-                 <Route
+                <Route
+                  path="/chief-accountant/bills/:id"
+                  component={BillDetail}
+                  exact
+                />
+                <Route
                   path="/chief-accountant/report"
-                  exact
                   component={Report}
+                  exact
                 />
                 <Route
-                  path="/chief-accountant/user"
+                  path="/chief-accountant/users"
+                  component={AccountantListPage}
                   exact
-                  component={ManageAccountant}
                 />
                 <Route
-                  path="/chief-accountant/customer"
+                  path="/chief-accountant/users/create"
+                  component={AccountantAdd}
                   exact
-                  component={ManageCustomer}
                 />
-                <Route path="/*"  component={NotFound} />
+                <Route
+                  path="/chief-accountant/users/:id"
+                  component={AccountantDetail}
+                  exact
+                />
+                <Route
+                  path="/chief-accountant/customers"
+                  exact
+                  component={CustomerListPage}
+                />
+                <Route
+                  path="/chief-accountant/customers/:id"
+                  exact
+                  component={CustomerDetail}
+                />
+                <Route path="/*" exact component={NotFound} />
               </Switch>
             </ChiefLayout>
           </Route>
-           )}   
+        )}
 
         <Route>
           <DefaultLayout>
             <Switch>
-              <Route path="/about" component={About} />
-              <Route path="/customer" component={Customer} />
-              <Route path="/login" component={Login} />
-              <Route path="/support" component={Support} />
-              <Route path="/" exact component={Home} />
+              <Route path="/about" component={About}>
+                {redirectToDashboard()}
+              </Route>
+              <Route path="/product" component={Product}>
+                {redirectToDashboard()}
+              </Route>
+              <Route path="/login" component={Login}>
+                {redirectToDashboard()}
+              </Route>
+              <Route path="/support" component={Support}>
+                {redirectToDashboard()}
+              </Route>
+              <Route path="/" exact component={Home}>
+                {redirectToDashboard()}
+              </Route>
               <Route path="/*" exact component={NotFound}>
                 {redirectToNotFoundPage}
               </Route>
@@ -133,7 +173,23 @@ function redirectToNotFoundPage() {
       case "ROLE_CHIEF_ACCOUNTANT":
         return <Redirect to="/chief-accountant/404" />;
       default:
-        break;
+        return null;
+    }
+  }
+  return null;
+}
+
+function redirectToDashboard() {
+  const user = AuthService.getUserFormLocalStorage();
+
+  if (user) {
+    switch (user.role?.name) {
+      case "ROLE_ACCOUNTANT":
+        return <Redirect to="/accountant" />;
+      case "ROLE_CHIEF_ACCOUNTANT":
+        return <Redirect to="/chief-accountant" />;
+      default:
+        return null;
     }
   }
   return null;

@@ -9,7 +9,6 @@ function List({ items,typeSelect}) {
             [typeSelect]:e.target.innerHTML
         })
         
-        
     }
   useEffect(() => {
     cd.receiveData(option)

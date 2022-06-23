@@ -3,6 +3,7 @@ package com.sapo.mockproject.service.impl;
 import com.sapo.mockproject.domain.ERole;
 import com.sapo.mockproject.domain.Role;
 import com.sapo.mockproject.domain.User;
+import com.sapo.mockproject.dto.UserAuthDTO;
 import com.sapo.mockproject.dto.UserDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
 import com.sapo.mockproject.exception.ResourceNotFoundException;
@@ -41,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDTO register(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername()))
-            throw new InvalidResourceException("Username is already in use!");
+            throw new InvalidResourceException("Tên tài khoản đã được sử dụng");
         User user = userConverter.toEntity(userDTO);
         Optional<Role> role = roleRepository.findByName(ERole.ROLE_ACCOUNTANT);
         if (role.isPresent()) {
@@ -55,20 +56,20 @@ public class AuthServiceImpl implements AuthService {
             return userDTO;
         } else {
             System.out.println("ROLE_ACCOUNTANT doesn't exist in database!");
-            throw new ResourceNotFoundException("ROLE_ACCOUNTANT doesn't exist in database!");
+            throw new ResourceNotFoundException("Có lỗi gì đó");
         }
     }
 
     @Override
-    public UserDTO login(UserDTO userDTO) {
-        Optional<User> user = userRepository.findByUsername(userDTO.getUsername());
+    public UserDTO login(UserAuthDTO userAuthDTO) {
+        Optional<User> user = userRepository.findByUsername(userAuthDTO.getUsername());
         if (user.isEmpty())
-            throw new ResourceNotFoundException("Username does not exist!");
-      if (!encoder.matches(userDTO.getPassword(), user.get().getPassword()))
-           throw new ResourceNotFoundException("Password is incorrect!");
+            throw new ResourceNotFoundException("Tên đăng nhập không tồn tại");
+        if (!encoder.matches(userAuthDTO.getPassword(), user.get().getPassword()))
+            throw new ResourceNotFoundException("Mật khẩu không chính xác");
 
-        String token = jwtUtils.generateJwtToken(userDTO.getUsername());
-        userDTO = userConverter.toDto(user.get());
+        String token = jwtUtils.generateJwtToken(userAuthDTO.getUsername());
+        UserDTO userDTO = userConverter.toDto(user.get());
         userDTO.setToken(token);
 
         return userDTO;

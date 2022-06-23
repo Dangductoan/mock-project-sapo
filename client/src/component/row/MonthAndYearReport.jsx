@@ -1,5 +1,6 @@
 import React from 'react'
 import './RowReport.css'
+import ReactNumberTextFormat from '../numberformat/template/ReactNumberTextFormat';
 function MonthAndYearReport({value,k}) {
     const total = value!== undefined && value.reduce((d,v) => {
         d.a = d.a + v.billQuantity;
@@ -14,9 +15,9 @@ function MonthAndYearReport({value,k}) {
         <div className="row-report" >
             <h3 className='row-report_item'>{k}</h3>
             <h3 className='row-report_item'>{total.a}</h3>
-            <h3 className='row-report_item'>{total.b}</h3>
-            <h3 className='row-report_item'>0</h3>
-            <h3 className='row-report_item'>{total.b}</h3>
+            <h3 className='row-report_item format-right'><ReactNumberTextFormat value={total.b}/></h3>
+          
+
     
         </div>
       )

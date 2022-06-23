@@ -34,6 +34,7 @@
 
 .sidebar-list_item {
   height: 50px;
+  cursor: pointer;
 }
 .sidebar-list_item:hover {
   background-color: #2A3A51;
@@ -56,6 +57,7 @@
   width: 20px;
   fill: #cad6e2;
   margin-right: 15px;
+  /* color: #fff !important; */
 }
 
 
@@ -106,4 +108,18 @@
 }
 .sidebar-subList_item-link:hover {
   color:#fff;
+}
+.active-item {
+  background-color: #2A3A51;
+}
+.active-sub_item {
+  color:#60b9e9;
+}
+.rorate-2 {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 0;
+}
+.rorate-0 {
+  transform: rotate(0deg);
 }

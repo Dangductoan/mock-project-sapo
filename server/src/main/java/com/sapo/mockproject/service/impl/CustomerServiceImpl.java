@@ -37,12 +37,15 @@ public class CustomerServiceImpl extends BaseServiceImpl<Integer, CustomerDTO, C
     public boolean checkUniqueFields(CustomerDTO customerDTO) {
         if (customerRepository.findByCode(customerDTO.getCode()).isPresent())
             throw new InvalidResourceException("Mã khách hàng đã tồn tại!");
-        if (userRepository.findByName(customerDTO.getCreatedBy()).isEmpty())
-            throw new InvalidResourceException("Tên kế toán viên không tồn tại!");
+//        if (userRepository.findByName(customerDTO.getCreatedBy()).isEmpty())
+//            throw new InvalidResourceException("Tên kế toán viên không tồn tại!");
+        if (customerRepository.findByEmail(customerDTO.getEmail()).isPresent())
+            throw new InvalidResourceException("Email đã được sử dụng!");
         return false;
     }
 
     @Override
+
     public CustomerDTO save(CustomerDTO customerDTO) {
         if(checkUniqueFields(customerDTO)) return null;
         Customer customer = customerMapper.toEntity(customerDTO);

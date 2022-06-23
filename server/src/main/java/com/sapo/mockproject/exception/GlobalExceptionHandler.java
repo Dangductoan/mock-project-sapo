@@ -7,10 +7,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -76,17 +78,31 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, ErrorDetails>> validateException(MethodArgumentNotValidException ex,
-                                                                              ServletWebRequest request) {
+                                                                       ServletWebRequest request) {
         Map<String, ErrorDetails> data = new HashMap<>();
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "Thông tin không hợp lệ!",
+                Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(),
                 request.getRequest().getRequestURI()
         );
         data.put("error", errorDetails);
         return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, ErrorDetails>> validateException(MethodArgumentTypeMismatchException ex,
+                                                                       ServletWebRequest request) {
+        Map<String, ErrorDetails> data = new HashMap<>();
+        ErrorDetails errorDetails = new ErrorDetails(
+                new Date(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                ex.getName() + " phải thuộc kiểu " + Objects.requireNonNull(ex.getRequiredType()).getName(),
+                request.getRequest().getRequestURI()
+        );
+        data.put("error", errorDetails);
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+    }
 }

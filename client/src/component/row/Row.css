@@ -1,16 +1,20 @@
 .row{
-    display: flex;
+    /* display: flex; */
     border-top: 1px solid #dfe4e8;
     cursor: pointer;
 }
-.row-item{
-    font-size: 13px;
-    font-weight: 300;
-   
-    width: 33.333%;
-    text-align: center;
-    padding: 15px 0 ;
-}
+
 .row:hover {
     background-color: #f4f6f8;
+}
+.row-report_item.format-right {
+    padding-right: 200px;
+    text-align: right;
+}
+.row-report_item.row-4 {
+    width: 25%;
+}
+.row-report_item.format-right2 {
+    padding-right: 150px;
+    text-align: right;
 }

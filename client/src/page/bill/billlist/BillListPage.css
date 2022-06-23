@@ -43,48 +43,90 @@
   padding: 10px;
   margin: 0 50px;
   border-radius: 5px;
+  box-shadow: 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%);
 }
 
 .bill-searchbar {
-  display: flex;
-  border: 1px solid rgb(232, 234, 235);
-  border-radius: 3px;
-  align-items: center;
   margin: 15px 0;
-  width: 500px;
-}
-
-.bill-searchbar input {
-  display: inline-block;
-  width: 100%;
-  border: 0;
-  outline: none;
+  flex: 1;
+  border-radius: 0 3px 3px 0 !important;
 }
 
 .bill-table {
   border-spacing: 0;
+  width: 100%;
+  font-size: 13px;
 }
 
 .bill-table th {
   height: 40px;
-  border-bottom: 1px solid rgb(223, 228, 232);
+  border-bottom: 1px solid #dfe4e8;
+  font-weight: 600;
+  color: black;
 }
 
 .bill-table td {
   height: 45px;
   border-bottom: 1px solid rgb(223, 228, 232);
+  font-weight: 300;
 }
 
 .bill-table tbody tr:hover {
   cursor: pointer;
-  background-color: azure;
+  background-color: #f4f6f8;
 }
 
-.bill-table th, .bill-table td {
+.bill-table th,
+.bill-table td {
   text-align: left;
-  padding: 0 10px
+  padding: 0 10px;
 }
 
 .pagination {
   margin-top: 20px;
+  text-align: center;
+}
+
+.svg-khutx {
+  color: rgb(163, 168, 175);
+  margin-right: 10px;
+}
+
+.bill-table .table__price {
+  text-align: right;
+}
+
+.bill-bread-crumb {
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.bill-bread-crumb:hover {
+  color: #212f8f;
+}
+
+.bill-export {
+  width: 500px;
+}
+
+.bill-export--chosen > legend {
+  margin-bottom: 10px;
+}
+
+.bill-export--chosen > div {
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.bill-export--chosen > div > * {
+  cursor: pointer;
+}
+
+.bill-export--chosen > div > input {
+  margin-right: 5px;
+}
+.bill-list-filter {
+  display: flex;
+  align-items: center;
 }

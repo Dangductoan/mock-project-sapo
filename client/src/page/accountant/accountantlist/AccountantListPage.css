@@ -1,0 +1,107 @@
+.accountant-list {
+  padding-bottom: 20px;
+}
+
+.accountant-list > * {
+  padding: 0 50px;
+}
+
+.accountant-header {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+}
+
+.accountant-header__right {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 50px;
+}
+
+.accountant-option {
+  display: flex;
+  position: relative;
+  height: 70px;
+  align-items: center;
+}
+
+.accountant-option > button {
+  position: absolute;
+  right: 50px;
+}
+
+.option-excel {
+  cursor: pointer;
+}
+
+.accountant-list-content {
+  background-color: #fff;
+  padding: 10px;
+  margin: 0 50px;
+  border-radius: 5px;
+}
+
+.accountant-searchbar {
+  display: flex;
+  border: 1px solid rgb(232, 234, 235);
+  border-radius: 3px;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.accountant-searchbar input {
+  display: inline-block;
+  width: 100%;
+  border: 0;
+  outline: none;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.accountant-table {
+  border-spacing: 0;
+  width: 100%;
+  font-size: 13px;
+}
+
+.accountant-table th {
+  height: 40px;
+  border-bottom: 1px solid #dfe4e8;
+  font-weight: 600;
+  color: black;
+}
+
+.accountant-table td {
+  height: 45px;
+  border-bottom: 1px solid rgb(223, 228, 232);
+  font-weight: 300;
+}
+
+.accountant-table tbody tr:hover {
+  cursor: pointer;
+  background-color: #f4f6f8;
+}
+
+.accountant-table th,
+.accountant-table td {
+  text-align: left;
+  padding: 0 10px;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.accountant-bread-crumb {
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.accountant-bread-crumb:hover {
+  color: #212f8f;
+}

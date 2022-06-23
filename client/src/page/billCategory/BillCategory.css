@@ -1,52 +1,76 @@
 .billCategory {
     background-color: #f4f6f8;
     width: 100%;
-    padding: 40px 20px;
+    
 }
 
 .billCategory-header {
     display: flex;
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    padding: 0 50px;
 }
 
 .billCategory-title {
-    flex: 1;
-    font-size: 1.8rem;
-    font-weight: 600;
+   flex: 1;
 }
-
+.billCategory-btn  {
+    display: flex;
+    /* flex: 1; */
+    margin: 16.5px 50px 16.5px 0;
+    justify-content: flex-end;
+}
+.billCategory-btn>.btn {
+   
+}
 /* billCategory-content */
 .billCategory-content {
+    background-color: #f4f6f8;
+    /* margin-top: 25px; */
+    margin-bottom: 50px;
+    padding: 0 50px;
+
+}
+.billCategory-table {
     background-color: #fff;
-    margin-top: 25px;
-    margin-bottom: 40px;
+    width: 100%;
+    padding: 10px;
 
 }
 
-.columns {
-    display: flex;
-    padding: 20px 0;
-
-
-}
-
-.columns>h5 {
-    font-weight: 600;
-    width: 33.333%;
-    text-align: center;
-}
-
-.row-end {
-    border-top: 1px solid #dfe4e8;
-    cursor: pointer;
-
-}
-
-.row-end>h3 {
+.billCategory-table {
+    border-spacing: 0;
+    width: 100%;
     font-size: 13px;
+  }
+  
+  .billCategory-table th {
+    height: 40px;
+    border-bottom: 1px solid #dfe4e8;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .billCategory-table td {
+    height: 45px;
+    border-bottom: 1px solid rgb(223, 228, 232);
     font-weight: 300;
-    text-align: center;
-    padding: 25px 0;
-}
+  }
+  
+  .billCategory-table tbody tr:hover {
+    cursor: pointer;
+    background-color: #f4f6f8;
+  }
+  
+  .billCategory-table th,
+  .billCategory-table td {
+    text-align: left;
+    padding: 0 10px;
+  }
+
 
 /* bill-category-footer */
 .billCategory-footer {
@@ -62,7 +86,9 @@
     border-radius: 999px;
     font-size: 14px;
 }
-
+th{
+    text-align: left;
+}
 .billCategory-footer>.sp {
 }
 

@@ -1,44 +1,49 @@
 package com.sapo.mockproject.service.impl;
 
 import com.sapo.mockproject.domain.Bill;
-import com.sapo.mockproject.domain.BillCategory;
-import com.sapo.mockproject.domain.Customer;
 import com.sapo.mockproject.domain.RevenueStats;
+import com.sapo.mockproject.domain.User;
 import com.sapo.mockproject.dto.BillDTO;
 import com.sapo.mockproject.exception.InvalidResourceException;
-import com.sapo.mockproject.repository.*;
+import com.sapo.mockproject.repository.BillRepository;
+import com.sapo.mockproject.repository.GenericRepository;
+import com.sapo.mockproject.repository.RevenueStatsRepository;
+import com.sapo.mockproject.repository.UserRepository;
+import com.sapo.mockproject.repository.custom.CustomBillRepository;
 import com.sapo.mockproject.security.UserDetailsImpl;
+import com.sapo.mockproject.service.BillService;
 import com.sapo.mockproject.service.mapper.GenericMapper;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
+public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> implements BillService {
 
     private final BillRepository billRepository;
 
-    private final CustomerRepository customerRepository;
-
-    private final BillCategoryRepository billCategoryRepository;
+    private final CustomBillRepository customBillRepository;
 
     private final RevenueStatsRepository revenueStatsRepository;
 
+    private final UserRepository userRepository;
+
     public BillServiceImpl(GenericRepository<Bill, Long> genericRepository, GenericMapper<Long, BillDTO, Bill> genericMapper,
-                           CustomerRepository customerRepository, BillCategoryRepository billCategoryRepository,
-                           RevenueStatsRepository revenueStatsRepository) {
+                           CustomBillRepository customBillRepository, RevenueStatsRepository revenueStatsRepository,
+                           UserRepository userRepository) {
         super(genericRepository, genericMapper);
         this.billRepository = (BillRepository) genericRepository;
-        this.customerRepository = customerRepository;
-        this.billCategoryRepository = billCategoryRepository;
+        this.customBillRepository = customBillRepository;
         this.revenueStatsRepository = revenueStatsRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,27 +58,17 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
     public BillDTO save(BillDTO billDTO) {
         if (checkUniqueFields(billDTO)) return null;
 
-        if (billDTO.getCustomer_id() != null) {
-            Optional<Customer> customer = customerRepository.findById(billDTO.getCustomer_id());
-            if (customer.isEmpty()) {
-                throw new InvalidResourceException("Customer doesn't exist!");
-            } else {
-                billDTO.setCustomer(customer.get());
-            }
-        }
-        if (billDTO.getBill_category_id() != null) {
-            Optional<BillCategory> billCategory = billCategoryRepository.findById(billDTO.getBill_category_id());
-            if (billCategory.isEmpty()) {
-                throw new InvalidResourceException("Bill Category doesn't exist!");
-            } else {
-                billDTO.setBillCategory(billCategory.get());
-            }
+        // check createdBy từ client truyền xuống
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByName(billDTO.getCreatedBy());
+        if (user.isEmpty() || !userDetails.getUsername().equals(user.get().getUsername())) {
+            throw new InvalidResourceException("Yêu cầu truyền đúng trường createdBy từ user.name, với user được trả về khi đăng nhập!");
         }
 
         billDTO.setCode(billDTO.getCode().toUpperCase());
         billDTO = genericMapper.toDto(billRepository.save(genericMapper.toEntity(billDTO)));
 
-        /** create Revenue Stats */
+        // create Revenue Stats
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Optional<RevenueStats> revenueStats = revenueStatsRepository.findByStringDate(LocalDate.now().format(formatter));
         if (revenueStats.isEmpty()) {
@@ -83,8 +78,54 @@ public class BillServiceImpl extends BaseServiceImpl<Long, BillDTO, Bill> {
             revenueStats.get().setBillQuantity(revenueStats.get().getBillQuantity() + 1);
             revenueStatsRepository.save(revenueStats.get());
         }
-        /** end created Revenue Stats */
+        // end created Revenue Stats
 
         return billDTO;
+    }
+
+    @Override
+    @Transactional
+    public BillDTO update(BillDTO billDTO) {
+        // check modifiedBy từ client truyền xuống
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByName(billDTO.getModifiedBy());
+        if (user.isEmpty() || !userDetails.getUsername().equals(user.get().getUsername())) {
+            throw new InvalidResourceException("Yêu cầu truyền đúng trường modifiedBy từ user.name, với user được trả về khi đăng nhập!");
+        }
+
+        Bill bill = billRepository.getById(billDTO.getId());
+
+        // modify Revenue Stats
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
+        Optional<RevenueStats> revenueStats = revenueStatsRepository.findByStringDate(formatter.format(billDTO.getCreatedAt()));
+        if (revenueStats.isPresent()) {
+            revenueStats.get().setTotalRevenue(revenueStats.get().getTotalRevenue() - bill.getTotalValue() + billDTO.getTotalValue());
+            revenueStatsRepository.save(revenueStats.get());
+        }
+        // end modify Revenue Stats
+
+        billDTO = genericMapper.toDto(billRepository.save(genericMapper.toEntity(billDTO)));
+
+        return billDTO;
+    }
+
+    @Override
+    public List<BillDTO> fetchBetweenDate(String start, String end) {
+        return genericMapper.toDto(billRepository.fetchBetweenDate(start, end));
+    }
+
+    @Override
+    public List<BillDTO> filter(Map<String, String> requestParams, Integer page, Integer size) {
+        return genericMapper.toDto(customBillRepository.filter(requestParams, page, size));
+    }
+
+    @Override
+    public List<BillDTO> filter(Map<String, String> requestParams) {
+        return genericMapper.toDto(customBillRepository.filter(requestParams));
+    }
+
+    @Override
+    public Long countFilter(Map<String, String> requestParams) {
+        return customBillRepository.countFilter(requestParams);
     }
 }

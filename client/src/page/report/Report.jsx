@@ -1,82 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Report.css'
-import Header from '../../component/header/Header'
 import Period from '../../component/controller/preiod/Period'
 import TypeReport from '../../component/controller/typeReport/TypeReport'
 import Time from '../../component/controller/time/Time'
-import Select from '../../component/controller/selectInput/Select'
-import List from '../../component/controller/selectInput/List'
-import RowReport from '../../component/row/RowReport'
-import TotalRowReport from '../../component/row/TotalRowReport'
+import ReportForTime from './reporttype/ReportForTime'
+import ReportForCustomer from './reporttype/ReportForCustomer'
+import ReportForBillCategory from './reporttype/ReportForBillCategory'
+import ReportForAccountant from './reporttype/ReportForAccountant'
 import { useSelect } from '../../context/Provider'
-import ReportController from '../../component/reportcontroller/ReportController'
-import GroupData from '../../component/groupdata/GroupData'
-import MonthAndYearReport from '../../component/row/MonthAndYearReport'
-import BarChart from '../../component/chart/BarChart'
-import LineChart from '../../component/chart/LineChart'
 function Report() {
-  const arr = [1, 2, 3, 4, 5, 6]
   const cd = useSelect()
-  const time = cd.data.time
   const type = cd.data.type
-  const revenues = ReportController.GetData()
-  const shapes = [" Biểu đồ đường", "Biểu đồ cột"]
-  const revenuesMonth = revenues !== undefined && GroupData.GroupDataForMonth(revenues)
-  const revenuesYear = revenues !== undefined && GroupData.GroupDataForYear(revenues)
-  const shape = cd.data.shape
-  const chartData = {
-    labels: revenues !== undefined && revenues.map((data) => data.date.toString().slice(0, 10)),
-    datasets: [
-      {
-        label: "Doanh thu theo ngày",
-        data: revenues !== undefined && revenues.map((data) => data.totalRevenue),
-        backgroundColor: ["#0088FF"]
-      },
-    ],
-  }
-  const chartDataMonth = {
-    labels:Object.keys(revenuesMonth).map((key) => key),
-    datasets: [
-      {
-        label: "Doanh thu theo tháng",
-        data: Object.keys(revenuesMonth).map((key) => {
-          const total = revenuesMonth[key]!== undefined && revenuesMonth[key].reduce((d,v) => {
-            d.a = d.a + v.billQuantity;
-            d.b = d.b + v.totalRevenue;
-            return d;
-        } ,{
-            a:0,
-            b:0,
-        })
-        return total.b;
-        }),
-        backgroundColor: ["#0088FF"]
-      },
-    ],
-  }
-  const chartDataYear = {
-    labels:Object.keys(revenuesYear).map((key) => key),
-    datasets: [
-      {
-        label: "Doanh thu theo năm",
-        data:Object.keys(revenuesYear).map((key) => {
-          const total = revenuesYear[key]!== undefined && revenuesYear[key].reduce((d,v) => {
-            d.a = d.a + v.billQuantity;
-            d.b = d.b + v.totalRevenue;
-            return d;
-        } ,{
-            a:0,
-            b:0,
-        })
-        return total.b;
-        }),
-        backgroundColor: ["#0088FF"]
-      },
-    ],
-  }
   return (
     <div className="report ml-230">
-      <Header />
+      <div className="report-header">
+        {/* <button className="btn report-header_btn ">
+        <svg className="MuiSvgIcon-root" style={{width:'15px'}} focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" clipRule="evenodd" d="M10 2H20C21.1523 2 22 2.84772 22 4V14C22 15.1523 21.1523 16 20 16H16V20C16 21.1523 15.1523 22 14 22H4C2.84772 22 2 21.1523 2 20V10C2 8.84772 2.84772 8 4 8H8V4C8 2.84772 8.84772 2 10 2ZM8 10H4V20H14V16H10C8.84772 16 8 15.1523 8 14V10ZM10 4V14H20V4H10Z" fill="currentColor"></path></svg>
+            Nhân bản</button> */}
+        {/* <button className="btn report-header_btn">
+        <svg className="MuiSvgIcon-root"  style={{width:'10px'}} focusable="false" viewBox="0 0 14 20" aria-hidden="true"><path d="M6 8.74228e-08L6 12.17L2.41 8.59L1 10L7 16L13 10L11.59 8.59L8 12.17L8 0L6 8.74228e-08Z" fill="currentColor"></path><path d="M0 18H14V20H0V18Z" fill="currentColor"></path></svg>
+            Xuất báo cáo</button> */}
+
+
+      </div>
       <div className="report-content">
         <div className="report-content_title">
           <h3>Hoạt động kinh doanh</h3>
@@ -88,56 +34,18 @@ function Report() {
           <Time />
         </div>
         <div className="report-content_data">
-          <div className="report-content_data-option">
-            <span className='position-span mg-60'>{shape}</span>
-            <Select cl="shape" list={<List items={shapes} typeSelect='shape' />} />
-          </div>
-          <div className="report-content_data-chart">
-            {time === "Ngày" && shape==="Biểu đồ cột" && <BarChart chartData={chartData} />}
-            {time === "Ngày" && shape===" Biểu đồ đường" && <LineChart chartData={chartData} />}
-             {time === "Tháng" && shape==="Biểu đồ cột" && <BarChart chartData={chartDataMonth} />}
-             {time === "Tháng" && shape===" Biểu đồ đường" && <LineChart chartData={chartDataMonth} />}
-            {time === "Năm" && shape==="Biểu đồ cột" && <BarChart chartData={chartDataYear} />}
-            {time === "Năm" && shape===" Biểu đồ đường" &&<LineChart chartData={chartDataYear} />}
-
-
-          </div>
-          <div className="horizontal"></div>
-          <div className="report-content_data-table">
-            <div className="report-column columns">
-              <h5>{type === "Theo thời gian" ? time : "Tên khách hàng"}</h5>
-              <h5>Sô lượng đơn hàng</h5>
-              <h5>Doanh thu</h5>
-              <h5>Chi phí</h5>
-              <h5>Lợi nhuận gộp</h5>
-
-            </div>
-            <TotalRowReport value={revenues} />
-            {time === "Ngày" && revenues !== undefined && revenues.map(revenue => {
-              const { id, totalRevenue, billQuantity } = revenue;
-              const cost = 0;
-              const profit = totalRevenue - 0;
-              const date = revenue.date.toString().slice(0, 10)
-              return (
-                <RowReport key={id} date={date} amount={billQuantity} turnover={totalRevenue} cost={cost} profit={profit} />
-              )
-            })}
-            {time === "Tháng" && revenuesMonth !== false && Object.keys(revenuesMonth).map((key, i) => {
-              return (
-                <MonthAndYearReport key={i} k={key} value={revenuesMonth[key]} />
-              )
-            })}
-            {time === "Năm" && revenuesYear !== false && Object.keys(revenuesYear).map((key, i) => {
-              return (
-                <MonthAndYearReport key={i} k={key} value={revenuesYear[key]} />
-              )
-            })}
-          </div>
-
+          {type === "Theo thời gian" && <ReportForTime />}
+          {type === "Theo khách hàng" && <ReportForCustomer />}
+          {type==="Theo nhân viên kế toán" && <ReportForAccountant/>}
+          {type === "Theo loại phiếu thu" && <ReportForBillCategory />}
+          
         </div>
         <div className="report-content_footer">
 
         </div>
+      </div>
+      <div className="model-overlay" >
+
       </div>
     </div>
 

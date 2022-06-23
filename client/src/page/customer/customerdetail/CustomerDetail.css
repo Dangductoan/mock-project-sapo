@@ -1,0 +1,126 @@
+/* .info-customer-not-updated {
+  cursor: not-allowed;
+}
+
+.info-customer-not-updated > * {
+  pointer-events: none;
+  background-color: #e9ecef;
+} */
+
+.customer-bread-crumb {
+  cursor: pointer;
+}
+.customer-add {
+  padding: 40px 80px;
+  height: 100%;
+  width: 100%;
+  background-color: #f4f6f8;
+}
+
+.customer-heading {
+  display: flex;
+  vertical-align: center;
+  position: relative;
+}
+
+.customer-heading > button {
+  position: absolute;
+  right: 0;
+}
+
+.customer-content {
+  margin-top: 50px;
+  margin-bottom: 150px;
+  display: flex;
+  gap: 20px;
+}
+
+.customer-info,
+.customer-description {
+  border-radius: 2px;
+  background-color: #fff;
+  padding: 20px 160px;
+}
+
+.customer-info > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.customer-info > h3 {
+  margin-bottom: 20px;
+}
+
+.customer-info div > p {
+  margin-bottom: 10px;
+}
+
+.customer-info div > select,
+.customer-info div > input,
+.customer-description textarea {
+  display: inline-block;
+  width: 300px;
+  height: 35px;
+  padding: 5px;
+  border: 1px solid #95a7b7;
+  border-radius: 3px;
+  outline: none;
+}
+
+.customer-info .text-danger {
+  width: 300px;
+}
+
+.customer-description textarea {
+  margin-top: 20px;
+  height: 100px;
+}
+
+.btn-create {
+  background-color: #0088ff;
+  color: #fff;
+  outline: none;
+  border: 1px solid #08f;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #1391ff;
+  padding: 10px 15px;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+.btn-delete {
+  background-color: red;
+  color: #fff;
+  outline: none;
+  border: 1px solid #fff;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 red;
+  padding: 10px 15px;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+
+.btn-cancle {
+  background-color: #ffffff;
+  color: #000000;
+  outline: none;
+  border: 1px solid rgb(196, 205, 213);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0 rgb(196, 205, 213);
+  padding: 10px 15px;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+
+.btn-cancle {
+  margin-right: 10px;
+}
+
+.customer-add-submit {
+  padding-top: 20px;
+  text-align: right;
+  border-top: 1px solid rgb(196, 205, 213);
+}

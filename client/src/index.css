@@ -7,8 +7,9 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
-  color: rgb(112, 112, 112);
+  color: #212529;
   overflow-x: hidden;
+  background-color: #f4f6f8;
 }
 li {
   list-style: none;
@@ -114,4 +115,78 @@ svg, select {
   to{
      height: 50px;
   }
+}
+
+.text-danger {
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.btn__icon > svg {
+  margin-right: 10px;
+}
+
+.required-asterisk {
+  color: red;
+}
+
+.searchbar {
+  display: flex;
+  border: 1px solid rgb(232, 234, 235);
+  border-radius: 3px;
+  align-items: center;
+  padding: 0px 15px;
+  background-color: inherit;
+}
+
+.searchbar:focus-within {
+  border: 1px solid #0088ff;
+}
+
+.searchbar input {
+  display: inline-block;
+  height: 35px;
+  width: 100%;
+  border: 0;
+  outline: none;
+}
+
+.btn-create {
+  background-color: #0088ff;
+  color: #fff;
+  outline: none;
+  border: 1px solid #08f;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #1391ff;
+  padding: 10px 15px;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+
+.btn-create:hover {
+  background-color: #009fff;
+  border: 1px solid #009fff;
+}
+
+.btn-cancle {
+  background-color: #ffffff;
+  color: #000000;
+  outline: none;
+  border: 1px solid rgb(196, 205, 213);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0 rgb(196, 205, 213);
+  padding: 10px 15px;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+.btn-cancle:hover {
+  background-color: #f6f6ed;
+}
+.daterangepicker .drp-selected {
+  display: none;
 }

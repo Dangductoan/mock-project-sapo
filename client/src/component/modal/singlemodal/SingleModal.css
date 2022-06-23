@@ -1,0 +1,39 @@
+.single-modal {
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border-radius: 6px;
+  outline: 0;
+  box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+  width: 450px;
+  margin: 165px auto;
+}
+
+.single-modal-title {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: 1px solid #dfe4e8;
+  height: 65px;
+  fill: #637381;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+}
+
+.single-modal-title > h3 {
+  flex: 1;
+}
+
+.single-modal-title > svg {
+  margin-right: 0px;
+}
+
+.single-modal-content {
+  padding: 20px;
+  border-bottom: 1px solid #dfe4e8;
+}
+
+.single-modal-footer {
+  text-align: right;
+  padding: 20px;
+}

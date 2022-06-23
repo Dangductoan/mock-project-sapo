@@ -7,7 +7,7 @@
 
 .bill-heading {
   display: flex;
-  vertical-align: center;
+  align-items: center;
   position: relative;
 }
 
@@ -18,9 +18,13 @@
 
 .bill-content {
   margin-top: 50px;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
   display: flex;
   gap: 20px;
+}
+
+.bill-content > * {
+  box-shadow: 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%);
 }
 
 .bill-info,
@@ -36,7 +40,7 @@
   gap: 30px;
 }
 
-.bill-info > h3 {
+.bill-info-heading {
   margin-bottom: 20px;
 }
 
@@ -44,51 +48,36 @@
   margin-bottom: 10px;
 }
 
-.bill-info div > select,
-.bill-info div > input,
-.bill-description textarea {
+.bill-input {
   display: inline-block;
   width: 300px;
   height: 35px;
   padding: 5px;
-  border: 1px solid #95a7b7;
+  border: 1px solid rgb(196, 205, 213);
   border-radius: 3px;
   outline: none;
+  font-size: 13.3333px;
+}
+
+.bill-info div span {
+  padding: 0;
+}
+
+.input-hidden {
+  display: inline-block;
+  height: 100%;
+  width: calc(100% - 17px);
+  padding: 5px;
+  outline: none;
+  border: 0;
+}
+
+.bill-info .text-danger {
+  width: 300px;
 }
 
 .bill-description textarea {
-  margin-top: 20px;
   height: 100px;
-}
-
-.btn-create {
-  background-color: #0088ff;
-  color: #fff;
-  outline: none;
-  border: 1px solid #08f;
-  cursor: pointer;
-  box-shadow: inset 0 1px 0 0 #1391ff;
-  padding: 10px 15px;
-  font-family: inherit;
-  white-space: nowrap;
-  border-radius: 3px;
-}
-
-.btn-cancle {
-  background-color: #ffffff;
-  color: #000000;
-  outline: none;
-  border: 1px solid rgb(196, 205, 213);
-  cursor: pointer;
-  box-shadow: inset 0 0 0 0 rgb(196, 205, 213);
-  padding: 10px 15px;
-  font-family: inherit;
-  white-space: nowrap;
-  border-radius: 3px;
-}
-
-.btn-cancle {
-  margin-right: 10px;
 }
 
 .bill-add-submit {

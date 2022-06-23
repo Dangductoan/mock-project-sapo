@@ -1,17 +1,24 @@
+import {
+  faDownload,
+  faMagnifyingGlass,
+  faPlus
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
 import { useEffect, useState } from "react";
-import { useHistory, useRouteMatch, Link } from "react-router-dom";
-
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import SearchIcon from "@mui/icons-material/Search";
-import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
-
+import { useHistory, useRouteMatch } from "react-router-dom";
+import BillCategoryService from "../../../api/BillCategoryService";
 import BillService from "../../../api/BillService";
-import AuthService from "../../../api/AuthService";
-
+import CustomerService from "../../../api/CustomerService";
+import Filter from "../../../component/filter/Filter";
+import SingleModal from "../../../component/modal/singlemodal/SingleModal";
+import ReactNumberTextFormat from "../../../component/numberformat/template/ReactNumberTextFormat";
+import MaterialPagination from "../../../component/pagination/template/MaterialPagination";
+import CircularIndeterminate from "../../../component/progress/CircularProgress";
+import { VIETNAME_DATE_FORMAT } from "../../../constant/DateFormat";
 import "./BillListPage.css";
-
-const ITEM_PER_PAGE = 10;
+import { exportBillList } from "./excel";
+const ITEM_PER_PAGE = 20;
 
 function BillListPage() {
   let user = JSON.parse(localStorage.getItem("user"));
@@ -20,8 +27,20 @@ function BillListPage() {
 
   const [bills, setBills] = useState([]);
   const [totalItem, setTotalItem] = useState(0);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+  const [openExportExcelModal, setOpenExportExcelModal] = useState(false);
+  const [searchParams, setSearchParams] = useState({
+    query: "",
+    customerId: null,
+    billCategoryId: null,
+    page: 0,
+    size: ITEM_PER_PAGE,
+    payment: "",
+    start: "",
+    end: "",
+    createdBy: "",
+  });
+  const [fileExcelExportType, setFileExcelExportType] =
+    useState("current-page");
 
   let totalPage =
     totalItem % ITEM_PER_PAGE === 0
@@ -29,35 +48,100 @@ function BillListPage() {
       : Math.floor(totalItem / ITEM_PER_PAGE) + 1;
 
   useEffect(() => {
-    BillService.searchBill({ query: query, page: 0, size: ITEM_PER_PAGE })
+    BillService.searchBill(searchParams)
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
-  }, [query]);
+    BillService.count(searchParams)
+      .then((res) => setTotalItem(res.data?.count))
+      .catch((err) => console.log(err));
+  }, [
+    searchParams.billCategoryId,
+    searchParams.createdBy,
+    searchParams.customerId,
+    searchParams.end,
+    searchParams.page,
+    searchParams.payment,
+    searchParams.query,
+    searchParams.start,
+  ]);
 
   useEffect(() => {
-    BillService.count()
-      .then((res) => setTotalItem(res.data))
-      .catch((err) => console.log(err));
-  }, [totalItem]);
+    setFileExcelExportType("current-page");
+  }, [openExportExcelModal]);
 
   const handlePaginationChange = (event, page) => {
-    setPage(page);
+    setSearchParams({ ...searchParams, page: page - 1 });
 
-    BillService.searchBill({
-      query: query,
-      page: page - 1,
-      size: ITEM_PER_PAGE,
-    })
+    BillService.searchBill(searchParams)
       .then((res) => setBills(res.data?.bills))
       .catch((err) => console.log(err));
   };
 
-  const searchBill = (e) => {
-    e.preventDefault();
+  const handleExportBillListExcel = () => {
+    document
+      .getElementById("circular-progress")
+      .classList.toggle("circular-progress-show");
 
-    BillService.searchBill({ query: query, page: 0, size: ITEM_PER_PAGE })
-      .then((res) => setBills(res.data?.bills))
-      .catch((err) => console.log(err));
+    if (fileExcelExportType === "current-page") {
+      mapDataAndExport(bills);
+    } else if (fileExcelExportType === "all") {
+      BillService.searchBill({
+        query: searchParams.query,
+        customerId: searchParams.customerId,
+        billCategoryId: searchParams.billCategoryId,
+        payment: searchParams.payment,
+        start: searchParams.start,
+        end: searchParams.end,
+        createdBy: searchParams.createdBy,
+      })
+        .then((res) => {
+          mapDataAndExport(res.data?.bills);
+        })
+        .catch((err) => console.log(err));
+    }
+    setTimeout(() => {
+      document
+        .getElementById("circular-progress")
+        .classList.toggle("circular-progress-show");
+    }, 500);
+  };
+
+  const mapDataAndExport = async (data) => {
+    data = data.map((bill) => ({
+      ...bill,
+      customerName: bill.customer.name,
+      billCategoryName: bill.billCategory.name,
+      createdAt: moment(bill.createdAt).format("DD/MM/YYYY HH:mm"),
+      modifiedAt: moment(bill.modifiedAt).format("DD/MM/YYYY HH:mm"),
+    }));
+    let title = "LỌC THEO:";
+    if (searchParams.customerId) {
+      let res = await CustomerService.getCustomer(searchParams.customerId);
+      title += " Khách hàng: " + res.data?.customer?.name + ",";
+    }
+    if (searchParams.billCategoryId) {
+      let res = await BillCategoryService.getById(searchParams.billCategoryId);
+      title += " Loại phiếu thu: " + res.data?.data?.name + ",";
+    }
+    if (searchParams.payment !== "") {
+      title += " Hình thức thanh toán: " + searchParams.payment + ",";
+    }
+    if (searchParams.createdBy !== "") {
+      title += " Người tạo: " + searchParams.createdBy + ",";
+    }
+    if (searchParams.start !== "" && searchParams.end !== "") {
+      title +=
+        " Thời gian: Từ " +
+        moment(searchParams.start).format(VIETNAME_DATE_FORMAT) +
+        " đến " +
+        moment(searchParams.end).format(VIETNAME_DATE_FORMAT) +
+        ",";
+    }
+    title = title.substring(0, title.length - 1);
+    if (title === "LỌC THEO") title = "";
+
+    exportBillList(title, data);
+    setOpenExportExcelModal(false);
   };
 
   return (
@@ -66,38 +150,46 @@ function BillListPage() {
         <h2>Phiếu thu</h2>
         <div className="bill-header__right">
           <p>Xin chào "{user.name}"</p>
-          <Link to={match.path} onClick={() => AuthService.logout()}>
-            Logout
-          </Link>
         </div>
       </div>
       <div className="bill-option">
         <div className="option-excel">
-          <div className="export-excel">
-            <FileDownloadIcon />
+          <div
+            className="export-excel"
+            onClick={() => setOpenExportExcelModal(true)}
+          >
+            <FontAwesomeIcon icon={faDownload} className="svg-khutx" />
             <span>Xuất file</span>
           </div>
         </div>
         <button
-          className="btn-create"
+          className="btn-create btn__icon"
           onClick={() => history.push(`${match.path}/create`)}
         >
+          <FontAwesomeIcon icon={faPlus} />
           Tạo phiếu thu
         </button>
       </div>
       <div className="bill-list-content">
         <div className="bill-list-filter">
-          <div className="bill-searchbar">
-            <SearchIcon />
-            <form onSubmit={searchBill}>
-              <input
-                type="text"
-                placeholder="Tìm theo..."
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") setQuery(e.target.value);
-                }}
-              />
-            </form>
+          <Filter
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+          <div className="bill-searchbar searchbar">
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="svg-khutx" />
+            <input
+              type="text"
+              placeholder="Tìm theo mã phiếu, tên khách hàng, loại phiếu, hình thức thanh toán và người tạo"
+              onKeyPress={(e) => {
+                if (e.key === "Enter")
+                  setSearchParams({
+                    ...searchParams,
+                    page: 0,
+                    query: e.target.value,
+                  });
+              }}
+            />
           </div>
         </div>
         <div>
@@ -105,41 +197,86 @@ function BillListPage() {
             <thead>
               <tr>
                 <th>Mã phiếu</th>
+                <th>Khách hàng</th>
                 <th>Loại phiếu</th>
                 <th>Hình thức thanh toán</th>
                 <th>Người tạo</th>
-                <th>Số tiền thu</th>
-                <th>Ngày ghi nhận</th>
+                <th className="table__price">Số tiền thu</th>
+                <th className="table__price">Ngày ghi nhận</th>
               </tr>
             </thead>
             <tbody>
-              {bills.map(bill => {
-                // const createdAt = bill.createdAt.toString().slice(0,10)
-                console.log(bill.createdAt)
+              {bills.map((bill) => {
                 return (
-                <tr
-                  key={bill.id}
-                  onClick={() => history.push(`${match.path}/${bill.id}`)}
-                >
-                  <td>{bill.code}</td>
-                  <td>{bill.billCategory.name}</td>
-                  <td>{bill.payment}</td>
-                  <td>{bill.createdBy}</td>
-                  <td>{bill.totalValue}</td>
-                  <td>{bill.createdAt}</td>
-                </tr>
-              )})}
+                  <tr
+                    key={bill.id}
+                    onClick={() => history.push(`${match.path}/${bill.id}`)}
+                  >
+                    <td>{bill.code}</td>
+                    <td>{bill.customer.name}</td>
+                    <td>{bill.billCategory.name}</td>
+                    <td>{bill.payment}</td>
+                    <td>{bill.createdBy}</td>
+                    <td className="table__price">
+                      <ReactNumberTextFormat value={bill.totalValue} />
+                    </td>
+                    <td className="table__price">
+                      {moment(bill.createdAt).format("DD/MM/YYYY HH:mm")}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
         <div className="pagination">
-          <MaterialPagination
-            count={totalPage}
-            page={page}
-            onChange={handlePaginationChange}
-          />
+          {totalItem > 0 ? (
+            <MaterialPagination
+              count={totalPage}
+              page={searchParams.page + 1}
+              onChange={handlePaginationChange}
+            />
+          ) : (
+            <p>Không tìm thấy kết quả nào</p>
+          )}
         </div>
       </div>
+      <div className="model-overlay"></div>
+      <SingleModal
+        open={openExportExcelModal}
+        setOpen={setOpenExportExcelModal}
+        title="Xác nhận xuất file Excel"
+        onConfirm={handleExportBillListExcel}
+        className="bill-export"
+      >
+        <div className="bill-export--chosen">
+          <legend>Chọn loại file:</legend>
+          <div>
+            <input
+              type="radio"
+              id="current-page"
+              name="drone"
+              value="current-page"
+              defaultChecked
+              onChange={(e) => setFileExcelExportType(e.target.value)}
+            />
+            <label for="current-page">Xuất phiếu thu ở trang hiện tại</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="all"
+              name="drone"
+              value="all"
+              onChange={(e) => setFileExcelExportType(e.target.value)}
+            />
+            <label for="all">
+              Xuất toàn bộ phiếu thu đã lọc(tìm kiếm) được
+            </label>
+          </div>
+        </div>
+      </SingleModal>
+      <CircularIndeterminate />
     </div>
   );
 }

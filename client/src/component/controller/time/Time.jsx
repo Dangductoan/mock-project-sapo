@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import Select from '../selectInput/Select'
 import List from '../selectInput/List'
 import {useSelect} from '../../../context/Provider'
@@ -13,6 +13,7 @@ function Time() {
                <span className='position-span'>{cd.data.time}</span>
                 <Select  list={<List  items={dates} typeSelect='time' />}/>
             </div>
+       
         </div>
     )
 }

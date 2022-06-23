@@ -11,11 +11,17 @@ const searchCustomer = ({ query, page, size }) => {
     }
   })
 }
+const getAllCustomer = () => {
+  return call_api ({
+    method:"GET",
+    url:"/accountant/customers"
+  })
+}
 
-const getCustomer = () => {
+const getCustomer = (id) => {
   return call_api({
     method: "GET",
-    url:"accountant/customers"
+    url:`accountant/customers/${id}`,
   })
 }
 
@@ -34,13 +40,30 @@ const updateCustomer = (id, Customer) => {
     data: Customer
   })
 }
-
+const deleteCustomer = (id) => {
+  return call_api({
+    method: "DELETE",
+    url: `accountant/customers/${id}`
+  })
+}
+const count = (query) => {
+  return call_api({
+    method: "GET",
+    url: "accountant/customers/count",
+    params: {
+      query
+    }
+  })
+}
 
 const CustomerService = {
   getCustomer,
   createCustomer,
   updateCustomer,
-  searchCustomer
+  searchCustomer,
+  deleteCustomer,
+  count,
+  getAllCustomer
 }
 
 export default CustomerService;

@@ -8,15 +8,11 @@ export const createBill = (bill) => {
   });
 }
 
-export const searchBill = ({ query, page, size }) => {
+export const searchBill = (params) => {
   return call_api({
-    url: "accountant/bills",
+    url: "accountant/bills/filter",
     method: "GET",
-    params: {
-      query,
-      page,
-      size
-    }
+    params
   })
 }
 
@@ -24,6 +20,13 @@ const getBill = (id) => {
   return call_api({
     method: "GET",
     url: `accountant/bills/${id}`
+  })
+}
+
+const getDataBetween = (start, end) => {
+  return call_api({
+    method: "GET",
+    url: `accountant/bills/${start}/${end}`,
   })
 }
 
@@ -36,10 +39,11 @@ const updateBill = (id, bill) => {
   })
 }
 
-const count = () => {
+const count = (params) => {
   return call_api({
     method: "GET",
-    url: "accountant/bills/count"
+    url: "accountant/bills/count-filter",
+    params
   })
 }
 
@@ -48,7 +52,8 @@ const BillService = {
   searchBill,
   count,
   updateBill,
-  getBill
+  getBill,
+  getDataBetween
 }
 
 export default BillService;

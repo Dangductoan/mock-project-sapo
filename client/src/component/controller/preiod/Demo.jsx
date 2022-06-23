@@ -3,8 +3,7 @@ import { useSelect } from "../../../context/Provider";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import moment from "moment";
-import RevenueService from "../../../api/RevenueService";
-export default function Demo() {
+export default function Demo({handleDateRanger}) {
   const cd = useSelect()
   const [fromDate, setFromDate] = useState(cd.start);
   const [toDate, setToDate] = useState(cd.end);
@@ -42,21 +41,18 @@ export default function Demo() {
     lineHeight: "30px",
     height:'30px',
     backgroundColor:'#fff',
-    padding:'0 10px',
-    marginLeft:'5px'
+    padding:'0 15px',
+    marginLeft:'5px',
+    
   };
 
-  
   
   const onApply = (event, picker) => {
     setFromDate(picker.startDate._d);
     setToDate(picker.endDate._d);
-    document.querySelector('.border-blue').classList.remove('border-blue')
-    
+    // handleDateRanger();
   };
-  const handleClick = (e) => {
-    e.target.classList.toggle('border-blue')
-  }
+  
   useEffect(() => {
     cd.receiveStart(fromDate)
 
@@ -75,8 +71,8 @@ export default function Demo() {
         alwaysShowCalendars={true}
         onApply={onApply}
       >
-        <div style={style} onClick={handleClick}>
-          {moment(fromDate).format("YYYY/MM/DD")} - {moment(toDate).format("YYYY/MM/DD")}
+        <div style={style} >
+          {moment(fromDate).format("DD/MM/YYYY")} - {moment(toDate).format("DD/MM/YYYY")}
         </div>
         
       </DateRangePicker>

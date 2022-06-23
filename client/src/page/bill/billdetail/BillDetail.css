@@ -1,3 +1,8 @@
-.bill-info .select-update {
-  appearance: none;
+.info-not-updated {
+  cursor: not-allowed;
+}
+
+.info-not-updated > * {
+  pointer-events: none;
+  background-color: #e9ecef;
 }
