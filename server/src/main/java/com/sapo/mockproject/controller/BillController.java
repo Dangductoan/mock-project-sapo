@@ -22,6 +22,7 @@ public class BillController extends BaseController<Long, BillDTO> {
         this.billService = (BillService) genericService;
     }
 
+
     @GetMapping("filter")
     public Map<String, List<BillDTO>> filter(@RequestParam Map<String, String> requestParams,
                                              @Positive @RequestParam(required = false) Integer page,
@@ -39,7 +40,7 @@ public class BillController extends BaseController<Long, BillDTO> {
         else
             data.put("bills", billService.filter(reduceRequestParams, page, size));
         return data;
-    }
+
 
     @GetMapping("count-filter")
     public Map<String, Long> countFilter(@RequestParam Map<String, String> requestParams) {

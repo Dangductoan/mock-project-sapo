@@ -30,6 +30,10 @@ public interface BillRepository extends GenericRepository<Bill, Long> {
 
     Optional<Bill> findByCode(String code);
 
+ 
+
+    Optional<Bill> findByCode(String code);
+
     @Query(value = "SELECT * FROM bills b WHERE DATE(b.created_at) BETWEEN ?1 AND ?2", nativeQuery = true)
     List<Bill> fetchBetweenDate(String start, String end);
 }
